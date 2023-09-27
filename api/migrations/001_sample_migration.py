@@ -133,8 +133,8 @@ steps = [
             id SERIAL NOT NULL,
             pet_id UUID PRIMARY KEY NOT NULL,
             description VARCHAR(1000) NOT NULL,
-            veternarian VARCHAR(1000) NOT NULL,
-            presciptions VARCHAR(1000) NOT NULL,
+            veterinarian VARCHAR(1000) NOT NULL,
+            prescriptions VARCHAR(1000) NOT NULL,
             date DATE NOT NULL
         );
         """,
