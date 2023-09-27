@@ -73,4 +73,37 @@ steps = [
         DROP TABLE sleep;
         """,
     ],
+    [
+        # "Up" SQL statment
+        """
+        CREATE TABLE immunization (
+            id SERIAL NOT NULL,
+            pet_id UUID PRIMARY KEY NOT NULL,
+            vaccination VARCHAR(1000) NOT NULL,
+            date DATE NOT NULL,
+            date_valid_until DATE NOT NULL
+        );
+        """,
+        # "Down" SQL statement
+        """
+        DROP TABLE immunization;
+        """
+    ],
+    [
+        # "Up" SQL statement
+        """
+        CREATE TABLE medical (
+            id SERIAL NOT NULL,
+            pet_id UUID PRIMARY KEY NOT NULL,
+            description VARCHAR(1000) NOT NULL,
+            veternarian VARCHAR(1000) NOT NULL,
+            presciptions VARCHAR(1000) NOT NULL,
+            date DATE NOT NULL
+        );
+        """,
+        # "Down" SQL statement
+        """
+        DROP TABLE medical;
+        """
+    ]
 ]
