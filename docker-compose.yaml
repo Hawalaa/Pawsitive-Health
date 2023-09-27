@@ -1,27 +1,42 @@
-# volumes:
-services:
-  fastapi:
-    environment:
-      CORS_HOST: http://localhost:3000
-    build:
-      context: api
-      dockerfile: Dockerfile.dev
-    ports:
-      - 8000:8000
-    volumes:
-      - ./api:/app
+volumes:
+    postgres-data:
+        external: true
 
-  ghi:
-    image: node:lts-bullseye
-    command: /bin/bash run.sh
-    working_dir: /app
-    volumes:
-      - ./ghi:/app
-    ports:
-      - "3000:3000"
-    environment:
-      HOST_OS: ${OS}
-      NODE_ENV: development
-      HOST: "0.0.0.0"
-      PUBLIC_URL: http://localhost:3000
-      REACT_APP_API_HOST: ${REACT_APP_API_HOST}
+services:
+    fastapi:
+        environment:
+            DATABASE_URL: postgresql://pawsitive_health_user:pawsitive_health_password@postgres:5432/pawsitive_health_db
+            CORS_HOST: http://localhost:3000
+        build:
+            context: api
+            dockerfile: Dockerfile.dev
+        ports:
+            - 8000:8000
+        volumes:
+            - ./api:/app
+
+    postgres:
+        image: postgres:14.5-bullseye
+        volumes:
+            - postgres-data:/var/lib/postgresql/data
+        environment:
+            POSTGRES_USER: pawsitive_health_user
+            POSTGRES_PASSWORD: pawsitive_health_password
+            POSTGRES_DB: pawsitive_health_db
+        ports:
+            - 15432:5432
+
+    ghi:
+        image: node:lts-bullseye
+        command: /bin/bash run.sh
+        working_dir: /app
+        volumes:
+            - ./ghi:/app
+        ports:
+            - "3000:3000"
+        environment:
+            HOST_OS: ${OS}
+            NODE_ENV: development
+            HOST: "0.0.0.0"
+            PUBLIC_URL: http://localhost:3000
+            REACT_APP_API_HOST: ${REACT_APP_API_HOST}

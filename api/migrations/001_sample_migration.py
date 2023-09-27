@@ -2,37 +2,39 @@ steps = [
     [
         # "Up" SQL statement
         """
-        CREATE TABLE dummy (
-            id SERIAL PRIMARY KEY NOT NULL,
-            required_limited_text VARCHAR(1000) NOT NULL,
-            required_unlimited_text TEXT NOT NULL,
-            required_date_time TIMESTAMP NOT NULL,
-            automatically_set_date_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-            required_integer INTEGER NOT NULL,
-            required_money MONEY NOT NULL
+        CREATE TABLE users (
+            id SERIAL NOT NULL,
+            user_id UUID PRIMARY KEY NOT NULL,
+            username VARCHAR(100) NOT NULL,
+            first_name VARCHAR(100) NOT NULL,
+            last_name VARCHAR(100) NOT NULL,
+            email VARCHAR(100) NOT NULL,
+            password VARCHAR(100) NOT NULL
         );
         """,
         # "Down" SQL statement
         """
-        DROP TABLE dummy;
-        """
+        DROP TABLE users;
+        """,
     ],
     [
         # "Up" SQL statement
         """
-        CREATE TABLE big_dummy (
+        CREATE TABLE pet (
             id SERIAL PRIMARY KEY NOT NULL,
-            required_limited_text VARCHAR(1000) NOT NULL,
-            required_unlimited_text TEXT NOT NULL,
-            required_date_time TIMESTAMP NOT NULL,
-            automatically_set_date_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-            required_integer INTEGER NOT NULL,
-            required_money MONEY NOT NULL
+            pet_id UUID NOT NULL,
+            pet_name VARCHAR(100) NOT NULL,
+            breed VARCHAR(100) NOT NULL,
+            gender VARCHAR(100) NOT NULL,
+            age INTEGER NOT NULL,
+            weight INTEGER NOT NULL, 
+            user_id UUID NOT NULL,
+            FOREIGN KEY (user_id) REFERENCES users (user_id)
         );
         """,
         # "Down" SQL statement
         """
-        DROP TABLE big_dummy;
-        """
-    ]
+        DROP TABLE pet;
+        """,
+    ],
 ]
