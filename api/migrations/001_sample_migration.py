@@ -20,8 +20,7 @@ steps = [
         # "Up" SQL statement
         """
         CREATE TABLE pet (
-            id SERIAL NOT NULL,
-            pet_id UUID PRIMARY KEY NOT NULL,
+            id SERIAL PRIMARY KEY NOT NULL,
             pet_name VARCHAR(100) NOT NULL,
             breed VARCHAR(100) NOT NULL,
             gender VARCHAR(100) NOT NULL,
@@ -41,12 +40,11 @@ steps = [
         """
         CREATE TABLE poop (
             id SERIAL PRIMARY KEY NOT NULL,
-            poop_id UUID NOT NULL,
             date DATE NOT NULL,
             time TIME NOT NULL,
             consistency VARCHAR(100) NOT NULL,
-            pet_id UUID NOT NULL,
-            FOREIGN KEY (pet_id) REFERENCES pet (pet_id)
+            pet_id INTEGER NOT NULL,
+            FOREIGN KEY (pet_id) REFERENCES pet (id)
         );
         """,
         # "Down" SQL statement
@@ -59,12 +57,11 @@ steps = [
         """
         CREATE TABLE sleep (
             id SERIAL PRIMARY KEY NOT NULL,
-            sleep_id UUID NOT NULL,
             date DATE NOT NULL,
             time TIME NOT NULL,
             duration VARCHAR(100) NOT NULL,
-            pet_id UUID NOT NULL,
-            FOREIGN KEY (pet_id) REFERENCES pet (pet_id)
+            pet_id INTEGER NOT NULL,
+            FOREIGN KEY (pet_id) REFERENCES pet (id)
         );
         """,
         # "Down" SQL statement
@@ -76,13 +73,12 @@ steps = [
         # "Up" SQL statement
         """
         CREATE TABLE walk (
-            id SERIAL NOT NULL,
-            walk_id UUID PRIMARY KEY NOT NULL,
+            id SERIAL PRIMARY KEY NOT NULL,
             date DATE NOT NULL,
             time TIME NOT NULL,
             duration VARCHAR(100) NOT NULL,
-            pet_id UUID NOT NULL,
-            FOREIGN KEY (pet_id) REFERENCES pet (pet_id)
+            pet_id INTEGER NOT NULL,
+            FOREIGN KEY (pet_id) REFERENCES pet (id)
         );
         """,
         # "Down" SQL statement
@@ -94,13 +90,12 @@ steps = [
         # "Up" SQL statement
         """
         CREATE TABLE feeding (
-            id SERIAL NOT NULL,
-            feeding_id UUID PRIMARY KEY NOT NULL,
+            id SERIAL PRIMARY KEY NOT NULL,
             date DATE NOT NULL,
             time TIME NOT NULL,
-            duration VARCHAR(100) NOT NULL,
-            pet_id UUID NOT NULL,
-            FOREIGN KEY (pet_id) REFERENCES pet (pet_id)
+            food_type VARCHAR(100) NOT NULL,
+            pet_id INTEGER NOT NULL,
+            FOREIGN KEY (pet_id) REFERENCES pet (id)
         );
         """,
         # "Down" SQL statement
@@ -112,11 +107,12 @@ steps = [
         # "Up" SQL statement
         """
         CREATE TABLE immunization (
-            id SERIAL NOT NULL,
-            pet_id UUID PRIMARY KEY NOT NULL,
+            id SERIAL PRIMARY KEY NOT NULL,
             vaccination VARCHAR(1000) NOT NULL,
             date DATE NOT NULL,
-            date_valid_until DATE NOT NULL
+            date_valid_until DATE NOT NULL,
+            pet_id INTEGER NOT NULL,
+            FOREIGN KEY (pet_id) REFERENCES pet (id)
         );
         """,
         # "Down" SQL statement
@@ -128,12 +124,13 @@ steps = [
         # "Up" SQL statement
         """
         CREATE TABLE medical (
-            id SERIAL NOT NULL,
-            pet_id UUID PRIMARY KEY NOT NULL,
+            id SERIAL PRIMARY KEY NOT NULL,
             description VARCHAR(1000) NOT NULL,
             veterinarian VARCHAR(1000) NOT NULL,
             prescriptions VARCHAR(1000) NOT NULL,
-            date DATE NOT NULL
+            date DATE NOT NULL,
+            pet_id INTEGER NOT NULL,
+            FOREIGN KEY (pet_id) REFERENCES pet (id)
         );
         """,
         # "Down" SQL statement
