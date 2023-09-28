@@ -1,4 +1,13 @@
 ## Date
+9/27/2023
+
+### Today I worked on:
+Issue # 3 creating the pet profile GET route in FastAPI
+
+### Tomorrow I'm working on:
+Continuing to work on GET endpoint for pet profile
+
+## Date
 9/26/2023
 
 ### Today I worked on:
