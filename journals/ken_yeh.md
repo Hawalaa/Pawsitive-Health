@@ -4,6 +4,9 @@
 ### Today I worked on:
 Issue # 3 creating the pet profile GET route in FastAPI
 
+### Blockers
+Getting a 500 internal server error on GET route.
+
 ### Tomorrow I'm working on:
 Continuing to work on GET endpoint for pet profile
 
