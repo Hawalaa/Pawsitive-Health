@@ -56,8 +56,14 @@ class AccountQueries:
             with conn.cursor() as db:
                 result = db.execute(
                     """
-                    INSERT INTO users 
-                        (username, first_name, last_name, email, hashed_password)
+                    INSERT INTO users
+                        (
+                            username,
+                            first_name,
+                            last_name,
+                            email,
+                            hashed_password
+                        )
                     VALUES
                         (%s, %s, %s, %s, %s)
                     RETURNING id;
