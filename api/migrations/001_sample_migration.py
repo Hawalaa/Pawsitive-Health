@@ -72,6 +72,7 @@ steps = [
     [
         # "Up" SQL statement
         """
+        CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
         CREATE TABLE walk (
             id SERIAL PRIMARY KEY NOT NULL,
             date DATE NOT NULL,
