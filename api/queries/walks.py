@@ -45,6 +45,15 @@ class WalkRepository:
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     db.execute(
+                        "SELECT COUNT(*) FROM walk WHERE id = %s",
+                        [walk_id]
+                        )
+                    walk_count = db.fetchone()[0]
+                    if walk_count == 0:
+                        return {
+                            "message": "Walk does not exist."
+                            }
+                    db.execute(
                         """
                         UPDATE walk
                         SET date = %s
