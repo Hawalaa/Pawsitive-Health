@@ -20,8 +20,8 @@ def create_immunization(
     return repo.create(immunization)
 
 
-@router.get("/immunization", response_model=List[ImmunizationOut])
-def get_all(
+@router.get("/immunization", response_model=Union[ImmunizationOut, Error])
+def get_all():
     repo: ImmunizationRepository = Depends(),
 ):
     return repo.get_all();
