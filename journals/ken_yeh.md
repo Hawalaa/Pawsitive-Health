@@ -1,4 +1,16 @@
 ## Date
+9/28/2023
+
+### Today I worked on:
+Issue # 4 creating the pet profile PUT route in FastAPI
+
+### Blockers
+Had some issues with invalid pet_id not doing anything but issue was resolved by adding a check before updating in my query
+
+### Tomorrow I'm working on:
+Fall break!
+
+## Date
 9/27/2023
 
 ### Today I worked on:
