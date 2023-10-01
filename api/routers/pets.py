@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Response, Depends
-from typing import Optional
-from queries.pets import PetOut, PetRepository
+from typing import Optional, Union
+from queries.pets import PetOut, PetRepository, Error, PetIn
 
 
 router = APIRouter()
@@ -20,6 +20,13 @@ def get_pet_profile(
 
 
 # PUT route to update pet profile
-# @router.put("/api/user/{user_id}/pet/{pet_id}", response_model=PetOut)
-# def update_pet_profile():
-#     pass
+@router.put(
+        "/user/{user_id}/pet/{pet_id}",
+        response_model=Union[PetOut, Error]
+        )
+def update_pet_profile(
+    pet_id: int,
+    pet: PetIn,
+    repo: PetRepository = Depends(),
+) -> Union[PetOut, Error]:
+    return repo.update(pet_id, pet)
