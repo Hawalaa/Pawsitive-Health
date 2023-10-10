@@ -11,7 +11,7 @@ class Error(BaseModel):
 class MedicalIn(BaseModel):
     description: str
     veterinarian: str
-    prescription: Optional[str]
+    prescriptions: Optional[str]
     date: date
     pet_id: int
 
@@ -20,7 +20,7 @@ class MedicalOut(BaseModel):
     id: int
     description: str
     veterinarian: str
-    prescription: Optional[str]
+    prescriptions: Optional[str]
     date: date
     pet_id: int
 
@@ -31,7 +31,7 @@ class MedicalRepository:
     ) -> Union[MedicalOut, Error]:
         try:
             # connect to the database
-            with pool.connection as conn:
+            with pool.connection() as conn:
                 # get a cursor (something to run SQL with)
                 with conn.cursor() as db:
                     # Run our UPDATE statement
@@ -40,7 +40,7 @@ class MedicalRepository:
                         UPDATE medical
                         SET description = %s
                         , veterinarian = %s
-                        , prescription = %s
+                        , prescriptions = %s
                         , date = %s
                         , pet_id = %s
                         WHERE id = %s
@@ -48,7 +48,7 @@ class MedicalRepository:
                         [
                             medical.description,
                             medical.veterinarian,
-                            medical.prescription,
+                            medical.prescriptions,
                             medical.date,
                             medical.pet_id,
                             medical_id,
@@ -64,7 +64,7 @@ class MedicalRepository:
     def get_all(self) -> Union[List[MedicalOut], Error]:
         try:
             # connect to the database
-            with pool.connection as conn:
+            with pool.connection() as conn:
                 # get a cursor (something to run SQL with)
                 with conn.cursor() as db:
                     # Run our SELECT statement
@@ -74,7 +74,7 @@ class MedicalRepository:
                             id,
                             description,
                             veterinarian,
-                            prescription,
+                            prescriptions,
                             date,
                             pet_id
                         FROM medical
@@ -90,7 +90,7 @@ class MedicalRepository:
                             id=record[0],
                             description=record[1],
                             veterinarian=record[2],
-                            prescription=record[3],
+                            prescriptions=record[3],
                             date=record[4],
                             pet_id=record[5],
                         )
@@ -104,7 +104,7 @@ class MedicalRepository:
     def create(self, medical: MedicalIn) -> MedicalOut:
         try:
             # connect to the database
-            with pool.connection as conn:
+            with pool.connection() as conn:
                 # get a cursor (something to run SQL with)
                 with conn.cursor() as db:
                     # Run our INSERT statement
@@ -114,7 +114,7 @@ class MedicalRepository:
                             (
                                 description,
                                 veterinarian,
-                                prescription,
+                                prescriptions,
                                 date,
                                 pet_id
                             )
@@ -125,7 +125,7 @@ class MedicalRepository:
                         [
                             medical.description,
                             medical.veterinarian,
-                            medical.prescription,
+                            medical.prescriptions,
                             medical.date,
                             medical.pet_id,
                         ],
