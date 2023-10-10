@@ -13,6 +13,7 @@ class PetOut(BaseModel):
     gender: str
     age: int
     weight: float
+    pet_pic: str
 
 
 class PetIn(BaseModel):
@@ -21,6 +22,7 @@ class PetIn(BaseModel):
     gender: str
     age: int
     weight: float
+    pet_pic: str
 
 
 class PetRepository:
@@ -39,6 +41,7 @@ class PetRepository:
                             , gender
                             , age
                             , weight
+                            , pet_pic
                         FROM pet
                         WHERE id = %s
                         """,
@@ -60,6 +63,7 @@ class PetRepository:
             gender=record[3],
             age=record[4],
             weight=record[5],
+            pet_pic=record[6],
         )
 
     def pet_in_to_out(self, id: int, pet: PetIn):
@@ -91,6 +95,7 @@ class PetRepository:
                             , gender = %s
                             , age = %s
                             , weight = %s
+                            , pet_pic = %s
                         WHERE id = %s
                         """,
                         [
@@ -99,6 +104,7 @@ class PetRepository:
                             pet.gender,
                             pet.age,
                             pet.weight,
+                            pet.pet_pic,
                             pet_id
                         ]
                     )

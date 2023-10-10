@@ -26,6 +26,7 @@ steps = [
             gender VARCHAR(100) NOT NULL,
             age INTEGER NOT NULL,
             weight INTEGER NOT NULL,
+            pet_pic VARCHAR(500),
             user_id INTEGER NOT NULL,
             FOREIGN KEY (user_id) REFERENCES users (id)
         );
