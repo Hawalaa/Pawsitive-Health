@@ -114,7 +114,7 @@ class FeedingRepository:
                 with conn.cursor() as db:
                     result = db.execute(
                         """
-                        INSERT INTO walk
+                        INSERT INTO feeding
                             (
                                 date,
                                 time,
@@ -126,18 +126,18 @@ class FeedingRepository:
                         RETURNING id;
                         """,
                         [
-                            walk.date,
-                            walk.time,
-                            walk.duration,
-                            walk.pet_id
+                            feeding.date,
+                            feeding.time,
+                            feeding.duration,
+                            feeding.pet_id
                         ]
                     )
                     id = result.fetchone()[0]
-                    return self.walk_in_to_out(id, walk)
+                    return self.feeding_in_to_out(id, feeding)
         except Exception as e:
             print(e)
             return {"message": "error!"}
 
-    def walk_in_to_out(self, id: int, walk: WalkIn):
-        old_data = walk.dict()
-        return WalkOut(id=id, **old_data)
+    def feeding_in_to_out(self, id: int, feeding: FeedingIn):
+        old_data = feeding.dict()
+        return FeedingOut(id=id, **old_data)
