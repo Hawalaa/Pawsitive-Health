@@ -11,12 +11,15 @@ router = APIRouter()
         response_model=Union[WalkOut, Error]
         )
 def create_walk(
+    pet_id: int,
     walk: WalkIn,
     response: Response,
     repo: WalkRepository = Depends()
 ):
-    # response.status_code = 400
-    return repo.create(walk)
+    record = repo.get_one(pet_id)
+    if record is None:
+        response.status_code = 404
+    return repo.create(walk, pet_id)
 
 
 @router.get(

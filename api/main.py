@@ -2,7 +2,15 @@ from fastapi import FastAPI
 from authenticator import authenticator
 from fastapi.middleware.cors import CORSMiddleware
 import os
-from routers import accounts, dashboard, walks, pets, immunization, medical
+from routers import (
+    walks,
+    accounts,
+    user_profile,
+    pets,
+    immunization,
+    medical,
+    dashboard
+)
 
 app = FastAPI()
 app.include_router(walks.router)
@@ -12,6 +20,7 @@ app.include_router(dashboard.router)
 app.include_router(pets.router)
 app.include_router(immunization.router)
 app.include_router(medical.router)
+app.include_router(user_profile.router)
 
 app.add_middleware(
     CORSMiddleware,
