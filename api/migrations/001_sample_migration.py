@@ -126,6 +126,7 @@ steps = [
             date DATE NOT NULL,
             time TIME NOT NULL,
             food_type VARCHAR(100) NOT NULL,
+            amount VARCHAR(100) NOT NULL,
             pet_id INTEGER NOT NULL,
             FOREIGN KEY (pet_id) REFERENCES pet (id)
         );
