@@ -72,7 +72,38 @@ steps = [
     [
         # "Up" SQL statement
         """
-        CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+        CREATE TABLE immunization (
+            id SERIAL NOT NULL,
+            pet_id UUID PRIMARY KEY NOT NULL,
+            vaccination VARCHAR(1000) NOT NULL,
+            date DATE NOT NULL,
+            date_valid_until DATE NOT NULL
+        );
+        """,
+        # "Down" SQL statement
+        """
+        DROP TABLE immunization;
+        """,
+    ],
+    [
+        # "Up" SQL statement
+        """
+        CREATE TABLE medical (
+            id SERIAL NOT NULL,
+            pet_id UUID PRIMARY KEY NOT NULL,
+            description VARCHAR(1000) NOT NULL,
+            veterinarian VARCHAR(1000) NOT NULL,
+            prescription VARCHAR(1000) NOT NULL,
+            date DATE NOT NULL
+        );
+        """,
+        # "Down" SQL statement
+        """
+        DROP TABLE medical;
+        """,
+    ][
+        # "Up" SQL statement
+        """
         CREATE TABLE walk (
             id SERIAL PRIMARY KEY NOT NULL,
             date DATE NOT NULL,

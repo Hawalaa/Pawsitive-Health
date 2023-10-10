@@ -2,14 +2,16 @@ from fastapi import FastAPI
 from authenticator import authenticator
 from fastapi.middleware.cors import CORSMiddleware
 import os
-from routers import walks, accounts
-from routers import pets
+from routers import walks, accounts, pets, immunization, medical, sleep
 
 app = FastAPI()
 app.include_router(walks.router)
 app.include_router(authenticator.router)
 app.include_router(accounts.router)
 app.include_router(pets.router)
+app.include_router(immunization.router)
+app.include_router(medical.router)
+app.include_router(sleep.router)
 
 app.add_middleware(
     CORSMiddleware,
