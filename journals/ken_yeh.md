@@ -1,4 +1,13 @@
 ## Date
+10/09/2023
+
+### Today I worked on:
+Assisting Junhao with his endpoints. Issue # 23 adding "amount" column in feeding table and Issue # 21 creating a feedings POST endpoint.
+
+### Blockers
+I noticed there were some missing data required for me to create my feedings endpoint so I created Issues # 24 for Junhao to add an "amount" column in the feeding table.
+
+## Date
 9/28/2023
 
 ### Today I worked on:
