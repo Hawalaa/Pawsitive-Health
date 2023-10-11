@@ -5,6 +5,8 @@ from .walks import WalkOut
 from .medical import MedicalOut
 from .immunization import ImmunizationOut
 from .feedings import FeedingOut
+from .sleep import SleepOut
+from .poops import PoopOut
 
 
 class DashboardResponse(BaseModel):
@@ -74,7 +76,12 @@ class DashboardRepo:
                             "age": row[4],
                             "weight": row[5],
                             "pet_pic": row[6],
-                            "walks": [],  # Initialize an empty list for walks
+                            "walks": [],
+                            "medical": [],
+                            "immunizations": [],
+                            "feedings": [],
+                            "sleeps": [],
+                            "poops": [],
                         }
 
                         if user_id in pets_dict:
@@ -205,4 +212,62 @@ class DashboardRepo:
 
         except Exception as e:
             print("Error in get_all_feedings:", e)
+            return []
+
+    def get_all_sleeps(self) -> List[Dict]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        SELECT *
+                        FROM sleep
+                        """
+                    )
+                    sleep_results = db.fetchall()
+
+                    sleeps = [
+                        SleepOut(
+                            id=row[0],
+                            date=row[1],
+                            time=row[2],
+                            duration=row[3],
+                            pet_id=row[4],
+                        )
+                        for row in sleep_results
+                    ]
+
+                    return sleeps
+
+        except Exception as e:
+            print("Error in get_all_sleeps:", e)
+            return []
+
+    def get_all_poops(self) -> List[Dict]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        SELECT *
+                        FROM poop
+                        """
+                    )
+                    poop_results = db.fetchall()
+
+                    poops = [
+                        PoopOut(
+                            id=row[0],
+                            date=row[1],
+                            time=row[2],
+                            consistency=row[3],
+                            pet_id=row[4],
+                        )
+                        for row in poop_results
+                    ]
+
+                    return poops
+
+        except Exception as e:
+            print("Error in get_all_poops:", e)
             return []

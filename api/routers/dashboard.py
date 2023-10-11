@@ -15,6 +15,8 @@ def get_all(
     medical = repo.get_all_medical()
     immunizations = repo.get_all_immunizations()
     feedings = repo.get_all_feedings()
+    sleeps = repo.get_all_sleeps()
+    poops = repo.get_all_poops()
 
     combined = []
 
@@ -86,6 +88,30 @@ def get_all(
                     if "feedings" not in pet:
                         pet["feedings"] = []
                     pet["feedings"].append(feeding_data)
+                    break
+
+    for sleep in sleeps:
+        sleep_data = sleep.dict()
+        pet_id = sleep_data["pet_id"]
+
+        for user in combined:
+            for pet in user["pets"]:
+                if pet["id"] == pet_id:
+                    if "sleeps" not in pet:
+                        pet["sleeps"] = []
+                    pet["sleeps"].append(sleep_data)
+                    break
+
+    for poop in poops:
+        poop_data = poop.dict()
+        pet_id = poop_data["pet_id"]
+
+        for user in combined:
+            for pet in user["pets"]:
+                if pet["id"] == pet_id:
+                    if "poops" not in pet:
+                        pet["poops"] = []
+                    pet["poops"].append(poop_data)
                     break
 
     return combined
