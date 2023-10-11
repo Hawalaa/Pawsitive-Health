@@ -109,14 +109,14 @@ class FeedingRepository:
             print(e)
             return {"message": "Could not get all feedings"}
 
-    def create(self, feeding: FeedingIn, feeding_id: int) -> FeedingOut:
+    def create(self, feeding: FeedingIn, pet_id: int) -> FeedingOut:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     # check to see if id exists
                     db.execute(
                         "SELECT COUNT(*) FROM feeding WHERE id = %s",
-                        [feeding_id]
+                        [pet_id]
                         )
                     feeding_count = db.fetchone()[0]
                     if feeding_count == 0:
