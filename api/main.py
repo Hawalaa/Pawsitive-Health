@@ -9,7 +9,8 @@ from routers import (
     pets,
     immunization,
     medical,
-    dashboard
+    dashboard,
+    feedings
 )
 
 app = FastAPI()
@@ -21,6 +22,7 @@ app.include_router(pets.router)
 app.include_router(immunization.router)
 app.include_router(medical.router)
 app.include_router(user_profile.router)
+app.include_router(feedings.router)
 
 app.add_middleware(
     CORSMiddleware,
