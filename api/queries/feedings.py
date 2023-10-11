@@ -35,7 +35,7 @@ class FeedingRepository:
                         DELETE FROM feeding
                         WHERE id = %s
                         """,
-                        [feeding_id]
+                        [feeding_id],
                     )
                     return True
         except Exception as e:
@@ -43,22 +43,18 @@ class FeedingRepository:
             return False
 
     def update(
-            self,
-            feeding_id: int,
-            feeding: FeedingIn
-            ) -> Union[FeedingOut, Error]:
+        self, feeding_id: int, feeding: FeedingIn
+    ) -> Union[FeedingOut, Error]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     db.execute(
                         "SELECT COUNT(*) FROM feeding WHERE id = %s",
-                        [feeding_id]
-                        )
+                        [feeding_id],
+                    )
                     feeding_count = db.fetchone()[0]
                     if feeding_count == 0:
-                        return {
-                            "message": "Feeding id does not exist."
-                            }
+                        return {"message": "Feeding id does not exist."}
                     db.execute(
                         """
                         UPDATE feeding
@@ -75,8 +71,8 @@ class FeedingRepository:
                             feeding.food_type,
                             feeding.amount,
                             feeding.pet_id,
-                            feeding_id
-                        ]
+                            feeding_id,
+                        ],
                     )
                     return self.feeding_in_to_out(feeding_id, feeding)
         except Exception as e:
@@ -101,7 +97,7 @@ class FeedingRepository:
                             time=record[2],
                             food_type=record[3],
                             amount=record[4],
-                            pet_id=record[5]
+                            pet_id=record[5],
                         )
                         for record in db
                     ]
@@ -109,20 +105,17 @@ class FeedingRepository:
             print(e)
             return {"message": "Could not get all feedings"}
 
-    def create(self, feeding: FeedingIn, feeding_id: int) -> FeedingOut:
+    def create(self, feeding: FeedingIn, pet_id: int) -> FeedingOut:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     # check to see if id exists
                     db.execute(
-                        "SELECT COUNT(*) FROM feeding WHERE id = %s",
-                        [feeding_id]
-                        )
-                    feeding_count = db.fetchone()[0]
-                    if feeding_count == 0:
-                        return {
-                            "message": "Pet id does not exist."
-                            }
+                        "SELECT COUNT(*) FROM pet WHERE id = %s", [pet_id]
+                    )
+                    pet_count = db.fetchone()[0]
+                    if pet_count == 0:
+                        return {"message": "Pet id does not exist."}
                     result = db.execute(
                         """
                         INSERT INTO feeding
@@ -142,8 +135,8 @@ class FeedingRepository:
                             feeding.time,
                             feeding.food_type,
                             feeding.amount,
-                            feeding.pet_id
-                        ]
+                            feeding.pet_id,
+                        ],
                     )
                     id = result.fetchone()[0]
                     return self.feeding_in_to_out(id, feeding)
@@ -190,5 +183,5 @@ class FeedingRepository:
             time=record[2],
             food_type=record[3],
             amount=record[4],
-            pet_id=record[5]
+            pet_id=record[5],
         )

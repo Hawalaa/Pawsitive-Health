@@ -10,18 +10,18 @@ from routers import (
     immunization,
     medical,
     dashboard,
-    feedings
+    feedings,
 )
 
 app = FastAPI()
 app.include_router(walks.router)
 app.include_router(authenticator.router)
 app.include_router(accounts.router)
-app.include_router(dashboard.router)
 app.include_router(pets.router)
 app.include_router(immunization.router)
 app.include_router(medical.router)
 app.include_router(user_profile.router)
+app.include_router(dashboard.router)
 app.include_router(feedings.router)
 
 app.add_middleware(
