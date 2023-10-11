@@ -13,6 +13,7 @@ from routers import (
     feedings,
     poops,
     sleep,
+    activities,
 )
 
 app = FastAPI()
@@ -27,6 +28,7 @@ app.include_router(dashboard.router)
 app.include_router(feedings.router)
 app.include_router(poops.router)
 app.include_router(sleep.router)
+app.include_router(activities.router)
 
 app.add_middleware(
     CORSMiddleware,
