@@ -5,7 +5,10 @@ from queries.activities import ActivitiesRepo, ActivitiesResponse
 router = APIRouter()
 
 
-@router.get("/activities", response_model=List[ActivitiesResponse])
+@router.get(
+    "/user/{user_id}/pet/{pet_id}/activities",
+    response_model=List[ActivitiesResponse],
+)
 def get_all(
     repo: ActivitiesRepo = Depends(),
 ):
