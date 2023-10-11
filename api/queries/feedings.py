@@ -121,7 +121,7 @@ class FeedingRepository:
                     feeding_count = db.fetchone()[0]
                     if feeding_count == 0:
                         return {
-                            "message": "Feeding id does not exist."
+                            "message": "Pet id does not exist."
                             }
                     result = db.execute(
                         """

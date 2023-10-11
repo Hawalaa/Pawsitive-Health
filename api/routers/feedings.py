@@ -11,15 +11,15 @@ router = APIRouter()
         response_model=Union[FeedingOut, Error]
         )
 def create_feeding(
-    feeding_id: int,
+    pet_id: int,
     feeding: FeedingIn,
     response: Response,
     repo: FeedingRepository = Depends()
 ):
-    record = repo.get_one(feeding_id)
+    record = repo.get_one(pet_id)
     if record is None:
         response.status_code = 404
-    return repo.create(feeding, feeding_id)
+    return repo.create(feeding, pet_id)
 
 
 @router.get(
