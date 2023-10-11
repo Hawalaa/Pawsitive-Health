@@ -11,21 +11,24 @@ router = APIRouter()
 
 
 @router.post(
-        "/user/{user_id}/pet/{pet_id}/medical",
-        response_model=Union[MedicalOut, Error]
+    "/user/{user_id}/pet/{pet_id}/medical",
+    response_model=Union[MedicalOut, Error],
 )
 def create_medical(
+    pet_id: int,
     medical: MedicalIn,
     response: Response,
     repo: MedicalRepository = Depends(),
 ):
-    response.status_code = 400  # Bad Request
+    record = repo.get_one(pet_id)
+    if record is None:
+        response.status_code = 400  # Bad Request
     return repo.create(medical)
 
 
 @router.get(
-        "/user/{user_id}/pet/{pet_id}/medical",
-        response_model=Union[List[MedicalOut], Error]
+    "/user/{user_id}/pet/{pet_id}/medical",
+    response_model=Union[List[MedicalOut], Error],
 )
 def get_all(
     repo: MedicalRepository = Depends(),
@@ -34,8 +37,8 @@ def get_all(
 
 
 @router.put(
-        "/user/{user_id}/pet/{pet_id}/medical/{medical_id}",
-        response_model=Union[MedicalOut, Error]
+    "/user/{user_id}/pet/{pet_id}/medical/{medical_id}",
+    response_model=Union[MedicalOut, Error],
 )
 def update_medical(
     medical_id: int,

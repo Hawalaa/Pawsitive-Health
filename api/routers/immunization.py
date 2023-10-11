@@ -11,21 +11,24 @@ router = APIRouter()
 
 
 @router.post(
-        "/user/{user_id}/pet/{pet_id}/immunization",
-        response_model=Union[ImmunizationOut, Error]
+    "/user/{user_id}/pet/{pet_id}/immunization",
+    response_model=Union[ImmunizationOut, Error],
 )
 def create_immunization(
+    pet_id: int,
     immunization: ImmunizationIn,
     response: Response,
     repo: ImmunizationRepository = Depends(),
 ):
-    response.status_code = 400  # bad request
+    record = repo.get_one(pet_id)
+    if record is None:
+        response.status_code = 400  # bad request
     return repo.create(immunization)
 
 
 @router.get(
     "/user/{user_id}/pet/{pet_id}/immunization",
-    response_model=Union[List[ImmunizationOut], Error]
+    response_model=Union[List[ImmunizationOut], Error],
 )
 def get_all(
     repo: ImmunizationRepository = Depends(),

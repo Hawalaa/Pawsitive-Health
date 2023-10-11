@@ -7,14 +7,14 @@ router = APIRouter()
 
 
 @router.post(
-        "/user/{user_id}/pet/{pet_id}/feedings",
-        response_model=Union[FeedingOut, Error]
-        )
+    "/user/{user_id}/pet/{pet_id}/feedings",
+    response_model=Union[FeedingOut, Error],
+)
 def create_feeding(
     pet_id: int,
     feeding: FeedingIn,
     response: Response,
-    repo: FeedingRepository = Depends()
+    repo: FeedingRepository = Depends(),
 ):
     record = repo.get_one(pet_id)
     if record is None:
@@ -23,9 +23,9 @@ def create_feeding(
 
 
 @router.get(
-        "/user/{user_id}/pet/{pet_id}/feedings",
-        response_model=Union[List[FeedingOut], Error]
-        )
+    "/user/{user_id}/pet/{pet_id}/feedings",
+    response_model=Union[List[FeedingOut], Error],
+)
 def get_all(
     repo: FeedingRepository = Depends(),
 ):
@@ -33,9 +33,9 @@ def get_all(
 
 
 @router.put(
-        "/user/{user_id}/pet/{pet_id}/feedings/{feeding_id}",
-        response_model=Union[FeedingOut, Error]
-        )
+    "/user/{user_id}/pet/{pet_id}/feedings/{feeding_id}",
+    response_model=Union[FeedingOut, Error],
+)
 def update_feeding(
     feeding_id: int,
     feeding: FeedingIn,
@@ -45,9 +45,8 @@ def update_feeding(
 
 
 @router.delete(
-        "/user/{user_id}/pet/{pet_id}/feedings/{feeding_id}",
-        response_model=bool
-        )
+    "/user/{user_id}/pet/{pet_id}/feedings/{feeding_id}", response_model=bool
+)
 def delete_feeding(
     feeding_id: int,
     repo: FeedingRepository = Depends(),
