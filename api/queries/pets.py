@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from queries.pool import pool
-from typing import Union
+from typing import Union, Optional
 
 
 class Error(BaseModel):
@@ -13,7 +13,7 @@ class PetOut(BaseModel):
     gender: str
     age: int
     weight: float
-    pet_pic: str
+    pet_pic: Optional[str]
 
 
 class PetIn(BaseModel):
@@ -22,7 +22,7 @@ class PetIn(BaseModel):
     gender: str
     age: int
     weight: float
-    pet_pic: str
+    pet_pic: Optional[str]
 
 
 class PetRepository:

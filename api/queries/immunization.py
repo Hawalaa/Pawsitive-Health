@@ -66,7 +66,7 @@ class ImmunizationRepository(BaseModel):
                         """
                         SELECT id, vaccination, date, date_valid_until, pet_id
                         FROM immunization
-                        ORDERED BY date;
+                        ORDER BY date;
                         """
                     )
 

@@ -10,7 +10,10 @@ from queries.immunization import (
 router = APIRouter()
 
 
-@router.post("/immunization", response_model=Union[ImmunizationOut, Error])
+@router.post(
+        "/user/{user_id}/pet/{pet_id}/immunization",
+        response_model=Union[ImmunizationOut, Error]
+)
 def create_immunization(
     immunization: ImmunizationIn,
     response: Response,
@@ -21,7 +24,8 @@ def create_immunization(
 
 
 @router.get(
-    "/immunization", response_model=Union[List[ImmunizationOut], Error]
+    "/user/{user_id}/pet/{pet_id}/immunization",
+    response_model=Union[List[ImmunizationOut], Error]
 )
 def get_all(
     repo: ImmunizationRepository = Depends(),
@@ -30,7 +34,7 @@ def get_all(
 
 
 @router.put(
-    "/immunization/{immunization_id}",
+    "/user/{user_id}/pet/{pet_id}/immunization/{immunization_id}",
     response_model=Union[ImmunizationOut, Error],
 )
 def update_immunization(

@@ -10,7 +10,10 @@ from queries.medical import (
 router = APIRouter()
 
 
-@router.post("/medical", response_model=Union[MedicalOut, Error])
+@router.post(
+        "/user/{user_id}/pet/{pet_id}/medical",
+        response_model=Union[MedicalOut, Error]
+)
 def create_medical(
     medical: MedicalIn,
     response: Response,
@@ -20,14 +23,20 @@ def create_medical(
     return repo.create(medical)
 
 
-@router.get("/medical", response_model=Union[List[MedicalOut], Error])
+@router.get(
+        "/user/{user_id}/pet/{pet_id}/medical",
+        response_model=Union[List[MedicalOut], Error]
+)
 def get_all(
     repo: MedicalRepository = Depends(),
 ):
     return repo.get_all()
 
 
-@router.put("/medical/{medical_id}", response_model=Union[MedicalOut, Error])
+@router.put(
+        "/user/{user_id}/pet/{pet_id}/medical/{medical_id}",
+        response_model=Union[MedicalOut, Error]
+)
 def update_medical(
     medical_id: int,
     medical: MedicalIn,

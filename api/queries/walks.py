@@ -112,10 +112,20 @@ class WalkRepository:
             print(e)
             return {"message": "Could not get all walks"}
 
-    def create(self, walk: WalkIn) -> WalkOut:
+    def create(self, walk: WalkIn, pet_id: int) -> WalkOut:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
+                    db.execute(
+                        "SELECT COUNT(*) FROM pet WHERE id = %s",
+                        [pet_id]
+                        )
+                    pet_count = db.fetchone()[0]
+                    if pet_count == 0:
+                        return {
+                            "message": "Pet does not exist."
+                            }
+
                     result = db.execute(
                         """
                         INSERT INTO walk
@@ -141,6 +151,42 @@ class WalkRepository:
         except Exception as e:
             print(e)
             return {"message": "error!"}
+
+    def get_one(self, walk_id: int):
+        try:
+            # connect the database
+            with pool.connection() as conn:
+                # get a cursor (something to run SQL with)
+                with conn.cursor() as db:
+                    # Run our SELECT statement
+                    result = db.execute(
+                        """
+                        SELECT id
+                            , date
+                            , time
+                            , duration
+                            , pet_id
+                        FROM walk
+                        WHERE id = %s
+                        """,
+                        [walk_id],
+                    )
+                    record = result.fetchone()
+                    if record is None:
+                        return None
+                    return self.record_to_walk_out(record)
+        except Exception as e:
+            print(e)
+            return {"message": "Could not retrieve walk"}
+
+    def record_to_walk_out(self, record):
+        return WalkOut(
+            id=record[0],
+            date=record[1],
+            time=record[2],
+            duration=record[3],
+            pet_id=record[4],
+        )
 
     def walk_in_to_out(self, id: int, walk: WalkIn):
         old_data = walk.dict()

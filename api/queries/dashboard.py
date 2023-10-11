@@ -62,7 +62,7 @@ class DashboardRepo:
                     )  # Create a dictionary to store pets by user ID
 
                     for row in pet_results:
-                        user_id = row[6]
+                        user_id = row[7]
                         pet_data = {
                             "id": row[0],
                             "pet_name": row[1],
@@ -70,6 +70,7 @@ class DashboardRepo:
                             "gender": row[3],
                             "age": row[4],
                             "weight": row[5],
+                            "pet_pic": row[6],
                             "walks": [],  # Initialize an empty list for walks
                         }
 
