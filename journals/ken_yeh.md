@@ -1,4 +1,16 @@
 ## Date
+10/10/2023
+
+### Today I worked on:
+Completed the feedings endpoint for GET, POST, PUT, and DELETE. Junhao and Cory assisted in fixing a few bugs with creating the feeding records.
+
+### Blockers
+no blockers
+
+### Tomorrow I'm working on:
+Backend auth for my endpoints (pet profile and feedings)
+
+## Date
 10/09/2023
 
 ### Today I worked on:
