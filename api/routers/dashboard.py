@@ -12,6 +12,9 @@ def get_all(
     users = repo.get_all_users()
     pets_dict = repo.get_all_pets()
     walks = repo.get_all_walks()
+    medical = repo.get_all_medical()
+    immunizations = repo.get_all_immunizations()
+    feedings = repo.get_all_feedings()
 
     combined = []
 
@@ -37,4 +40,52 @@ def get_all(
                         pet["walks"] = []
                     pet["walks"].append(walk_data)
                     break
+
+    for record in medical:
+        pet_id = record.pet_id
+        medical_info = {
+            "id": record.id,
+            "description": record.description,
+            "veterinarian": record.veterinarian,
+            "prescription": record.prescriptions,
+            "date": record.date,
+        }
+
+        for user in combined:
+            for pet in user["pets"]:
+                if pet["id"] == pet_id:
+                    if "medical" not in pet:
+                        pet["medical"] = []
+                    pet["medical"].append(medical_info)
+                    break
+
+    for record in immunizations:
+        pet_id = record.pet_id
+        immunization_info = {
+            "id": record.id,
+            "vaccination": record.vaccination,
+            "date": record.date,
+            "date_valid_until": record.date_valid_until,
+        }
+
+        for user in combined:
+            for pet in user["pets"]:
+                if pet["id"] == pet_id:
+                    if "immunizations" not in pet:
+                        pet["immunizations"] = []
+                    pet["immunizations"].append(immunization_info)
+                    break
+
+    for feeding in feedings:
+        feeding_data = feeding.dict()
+        pet_id = feeding_data["pet_id"]
+
+        for user in combined:
+            for pet in user["pets"]:
+                if pet["id"] == pet_id:
+                    if "feedings" not in pet:
+                        pet["feedings"] = []
+                    pet["feedings"].append(feeding_data)
+                    break
+
     return combined
