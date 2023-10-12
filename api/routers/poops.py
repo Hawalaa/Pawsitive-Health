@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, Response
 from typing import List, Union
 from queries.poops import Error, PoopIn, PoopRepository, PoopOut
-
+from authenticator import authenticator
 
 router = APIRouter()
 
@@ -14,7 +14,8 @@ def create_poop(
     pet_id: int,
     poop: PoopIn,
     response: Response,
-    repo: PoopRepository = Depends()
+    repo: PoopRepository = Depends(),
+    account_data: dict = Depends(authenticator.get_current_account_data)
 ):
     record = repo.get_one(pet_id)
     if record is None:
@@ -28,6 +29,7 @@ def create_poop(
         )
 def get_all(
     repo: PoopRepository = Depends(),
+    account_data: dict = Depends(authenticator.get_current_account_data)
 ):
     return repo.get_all()
 
@@ -40,6 +42,7 @@ def update_poop(
     poop_id: int,
     poop: PoopIn,
     repo: PoopRepository = Depends(),
+    account_data: dict = Depends(authenticator.get_current_account_data)
 ) -> Union[PoopOut, Error]:
     return repo.update(poop_id, poop)
 
@@ -51,5 +54,6 @@ def update_poop(
 def delete_poop(
     poop_id: int,
     repo: PoopRepository = Depends(),
+    account_data: dict = Depends(authenticator.get_current_account_data)
 ) -> bool:
     return repo.delete(poop_id)
