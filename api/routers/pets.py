@@ -6,6 +6,22 @@ from queries.pets import PetOut, PetRepository, Error, PetIn
 router = APIRouter()
 
 
+@router.post(
+    "/user/{user_id}/pet/",
+    response_model=Union[PetOut, Error],
+)
+def create_pet(
+    user_id: int,
+    pet: PetIn,
+    response: Response,
+    repo: PetRepository = Depends(),
+):
+    user = repo.get_one(user_id)
+    if user is None:
+        response.status_code = 400
+    return repo.create(pet)
+
+
 # GET route to show pet profile
 @router.get("/user/{user_id}/pet/{pet_id}", response_model=Optional[PetOut])
 def get_pet_profile(
@@ -30,3 +46,13 @@ def update_pet_profile(
     repo: PetRepository = Depends(),
 ) -> Union[PetOut, Error]:
     return repo.update(pet_id, pet)
+
+
+@router.delete(
+    "/user/{user_id}/pet/{pet_id}", response_model=bool
+)
+def delete_pet(
+    pet_id: int,
+    repo: PetRepository = Depends(),
+) -> bool:
+    return repo.delete(pet_id)

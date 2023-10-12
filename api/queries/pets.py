@@ -23,6 +23,7 @@ class PetIn(BaseModel):
     age: int
     weight: float
     pet_pic: Optional[str]
+    user_id: int
 
 
 class PetRepository:
@@ -70,6 +71,42 @@ class PetRepository:
         old_data = pet.dict()
         return PetOut(id=id, **old_data)
 
+    def create(self, pet: PetIn) -> PetOut:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result = db.execute(
+                        """
+                        INSERT INTO pet
+                            (
+                                pet_name,
+                                breed,
+                                gender,
+                                age,
+                                weight,
+                                pet_pic,
+                                user_id
+                            )
+                        VALUES
+                            (%s, %s, %s, %s, %s, %s, %s)
+                        RETURNING id;
+                        """,
+                        [
+                            pet.pet_name,
+                            pet.breed,
+                            pet.gender,
+                            pet.age,
+                            pet.weight,
+                            pet.pet_pic,
+                            pet.user_id
+                        ],
+                    )
+                    id = result.fetchone()[0]
+                    return self.pet_in_to_out(id, pet)
+        except Exception as e:
+            print(e)
+            return {"message": "error!"}
+
     def update(self, pet_id: int, pet: PetIn) -> Union[PetOut, Error]:
         try:
             # connect the database
@@ -112,3 +149,19 @@ class PetRepository:
         except Exception as e:
             print(e)
             return {"message": "Could not update that pet"}
+
+    def delete(self, pet_id: int) -> bool:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        DELETE FROM pet
+                        WHERE id = %s
+                        """,
+                        [pet_id]
+                    )
+                    return True
+        except Exception as e:
+            print(e)
+            return False
