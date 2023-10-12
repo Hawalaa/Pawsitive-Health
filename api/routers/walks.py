@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, Response
 from typing import List, Union
 from queries.walks import Error, WalkIn, WalkRepository, WalkOut
-
+from authenticator import authenticator
 
 router = APIRouter()
 
@@ -14,7 +14,8 @@ def create_walk(
     pet_id: int,
     walk: WalkIn,
     response: Response,
-    repo: WalkRepository = Depends()
+    repo: WalkRepository = Depends(),
+    account_data: dict = Depends(authenticator.get_current_account_data)
 ):
     record = repo.get_one(pet_id)
     if record is None:
@@ -28,6 +29,7 @@ def create_walk(
         )
 def get_all(
     repo: WalkRepository = Depends(),
+    account_data: dict = Depends(authenticator.get_current_account_data)
 ):
     return repo.get_all()
 
@@ -40,6 +42,7 @@ def update_walk(
     walk_id: int,
     walk: WalkIn,
     repo: WalkRepository = Depends(),
+    account_data: dict = Depends(authenticator.get_current_account_data)
 ) -> Union[WalkOut, Error]:
     return repo.update(walk_id, walk)
 
@@ -51,5 +54,6 @@ def update_walk(
 def delete_walk(
     walk_id: int,
     repo: WalkRepository = Depends(),
+    account_data: dict = Depends(authenticator.get_current_account_data)
 ) -> bool:
     return repo.delete(walk_id)
