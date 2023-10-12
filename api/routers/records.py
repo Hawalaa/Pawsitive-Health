@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends
+from authenticator import authenticator
 from typing import List
 from queries.records import RecordsRepo, RecordsResponse
 
@@ -10,6 +11,7 @@ router = APIRouter()
     response_model=List[RecordsResponse],
 )
 def get_all(
+    account_data: dict = Depends(authenticator.get_current_account_data),
     repo: RecordsRepo = Depends(),
 ):
     users = repo.get_all_users()
