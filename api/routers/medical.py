@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, Response
 from typing import Union, List
+from authenticator import authenticator
 from queries.medical import (
     Error,
     MedicalIn,
@@ -19,6 +20,7 @@ def create_medical(
     medical: MedicalIn,
     response: Response,
     repo: MedicalRepository = Depends(),
+    account_data: dict = Depends(authenticator.get_current_account_data),
 ):
     record = repo.get_one(pet_id)
     if record is None:
@@ -32,6 +34,7 @@ def create_medical(
 )
 def get_all(
     repo: MedicalRepository = Depends(),
+    account_data: dict = Depends(authenticator.get_current_account_data),
 ):
     return repo.get_all()
 
@@ -44,5 +47,6 @@ def update_medical(
     medical_id: int,
     medical: MedicalIn,
     repo: MedicalRepository = Depends(),
+    account_data: dict = Depends(authenticator.get_current_account_data),
 ) -> Union[MedicalOut, Error]:
     return repo.update(medical_id, medical)

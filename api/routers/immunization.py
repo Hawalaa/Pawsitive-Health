@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, Response
 from typing import Union, List
+from authenticator import authenticator
 from queries.immunization import (
     Error,
     ImmunizationIn,
@@ -19,6 +20,7 @@ def create_immunization(
     immunization: ImmunizationIn,
     response: Response,
     repo: ImmunizationRepository = Depends(),
+    account_data: dict = Depends(authenticator.get_current_account_data),
 ):
     record = repo.get_one(pet_id)
     if record is None:
@@ -32,6 +34,7 @@ def create_immunization(
 )
 def get_all(
     repo: ImmunizationRepository = Depends(),
+    account_data: dict = Depends(authenticator.get_current_account_data),
 ):
     return repo.get_all()
 
@@ -44,5 +47,6 @@ def update_immunization(
     immunization_id: int,
     immunization: ImmunizationIn,
     repo: ImmunizationRepository = Depends(),
+    account_data: dict = Depends(authenticator.get_current_account_data),
 ) -> Union[Error, ImmunizationOut]:
     return repo.update(immunization_id, immunization)
