@@ -25,7 +25,7 @@ class MedicalOut(BaseModel):
     pet_id: int
 
 
-class MedicalRepository:
+class MedicalRepository(BaseModel):
     def update(
         self, medical_id: int, medical: MedicalIn
     ) -> Union[MedicalOut, Error]:
@@ -54,8 +54,6 @@ class MedicalRepository:
                             medical_id,
                         ],
                     )
-                    # old_data = medical.dict()
-                    # return MedicalOut(id=id, **old_data)
                     return self.medical_in_to_out(medical_id, medical)
         except Exception as e:
             print(e)
@@ -100,6 +98,44 @@ class MedicalRepository:
         except Exception as e:
             print(e)
             return {"message": "could not get all records"}
+
+    def get_one(self, medical_id: int):
+        try:
+            # connect the database
+            with pool.connection() as conn:
+                # get a cursor (something to run SQL with)
+                with conn.cursor() as db:
+                    # Run our SELECT statement
+                    result = db.execute(
+                        """
+                        SELECT id
+                            , description
+                            , veterinarian
+                            , prescriptions
+                            , date
+                            , pet_id
+                        FROM medical
+                        WHERE id = %s
+                        """,
+                        [medical_id],
+                    )
+                    record = result.fetchone()
+                    if record is None:
+                        return None
+                    return self.record_to_medical_out(record)
+        except Exception as e:
+            print(e)
+            return {"message": "Could not retrieve medical"}
+
+    def record_to_medical_out(self, record):
+        return MedicalOut(
+            id=record[0],
+            description=record[1],
+            veterinarian=record[2],
+            prescriptions=record[3],
+            date=record[4],
+            pet_id=record[5],
+        )
 
     def create(self, medical: MedicalIn) -> MedicalOut:
         try:

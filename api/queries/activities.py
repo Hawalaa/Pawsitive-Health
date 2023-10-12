@@ -2,14 +2,12 @@ from .pool import pool
 from typing import List, Dict
 from pydantic import BaseModel
 from .walks import WalkOut
-from .medical import MedicalOut
-from .immunization import ImmunizationOut
 from .feedings import FeedingOut
 from .sleep import SleepOut
 from .poops import PoopOut
 
 
-class DashboardResponse(BaseModel):
+class ActivitiesResponse(BaseModel):
     id: int
     username: str
     first_name: str
@@ -18,7 +16,7 @@ class DashboardResponse(BaseModel):
     pets: List[Dict]
 
 
-class DashboardRepo:
+class ActivitiesRepo:
     def get_all_users(self) -> List[Dict]:
         try:
             with pool.connection() as conn:
@@ -77,8 +75,6 @@ class DashboardRepo:
                             "weight": row[5],
                             "pet_pic": row[6],
                             "walks": [],
-                            "medical": [],
-                            "immunizations": [],
                             "feedings": [],
                             "sleeps": [],
                             "poops": [],
@@ -123,65 +119,6 @@ class DashboardRepo:
 
         except Exception as e:
             print("Error in get_all_walks:", e)
-            return []
-
-    def get_all_medical(self) -> List[Dict]:
-        try:
-            with pool.connection() as conn:
-                with conn.cursor() as db:
-                    db.execute(
-                        """
-                        SELECT *
-                        FROM medical
-                        """
-                    )
-                    medical_results = db.fetchall()
-
-                    medical = [
-                        MedicalOut(
-                            id=row[0],
-                            description=row[1],
-                            veterinarian=row[2],
-                            prescriptions=row[3],
-                            date=row[4],
-                            pet_id=row[5],
-                        )
-                        for row in medical_results
-                    ]
-
-                    return medical
-
-        except Exception as e:
-            print("Error in get_all_medical:", e)
-            return []
-
-    def get_all_immunizations(self) -> List[Dict]:
-        try:
-            with pool.connection() as conn:
-                with conn.cursor() as db:
-                    db.execute(
-                        """
-                        SELECT *
-                        FROM immunization
-                        """
-                    )
-                    immunization_results = db.fetchall()
-
-                    immunizations = [
-                        ImmunizationOut(
-                            id=row[0],
-                            vaccination=row[1],
-                            date=row[2],
-                            date_valid_until=row[3],
-                            pet_id=row[4],
-                        )
-                        for row in immunization_results
-                    ]
-
-                    return immunizations
-
-        except Exception as e:
-            print("Error in get_all_immunizations:", e)
             return []
 
     def get_all_feedings(self) -> List[Dict]:

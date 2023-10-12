@@ -1,21 +1,22 @@
 from fastapi import APIRouter, Depends
 from authenticator import authenticator
 from typing import List
-from queries.dashboard import DashboardRepo, DashboardResponse
+from queries.activities import ActivitiesRepo, ActivitiesResponse
 
 router = APIRouter()
 
 
-@router.get("/dashboard", response_model=List[DashboardResponse])
+@router.get(
+    "/user/{user_id}/pet/{pet_id}/activities",
+    response_model=List[ActivitiesResponse],
+)
 def get_all(
     account_data: dict = Depends(authenticator.get_current_account_data),
-    repo: DashboardRepo = Depends(),
+    repo: ActivitiesRepo = Depends(),
 ):
     users = repo.get_all_users()
     pets_dict = repo.get_all_pets()
     walks = repo.get_all_walks()
-    medical = repo.get_all_medical()
-    immunizations = repo.get_all_immunizations()
     feedings = repo.get_all_feedings()
     sleeps = repo.get_all_sleeps()
     poops = repo.get_all_poops()
@@ -43,41 +44,6 @@ def get_all(
                     if "walks" not in pet:
                         pet["walks"] = []
                     pet["walks"].append(walk_data)
-                    break
-
-    for record in medical:
-        pet_id = record.pet_id
-        medical_info = {
-            "id": record.id,
-            "description": record.description,
-            "veterinarian": record.veterinarian,
-            "prescription": record.prescriptions,
-            "date": record.date,
-        }
-
-        for user in combined:
-            for pet in user["pets"]:
-                if pet["id"] == pet_id:
-                    if "medical" not in pet:
-                        pet["medical"] = []
-                    pet["medical"].append(medical_info)
-                    break
-
-    for record in immunizations:
-        pet_id = record.pet_id
-        immunization_info = {
-            "id": record.id,
-            "vaccination": record.vaccination,
-            "date": record.date,
-            "date_valid_until": record.date_valid_until,
-        }
-
-        for user in combined:
-            for pet in user["pets"]:
-                if pet["id"] == pet_id:
-                    if "immunizations" not in pet:
-                        pet["immunizations"] = []
-                    pet["immunizations"].append(immunization_info)
                     break
 
     for feeding in feedings:
