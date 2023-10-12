@@ -1,3 +1,4 @@
+from authenticator import authenticator
 from fastapi import APIRouter, Depends, Response
 from typing import List, Union
 from queries.feedings import Error, FeedingIn, FeedingOut, FeedingRepository
@@ -15,6 +16,7 @@ def create_feeding(
     feeding: FeedingIn,
     response: Response,
     repo: FeedingRepository = Depends(),
+    account_data: dict = Depends(authenticator.get_current_account_data)
 ):
     record = repo.get_one(pet_id)
     if record is None:
@@ -28,6 +30,7 @@ def create_feeding(
 )
 def get_all(
     repo: FeedingRepository = Depends(),
+    account_data: dict = Depends(authenticator.get_current_account_data)
 ):
     return repo.get_all()
 
@@ -40,6 +43,7 @@ def update_feeding(
     feeding_id: int,
     feeding: FeedingIn,
     repo: FeedingRepository = Depends(),
+    account_data: dict = Depends(authenticator.get_current_account_data)
 ) -> Union[FeedingOut, Error]:
     return repo.update(feeding_id, feeding)
 
@@ -50,5 +54,6 @@ def update_feeding(
 def delete_feeding(
     feeding_id: int,
     repo: FeedingRepository = Depends(),
+    account_data: dict = Depends(authenticator.get_current_account_data)
 ) -> bool:
     return repo.delete(feeding_id)
