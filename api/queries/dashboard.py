@@ -27,7 +27,8 @@ class DashboardRepo:
                         """
                         SELECT *
                         FROM users
-                        """
+                        WHERE id = %s
+                        """,
                     )
                     user_results = db.fetchall()
 
