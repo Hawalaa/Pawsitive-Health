@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { dashboardApi } from "./Dashboard/DashboardApi";
+import { dashboardApi } from "./DashboardApi";
 import { setupListeners } from "@reduxjs/toolkit/dist/query";
 import { tokenApi } from "./Token";
 

@@ -18,8 +18,8 @@ from routers import (
 )
 
 app = FastAPI()
-app.include_router(authenticator.router, tags=["Authentication"])
 app.include_router(accounts.router, tags=["Account"])
+app.include_router(authenticator.router, tags=["Authentication"])
 app.include_router(user_profile.router, tags=["User Profile"])
 app.include_router(dashboard.router, tags=["Dashboard"])
 app.include_router(pets.router, tags=["Pets"])
