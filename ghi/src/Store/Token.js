@@ -34,8 +34,23 @@ export const tokenApi = createApi({
 					credentials: "include",
 				};
 			},
+			invalidatesTags: (result) => {
+				return (result && ["Account"]) || [];
+			},
+		}),
+		deleteToken: builder.mutation({
+			query: () => ({
+				url: "/token",
+				method: "delete",
+				credentials: "include",
+			}),
+			invalidatesTags: ["Account"],
 		}),
 	}),
 });
 
-export const { useGetTokenQuery, useCreateTokenMutation } = tokenApi;
+export const {
+	useGetTokenQuery,
+	useCreateTokenMutation,
+	useDeleteTokenMutation,
+} = tokenApi;

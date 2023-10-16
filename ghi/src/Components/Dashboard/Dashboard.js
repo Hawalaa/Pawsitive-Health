@@ -1,5 +1,6 @@
 import React from "react";
-import { useGetDashboardDataQuery } from "../../Store/Dashboard/DashboardApi";
+import { useGetDashboardDataQuery } from "../../Store/DashboardApi";
+import Logout from "../Logout";
 
 export default function Dashboard() {
 	const { data } = useGetDashboardDataQuery();
@@ -8,6 +9,7 @@ export default function Dashboard() {
 		return (
 			<div>
 				<h1>Dashboard Data</h1>
+				<Logout />
 			</div>
 		);
 	}
