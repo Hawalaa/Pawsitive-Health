@@ -5,6 +5,7 @@ import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
 import Dashboard from "./Components/Dashboard/Dashboard";
 import { Provider } from "react-redux";
 import { store } from "./Store/store";
+import ListPet from "./Components/Pet/PetProfile";
 
 export default function App() {
 	return (
@@ -15,6 +16,7 @@ export default function App() {
 						<Routes>
 							<Route path="/dashboard" element={<Dashboard />} />
 							<Route path="/login" element={<LoginForm />} />
+							<Route path="/pet" element={<ListPet />} />
 						</Routes>
 					</BrowserRouter>
 				</AuthProvider>
