@@ -5,7 +5,6 @@ export default function ListPet() {
 	const { data } = useGetPetProfileDataQuery();
     console.log(data)
 
-
 	if (data) {
 		return (
 			<div>
