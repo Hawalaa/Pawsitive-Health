@@ -6,7 +6,7 @@ const LoginForm = () => {
 	const navigate = useNavigate();
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
-	const [createToken, result] = useCreateTokenMutation();
+	const [createToken] = useCreateTokenMutation();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();

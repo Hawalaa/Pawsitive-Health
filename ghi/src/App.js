@@ -7,11 +7,13 @@ import { Provider } from "react-redux";
 import { store } from "./Store/store";
 
 export default function App() {
+	const domain = /https:\/\/[^/]+/;
+	const basename = process.env.PUBLIC_URL.replace(domain, "");
 	return (
 		<Provider store={store}>
 			<div className="App">
 				<AuthProvider>
-					<BrowserRouter>
+					<BrowserRouter basename={basename}>
 						<Routes>
 							<Route path="/dashboard" element={<Dashboard />} />
 							<Route path="/login" element={<LoginForm />} />
