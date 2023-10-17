@@ -16,7 +16,7 @@ export const petProfileApi = createApi({
 	},
 	endpoints: (builder) => ({
 		getPetProfileData: builder.query({
-			query: (user_id) => `/user/${user_id}/pet/1`,
+			query: () => `/user/`,
 		}),
 	}),
 });
