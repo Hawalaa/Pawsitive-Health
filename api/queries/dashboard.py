@@ -19,7 +19,7 @@ class DashboardResponse(BaseModel):
 
 
 class DashboardRepo:
-    def get_all_users(self) -> List[Dict]:
+    def get_user(self, id: int) -> List[Dict]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -27,7 +27,9 @@ class DashboardRepo:
                         """
                         SELECT *
                         FROM users
+                        WHERE id = %s
                         """,
+                        [id],
                     )
                     user_results = db.fetchall()
 
