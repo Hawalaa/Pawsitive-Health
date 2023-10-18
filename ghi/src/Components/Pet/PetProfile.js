@@ -7,7 +7,7 @@ export default function ListPet() {
 	const { data } = useGetPetProfileDataQuery();
     // const { data } = useGetDashboardDataQuery();
     const [ pets, setPets ] = React.useState('');
-    const { pet_id } = useParams(); // get pet_id from URL parameters
+    const { id, pet_id } = useParams(); // get pet id from URL parameters
 
     const handlePetChange = (e) => {
         setPets(e.target.value);
@@ -30,7 +30,7 @@ export default function ListPet() {
                         <option value="">Choose a pet</option>
                         {data.pets.map((pet) => {
                             return (
-                                <option key={pet.pet_id} value={pet.pet_id}>
+                                <option key={pet.id} value={pet.id}>
                             {pet.pet_name}
                             </option>
                             );

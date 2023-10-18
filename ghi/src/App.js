@@ -21,7 +21,7 @@ export default function App() {
 							<Route path="/dashboard" element={<Dashboard />} />
 							<Route path="/login" element={<LoginForm />} />
 							<Route path="/signup" element={<SignupForm />} />
-							<Route path="/pet" element={<ListPet />} />
+							<Route path="/pet/:id" element={<ListPet />} />
 						</Routes>
 					</BrowserRouter>
 				</AuthProvider>
