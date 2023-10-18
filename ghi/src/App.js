@@ -16,6 +16,7 @@ export default function App() {
 				<AuthProvider>
 					<BrowserRouter basename={basename}>
 						<Routes>
+							<Route path="/" element={<Dashboard />} />
 							<Route path="/dashboard" element={<Dashboard />} />
 							<Route path="/login" element={<LoginForm />} />
 							<Route path="/signup" element={<SignupForm />} />
