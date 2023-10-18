@@ -5,6 +5,7 @@ import TopNavbar from "./TopNavbar";
 import BasicCard from "./Card";
 import MedicalHistoryCard from "../Cards/MedicalHistoryCard";
 import PoopHealthCard from "../Cards/PoopHealthCard";
+import DailyWalksCard from "../Cards/DailyWalksCard";
 
 export default function Dashboard() {
 	const { data } = useGetDashboardDataQuery();
@@ -30,7 +31,7 @@ export default function Dashboard() {
 								gridTemplateColumns: "2fr 1fr",
 							}}
 						>
-							<BasicCard />
+							<DailyWalksCard />
 							<MedicalHistoryCard />
 						</div>
 						<div
