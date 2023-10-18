@@ -76,7 +76,7 @@ class MedicalRepository(BaseModel):
                             date,
                             pet_id
                         FROM medical
-                        ORDER BY date;
+                        ORDER BY date DESC
                         """
                     )
 

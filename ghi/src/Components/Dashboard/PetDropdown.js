@@ -17,15 +17,14 @@ export default function PetDropdown() {
 		return (
 			<div>
 				<FormControl sx={{ m: 1, minWidth: 120 }}>
-					<InputLabel id="demo-simple-select-helper-label">
-						Select pet
-					</InputLabel>
+					<InputLabel sx={{ color: "white" }}>Select pet</InputLabel>
 					<Select
-						labelId="demo-simple-select-helper-label"
-						id="demo-simple-select-helper"
+						labelId="selectPet"
+						id="selectPet"
 						value={pet}
 						label="Select Pet"
 						onChange={handlePetChange}
+						sx={{ borderColor: "white !important", color: "white" }}
 					>
 						{data[0].pets.map((pet) => (
 							<MenuItem key={pet.id} value={pet.id}>
