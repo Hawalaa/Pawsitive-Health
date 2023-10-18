@@ -6,10 +6,10 @@ import ListItem from "@mui/material/ListItem";
 import { Button } from "@mui/material";
 import ListItemText from "@mui/material/ListItemText";
 import Paper from "@mui/material/Paper";
-import ListItemIcon from "@mui/material/ListItemIcon";
 import { useNavigate } from "react-router-dom";
 import { useDeleteTokenMutation } from "../../Store/Token";
 import pawsitiveHealth from "../../assets/pawsitiveHealth.png";
+import dogSilhouette from "../../assets/dogSilhouette.png";
 
 const Navbar = () => {
 	const navigate = useNavigate();
@@ -51,9 +51,11 @@ const Navbar = () => {
 					flexDirection: "column",
 					alignItems: "start",
 					justifyContent: "space-between",
+					background: "#EBA96F",
+					overflow: "hidden",
 				}}
 			>
-				<List sx={{ width: "100%" }}>
+				<List sx={{ width: "100%", textAlign: "center" }}>
 					<ListItem>
 						<img
 							src={pawsitiveHealth}
@@ -68,7 +70,13 @@ const Navbar = () => {
 					</ListItem>
 					<Button
 						variant="text"
-						sx={{ width: "100%" }}
+						sx={{
+							color: "black",
+							backgroundColor: "#EBE09C",
+							borderRadius: "50px",
+							width: "80%",
+							marginBottom: "10px",
+						}}
 						component={Link}
 						to="/dashboard"
 					>
@@ -79,7 +87,13 @@ const Navbar = () => {
 					</Button>
 					<Button
 						variant="text"
-						sx={{ width: "100%" }}
+						sx={{
+							color: "black",
+							backgroundColor: "#EBE09C",
+							borderRadius: "50px",
+							width: "80%",
+							marginBottom: "10px",
+						}}
 						component={Link}
 						to="/activities"
 					>
@@ -92,7 +106,12 @@ const Navbar = () => {
 						component={Link}
 						to="/records"
 						variant="text"
-						sx={{ width: "100%" }}
+						sx={{
+							color: "black",
+							backgroundColor: "#EBE09C",
+							borderRadius: "50px",
+							width: "80%",
+						}}
 					>
 						<ListItemText
 							primary="Records"
@@ -100,11 +119,23 @@ const Navbar = () => {
 						/>
 					</Button>
 				</List>
-				<List sx={{ width: "100%" }}>
+				<List>
+					<img
+						src={dogSilhouette}
+						style={{ width: 800, transform: "translateY(50px)" }}
+						alt=""
+					/>
+				</List>
+				<List sx={{ width: "100%", textAlign: "center" }}>
 					<Button
 						variant="text"
 						onClick={handleLogout}
-						sx={{ width: "100%" }}
+						sx={{
+							color: "black",
+							backgroundColor: "#EBE09C",
+							borderRadius: "50px",
+							width: "80%",
+						}}
 					>
 						<ListItemText primary="Logout" />
 					</Button>

@@ -9,7 +9,13 @@ import PetDropdown from "./PetDropdown";
 
 export default function TopNavbar() {
 	return (
-		<Paper sx={{ display: "flex", flexDirection: "row" }}>
+		<Paper
+			sx={{
+				display: "flex",
+				flexDirection: "row",
+				background: "#BB7843",
+			}}
+		>
 			<Toolbar
 				sx={{
 					flex: 1,
@@ -22,8 +28,16 @@ export default function TopNavbar() {
 						<PetDropdown />
 					</ListItem>
 				</List>
-				<List sx={{ display: "flex", height: "100%" }}>
-					<Button variant="text">
+				<List sx={{ display: "flex", width: 200 }}>
+					<Button
+						variant="text"
+						sx={{
+							color: "black",
+							background: "#EBE09C",
+							borderRadius: "50px",
+							width: "100%",
+						}}
+					>
 						<ListItemText primary="Profile" />
 					</Button>
 				</List>
