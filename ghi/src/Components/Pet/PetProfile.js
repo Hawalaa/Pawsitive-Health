@@ -6,9 +6,9 @@ import { useGetPetProfileDataQuery } from "../../Store/PetProfileApi";
 export default function ListPet() {
     // const { data } = useGetDashboardDataQuery();
     const [ pets, setPets ] = React.useState('');
-    const { id, pet_id } = useParams(); // get pet id from URL parameters
+    const { pet_id } = useParams(); // get pet id from URL parameters
     // const accountId = user?.account?.id;
-    const { data } = useGetPetProfileDataQuery(`${id}, ${pet_id}`);
+    const { data } = useGetPetProfileDataQuery( pet_id );
 
     const handlePetChange = (e) => {
         setPets(e.target.value);
