@@ -1,8 +1,10 @@
 import React from "react";
-import { useGetPetProfileDataQuery } from "../../Store/PetProfileApi";
+import { useGetDashboardDataQuery } from "../../Store/DashboardApi";
+// import { useGetPetProfileDataQuery } from "../../Store/PetProfileApi";
 
 export default function ListPet() {
-	const { data } = useGetPetProfileDataQuery();
+	// const { data } = useGetPetProfileDataQuery();
+    const { data } = useGetDashboardDataQuery();
     const [ pets, setPets ] = React.useState('');
 
     const handlePetChange = (e) => {
@@ -10,7 +12,7 @@ export default function ListPet() {
     };
 
 	if (data) {
-    console.log(data)
+    console.log(data[0].pets)
 		return (
 			<div>
 				<h1>Pet Profile: {data.pet_name}</h1>
@@ -24,7 +26,7 @@ export default function ListPet() {
                     className="form-select"
                     >
                         <option value="">Choose a pet</option>
-                        {data.pets.map((pet) => {
+                        {data[0].pets.map((pet) => {
                             return (
                                 <option key={pet.pet_id} value={pet.pet_id}>
                             {pet.pet_name}
