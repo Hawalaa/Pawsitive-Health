@@ -1,18 +1,20 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import { useGetDashboardDataQuery } from "../../Store/DashboardApi";
-// import { useGetPetProfileDataQuery } from "../../Store/PetProfileApi";
+import { useGetPetProfileDataQuery } from "../../Store/PetProfileApi";
 
 export default function ListPet() {
-	// const { data } = useGetPetProfileDataQuery();
-    const { data } = useGetDashboardDataQuery();
+	const { data } = useGetPetProfileDataQuery();
+    // const { data } = useGetDashboardDataQuery();
     const [ pets, setPets ] = React.useState('');
+    const { pet_id } = useParams(); // get pet_id from URL parameters
 
     const handlePetChange = (e) => {
         setPets(e.target.value);
     };
 
 	if (data) {
-    console.log(data[0].pets)
+    console.log(data)
 		return (
 			<div>
 				<h1>Pet Profile: {data.pet_name}</h1>
@@ -26,7 +28,7 @@ export default function ListPet() {
                     className="form-select"
                     >
                         <option value="">Choose a pet</option>
-                        {data[0].pets.map((pet) => {
+                        {data.pets.map((pet) => {
                             return (
                                 <option key={pet.pet_id} value={pet.pet_id}>
                             {pet.pet_name}
