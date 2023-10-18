@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-export const medicalHistoryApi = createApi({
-	reducerPath: "medicalHistoryApi",
+export const poopHealthApi = createApi({
+	reducerPath: "poopHealthApi",
 	baseQuery: fetchBaseQuery({
 		baseUrl: "http://localhost:8000",
 		credentials: "include",
@@ -10,17 +10,17 @@ export const medicalHistoryApi = createApi({
 		const token = getState().auth.token;
 
 		if (token) {
-			// console.log("Token", token);
+			console.log("Token", token);
 			headers.set("Authorization", `Bearer ${token}`);
 		}
 
 		return headers;
 	},
 	endpoints: (builder) => ({
-		getUserDataById: builder.query({
-			query: (id, pet_id) => `/user/${id}/pet/${pet_id}/medical`,
+		getPoopHealth: builder.query({
+			query: (id, pet_id) => `/user/${id}/pet/${pet_id}/poops`,
 		}),
 	}),
 });
 
-export const { useGetUserDataByIdQuery } = medicalHistoryApi;
+export const { useGetPoopHealthQuery } = poopHealthApi;

@@ -4,6 +4,7 @@ import Navbar from "./Navbar";
 import TopNavbar from "./TopNavbar";
 import BasicCard from "./Card";
 import MedicalHistoryCard from "../Cards/MedicalHistoryCard";
+import PoopHealthCard from "../Cards/PoopHealthCard";
 
 export default function Dashboard() {
 	const { data } = useGetDashboardDataQuery();
@@ -40,7 +41,7 @@ export default function Dashboard() {
 						>
 							<BasicCard />
 							<BasicCard />
-							<BasicCard />
+							<PoopHealthCard />
 						</div>
 					</div>
 				</div>
