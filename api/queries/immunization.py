@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import List, Union
+from typing import List, Union, Optional
 from datetime import date
 from queries.pool import pool
 
@@ -21,9 +21,26 @@ class ImmunizationOut(BaseModel):
     date: date
     date_valid_until: date
     pet_id: int
+    pet_pic: Optional[str]
 
 
 class ImmunizationRepository(BaseModel):
+    def delete(self, immunization_id: int) -> bool:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        DELETE FROM immunization
+                        WHERE id = %s
+                        """,
+                        [immunization_id],
+                    )
+                    return True
+        except Exception as e:
+            print(e)
+            return False
+
     def update(
         self, immunization_id: int, immunization: ImmunizationIn
     ) -> Union[ImmunizationOut, Error]:
@@ -64,8 +81,14 @@ class ImmunizationRepository(BaseModel):
                     # Run our SELECT statement
                     result = db.execute(
                         """
-                        SELECT id, vaccination, date, date_valid_until, pet_id
-                        FROM immunization
+                        SELECT i.id,
+                        i.vaccination,
+                        i.date,
+                        i.date_valid_until,
+                        i.pet_id,
+                        p.pet_pic
+                        FROM immunization i
+                        LEFT JOIN pet p ON(i.pet_id = p.id)
                         ORDER BY date;
                         """
                     )
@@ -80,6 +103,7 @@ class ImmunizationRepository(BaseModel):
                             date=record[2],
                             date_valid_until=record[3],
                             pet_id=record[4],
+                            pet_pic=record[5],
                         )
                         for record in db
                     ]

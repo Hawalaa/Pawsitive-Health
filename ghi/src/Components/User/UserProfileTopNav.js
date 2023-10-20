@@ -2,13 +2,11 @@ import React from "react";
 import Paper from "@mui/material/Paper";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import Button from "@mui/material/Button";
-import PetDropdown from "./PetDropdown";
 import { Link } from "react-router-dom";
 
-export default function TopNavbar() {
+export default function UserProfileTopNav() {
 	return (
 		<Paper
 			sx={{
@@ -20,15 +18,10 @@ export default function TopNavbar() {
 			<Toolbar
 				sx={{
 					flex: 1,
-					justifyContent: "space-between",
+					justifyContent: "flex-end",
 					height: 100,
 				}}
 			>
-				<List sx={{ display: "flex" }}>
-					<ListItem>
-						<PetDropdown />
-					</ListItem>
-				</List>
 				<List sx={{ display: "flex", width: 200 }}>
 					<Button
 						variant="text"
@@ -38,7 +31,7 @@ export default function TopNavbar() {
 							borderRadius: "50px",
 							width: "100%",
 						}}
-						component={Link}
+                        component={Link}
 						to="/user"
 					>
 						<ListItemText

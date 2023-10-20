@@ -33,7 +33,7 @@ class PoopRepository:
                         DELETE FROM poop
                         WHERE id = %s
                         """,
-                        [poop_id]
+                        [poop_id],
                     )
                     return True
         except Exception as e:
@@ -45,14 +45,11 @@ class PoopRepository:
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     db.execute(
-                        "SELECT COUNT(*) FROM poop WHERE id = %s",
-                        [poop_id]
-                        )
+                        "SELECT COUNT(*) FROM poop WHERE id = %s", [poop_id]
+                    )
                     poop_count = db.fetchone()[0]
                     if poop_count == 0:
-                        return {
-                            "message": "Pet does not exist."
-                            }
+                        return {"message": "Pet does not exist."}
                     db.execute(
                         """
                         UPDATE poop
@@ -67,8 +64,8 @@ class PoopRepository:
                             poop.time,
                             poop.consistency,
                             poop.pet_id,
-                            poop_id
-                        ]
+                            poop_id,
+                        ],
                     )
                     return self.poop_in_to_out(poop_id, poop)
         except Exception as e:
@@ -83,20 +80,9 @@ class PoopRepository:
                         """
                         SELECT id, date, time, consistency, pet_id
                         FROM poop
-                        ORDER BY date;
+                        ORDER BY date DESC
                         """
                     )
-                    # result = []
-                    # for record in db:
-                    #     poop = PoopOut(
-                    #         id=record[0],
-                    #         date=record[1],
-                    #         time=record[2],
-                    #         consistency=record[3],
-                    #         pet_id=record[4]
-                    #     )
-                    #     result.append(poop)
-                    # return result
 
                     return [
                         PoopOut(
@@ -104,7 +90,7 @@ class PoopRepository:
                             date=record[1],
                             time=record[2],
                             consistency=record[3],
-                            pet_id=record[4]
+                            pet_id=record[4],
                         )
                         for record in db
                     ]
@@ -117,14 +103,11 @@ class PoopRepository:
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     db.execute(
-                        "SELECT COUNT(*) FROM pet WHERE id = %s",
-                        [pet_id]
-                        )
+                        "SELECT COUNT(*) FROM pet WHERE id = %s", [pet_id]
+                    )
                     pet_count = db.fetchone()[0]
                     if pet_count == 0:
-                        return {
-                            "message": "Pet does not exist."
-                            }
+                        return {"message": "Pet does not exist."}
 
                     result = db.execute(
                         """
@@ -139,12 +122,7 @@ class PoopRepository:
                             (%s, %s, %s, %s)
                         RETURNING id;
                         """,
-                        [
-                            poop.date,
-                            poop.time,
-                            poop.consistency,
-                            poop.pet_id
-                        ]
+                        [poop.date, poop.time, poop.consistency, poop.pet_id],
                     )
                     id = result.fetchone()[0]
                     return self.poop_in_to_out(id, poop)

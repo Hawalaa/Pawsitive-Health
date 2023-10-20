@@ -50,3 +50,15 @@ def update_immunization(
     account_data: dict = Depends(authenticator.get_current_account_data),
 ) -> Union[Error, ImmunizationOut]:
     return repo.update(immunization_id, immunization)
+
+
+@router.delete(
+    "/user/{user_id}/pet/{pet_id}/immunization/{immunization_id}",
+    response_model=bool,
+)
+def delete_immunization(
+    immunization_id: int,
+    repo: ImmunizationRepository = Depends(),
+    account_data: dict = Depends(authenticator.get_current_account_data),
+) -> bool:
+    return repo.delete(immunization_id)

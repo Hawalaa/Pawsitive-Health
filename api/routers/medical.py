@@ -50,3 +50,15 @@ def update_medical(
     account_data: dict = Depends(authenticator.get_current_account_data),
 ) -> Union[MedicalOut, Error]:
     return repo.update(medical_id, medical)
+
+
+@router.delete(
+    "/user/{user_id}/pet/{pet_id}/medical/{medical_id}",
+    response_model=bool,
+)
+def delete_medical(
+    medical_id: int,
+    repo: MedicalRepository = Depends(),
+    account_data: dict = Depends(authenticator.get_current_account_data),
+) -> bool:
+    return repo.delete(medical_id)
