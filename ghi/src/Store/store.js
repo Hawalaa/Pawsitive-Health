@@ -4,6 +4,7 @@ import { setupListeners } from "@reduxjs/toolkit/dist/query";
 import { tokenApi } from "./Token";
 import { medicalHistoryApi } from "./MedicalHistoryApi";
 import { poopHealthApi } from "./PoopHealthApi";
+import { petProfileApi } from "./PetProfileApi";
 
 export const store = configureStore({
 	reducer: {
@@ -11,13 +12,15 @@ export const store = configureStore({
 		[tokenApi.reducerPath]: tokenApi.reducer,
 		[medicalHistoryApi.reducerPath]: medicalHistoryApi.reducer,
 		[poopHealthApi.reducerPath]: poopHealthApi.reducer,
+		[petProfileApi.reducerPath]: petProfileApi.reducer,
 	},
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware()
 			.concat(dashboardApi.middleware)
 			.concat(tokenApi.middleware)
 			.concat(medicalHistoryApi.middleware)
-			.concat(poopHealthApi.middleware),
+			.concat(poopHealthApi.middleware)
+			.concat(petProfileApi.middleware),
 });
 
 setupListeners(store.dispatch);
