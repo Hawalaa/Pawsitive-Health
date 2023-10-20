@@ -24,6 +24,22 @@ class ImmunizationOut(BaseModel):
 
 
 class ImmunizationRepository(BaseModel):
+    def delete(self, immunization_id: int) -> bool:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        DELETE FROM immunization
+                        WHERE id = %s
+                        """,
+                        [immunization_id],
+                    )
+                    return True
+        except Exception as e:
+            print(e)
+            return False
+
     def update(
         self, immunization_id: int, immunization: ImmunizationIn
     ) -> Union[ImmunizationOut, Error]:

@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends
+
 from authenticator import authenticator
 from typing import List
 from queries.dashboard import DashboardRepo, DashboardResponse
@@ -11,7 +12,7 @@ def get_all(
     account_data: dict = Depends(authenticator.get_current_account_data),
     repo: DashboardRepo = Depends(),
 ):
-    users = repo.get_all_users()
+    users = repo.get_user(id=account_data["id"])
     pets_dict = repo.get_all_pets()
     walks = repo.get_all_walks()
     medical = repo.get_all_medical()

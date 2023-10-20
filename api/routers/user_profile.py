@@ -11,7 +11,7 @@ router = APIRouter()
     response_model=Union[List[UserOut], Error]
 )
 def get_all(
+    account_data: dict = Depends(authenticator.get_current_account_data),
     repo: UserRepository = Depends(),
-    account_data: dict = Depends(authenticator.get_current_account_data)
 ):
-    return repo.get_all()
+    return repo.get_all(id=account_data["id"])

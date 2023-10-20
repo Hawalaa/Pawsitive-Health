@@ -26,6 +26,22 @@ class MedicalOut(BaseModel):
 
 
 class MedicalRepository(BaseModel):
+    def delete(self, medical_id: int) -> bool:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        DELETE FROM medical
+                        WHERE id = %s
+                        """,
+                        [medical_id],
+                    )
+                    return True
+        except Exception as e:
+            print(e)
+            return False
+
     def update(
         self, medical_id: int, medical: MedicalIn
     ) -> Union[MedicalOut, Error]:
@@ -76,7 +92,7 @@ class MedicalRepository(BaseModel):
                             date,
                             pet_id
                         FROM medical
-                        ORDER BY date;
+                        ORDER BY date DESC
                         """
                     )
 

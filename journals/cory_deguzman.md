@@ -41,4 +41,25 @@ Today, I worked on:
 Today, I worked on:
 
 -   Finished Dashboard Endpoint.
--   Working on Activity Endpoint.
+-   Finished Activity Endpoint
+-   Finished Records Endpoint
+-   Finished protecting the above endpoints with back end authentication.
+
+## October 12, 2023
+
+Today, I worked on:
+
+-   Working on the front end authentication, along with implementing Redux.
+-   Unable to finish, so I will complete this task tomorrow.
+
+## October 13, 2023
+
+Today, I worked on:
+
+-   Finished front end authentication.
+-   Finished implementing Redux.
+-   Pushed a bug into main where my dashboard would not pull all the data, so I fixed it in a new ticket.
+
+## October 16, 2023
+
+-   Adding an entry here to test a commit revert.
