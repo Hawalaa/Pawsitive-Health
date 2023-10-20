@@ -5,7 +5,7 @@ import { tokenApi } from "./Token";
 import { medicalHistoryApi } from "./MedicalHistoryApi";
 import { poopHealthApi } from "./PoopHealthApi";
 import { petProfileApi } from "./PetProfileApi";
-import { userprofileApi } from "./UserProfileApi";
+import { userProfileApi } from "./UserProfileApi";
 
 export const store = configureStore({
 	reducer: {
@@ -14,7 +14,7 @@ export const store = configureStore({
 		[medicalHistoryApi.reducerPath]: medicalHistoryApi.reducer,
 		[poopHealthApi.reducerPath]: poopHealthApi.reducer,
 		[petProfileApi.reducerPath]: petProfileApi.reducer,
-		[userprofileApi.reducerPath]: userprofileApi.reducer,
+		[userProfileApi.reducerPath]: userProfileApi.reducer,
 	},
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware()
@@ -23,7 +23,7 @@ export const store = configureStore({
 			.concat(medicalHistoryApi.middleware)
 			.concat(poopHealthApi.middleware)
 			.concat(petProfileApi.middleware)
-			.concat(userprofileApi.middleware),
+			.concat(userProfileApi.middleware),
 });
 
 setupListeners(store.dispatch);
