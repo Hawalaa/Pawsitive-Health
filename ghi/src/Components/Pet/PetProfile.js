@@ -61,7 +61,7 @@ export default function ListPet() {
 									<ListItemText sx={{ textAlign: "center"}}>Breed: {data.breed}</ListItemText>
 									<ListItemText sx={{ textAlign: "center"}}>Gender: {data.gender}</ListItemText>
 									<ListItemText sx={{ textAlign: "center"}}>Age: {data.age}</ListItemText>
-									<ListItemText sx={{ textAlign: "center"}}>Weight: {data.weight}</ListItemText>
+									<ListItemText sx={{ textAlign: "center"}}>Weight(lbs): {data.weight}</ListItemText>
 								</Grid>
 							</Grid>
 						</CardContent>

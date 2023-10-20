@@ -7,6 +7,7 @@ import Dashboard from "./Components/Dashboard/Dashboard";
 import { Provider } from "react-redux";
 import { store } from "./Store/store";
 import ListPet from "./Components/Pet/PetProfile";
+import UserProfile from "./Components/User/UserProfile";
 
 export default function App() {
 	const domain = /https:\/\/[^/]+/;
@@ -22,6 +23,7 @@ export default function App() {
 				<Route path="/login" element={<LoginForm />} />
 				<Route path="/signup" element={<SignupForm />} />
 				<Route path="/user/:id/pet/:pet_id" element={<ListPet />} />
+				<Route path="/user" element={<UserProfile />} />
 				</Routes>
 			</BrowserRouter>
 			</AuthProvider>
