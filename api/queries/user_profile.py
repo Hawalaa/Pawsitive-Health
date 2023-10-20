@@ -23,7 +23,7 @@ class UserOut(BaseModel):
 
 
 class UserRepository:
-    def get_all(self) -> Union[List[UserOut], Error]:
+    def get_all(self, id: int) -> Union[List[UserOut], Error]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -38,21 +38,11 @@ class UserRepository:
                             p.pet_name,
                             p.pet_pic
                         FROM users u
-                        LEFT JOIN pet p ON(u.id = p.user_id);
-                        """
+                        LEFT JOIN pet p ON(u.id = p.user_id)
+                        WHERE u.id = %s
+                        """,
+                        [id],
                     )
-
-                    # return [
-                    #     UserOut(
-                    #         user_id=record[0],
-                    #         username=record[1],
-                    #         first_name=record[2],
-                    #         last_name=record[3],
-                    #         email=record[4],
-                    #         pets=record[5]
-                    #     )
-                    #     for record in db
-                    # ]
 
                     users = {}  # Use a dictionary to group pets by user_id
 

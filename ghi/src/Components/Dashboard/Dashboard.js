@@ -22,6 +22,8 @@ export default function Dashboard() {
 							width: "100%",
 							flexDirection: "column",
 							display: "flex",
+							transform: "translate(-15px, -8px)",
+							overflow: "hidden",
 						}}
 					>
 						<TopNavbar />

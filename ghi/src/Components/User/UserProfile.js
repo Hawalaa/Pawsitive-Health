@@ -1,55 +1,39 @@
-import { useEffect, useState } from 'react';
-import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
+import React from 'react';
+import { useGetUserProfileDataQuery } from '../../Store/UserProfileApi';
+import Navbar from '../Dashboard/Navbar';
+import UserProfileTopNav from './UserProfileTopNav';
+import UserProfileCard from '../Cards/UserProfileCard'
 
-function UserProfile() {
-    const [user, setUser] = useState([]);
-    const { token } = useAuthContext();
+export default function UserProfile() {
+    const { data } = useGetUserProfileDataQuery();
 
-//     const getData = async () => {
-//         if (token) {
-//             const response = await fetch("http://localhost:8000/user", {
-//                 headers: {
-//                     Authorization: `Bearer ${token}`,
-//                 },
-//             });
-
-//             if (response.ok) {
-//                 const data = await response.json();
-//                 console.log(data);
-//                 setUser(data);
-//             } else {
-//                 console.error("Request failed with status:", response.status);
-//             }
-//         } else {
-//             console.log("error:", "no token fetch!")
-//         }
-//     };
-
-//     useEffect(() => {
-//         getData();
-//     }, [token]);
-// };
-
-    const getData = async () => {
-        const response = await fetch("http://localhost:8000/user", {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-        });
-
-        if (response.ok) {
-        const data = await response.json();
-        console.log(data);
-        setUser(data);
-        } else {
-        console.error("Request failed with status:", response.status);
-        }
+    if (data) {
+        console.log(data[0].pets)
+        return (
+			<>
+			<div style={{ display: "flex" }}>
+				<Navbar />
+				<div
+					style={{
+						margin: 0,
+						padding: 0,
+						width: "100%",
+						flexDirection: "column",
+						display: "flex",
+					}}
+				>
+					<UserProfileTopNav />
+					<div
+						style={{
+							display: "grid",
+							height: "100%"
+						}}
+					>
+						<UserProfileCard />
+					</div>
+				</div>
+			</div>
+			</>
+        );
     }
-
-    useEffect(() => {
-        getData();
-    }, []);
 }
-
-
-export default UserProfile;
