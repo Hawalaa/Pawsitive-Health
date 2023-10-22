@@ -9,6 +9,11 @@ import DailyWalksCard from "../Cards/DailyWalksCard";
 
 export default function Dashboard() {
 	const { data } = useGetDashboardDataQuery();
+	const [selectedPetId, setSelectedPetId] = React.useState("");
+
+	const handlePetChange = (selectedPetId) => {
+		setSelectedPetId(selectedPetId);
+	};
 
 	if (data) {
 		return (
@@ -26,15 +31,15 @@ export default function Dashboard() {
 							overflow: "hidden",
 						}}
 					>
-						<TopNavbar />
+						<TopNavbar onPetChange={handlePetChange} />
 						<div
 							style={{
 								display: "grid",
 								gridTemplateColumns: "2fr 1fr",
 							}}
 						>
-							<DailyWalksCard />
-							<MedicalHistoryCard />
+							<DailyWalksCard selectedPetId={selectedPetId} />
+							<MedicalHistoryCard selectedPetId={selectedPetId} />
 						</div>
 						<div
 							style={{
@@ -44,7 +49,7 @@ export default function Dashboard() {
 						>
 							<BasicCard />
 							<BasicCard />
-							<PoopHealthCard />
+							<PoopHealthCard selectedPetId={selectedPetId} />
 						</div>
 					</div>
 				</div>

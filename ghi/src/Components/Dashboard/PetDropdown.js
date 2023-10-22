@@ -5,12 +5,14 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { useGetDashboardDataQuery } from "../../Store/DashboardApi";
 
-export default function PetDropdown() {
+export default function PetDropdown({ onPetChange }) {
 	const { data } = useGetDashboardDataQuery();
 	const [pet, setPet] = React.useState("");
 
 	const handlePetChange = (e) => {
-		setPet(e.target.value);
+		const selectedPetId = e.target.value;
+		setPet(selectedPetId);
+		onPetChange(selectedPetId);
 	};
 
 	if (data) {
