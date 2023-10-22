@@ -69,8 +69,8 @@ export default function DailyWalksCard({ selectedPetId }) {
 			{
 				label: "Duration (minutes)",
 				data: filteredData.map((walk) => walk.duration),
-				backgroundColor: themeColors, // Assign theme colors to bars
-				borderColor: "rgba(255, 99, 132, 1)",
+				backgroundColor: themeColors,
+				borderColor: themeColors,
 				borderWidth: 1,
 			},
 		],
