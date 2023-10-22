@@ -2,6 +2,9 @@ import { useState } from "react";
 import { useCreateTokenMutation } from "../Store/Token";
 import { useNavigate } from "react-router-dom";
 import "../login.css";
+import { IconButton } from "@mui/material";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import { toast } from "react-toastify";
 
 const LoginForm = () => {
 	const navigate = useNavigate();
@@ -19,7 +22,16 @@ const LoginForm = () => {
 
 		if (!username || !password) {
             // Display an error message or prevent form submission
-            alert("Please enter both a username and password.");
+            toast.error("Please enter both username and password.",{
+				position: "bottom-right",
+				autoClose: 4000,
+				hideProgressBar: true,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+				theme: "light",
+			});
             return;
         }
 
@@ -30,9 +42,11 @@ const LoginForm = () => {
 
 		const result = await createToken({ data: data });
 		if (!result.hasOwnProperty("error")) {
+			toast.success(`Welcome back!`);
+			navigate("/dashboard");
+		} else {
+			toast.error("Incorrect username or password.");
 		}
-
-		navigate("/dashboard");
 	};
 
 	return (
@@ -124,13 +138,14 @@ const LoginForm = () => {
 						placeholder="password"
 						onChange={(e) => setPassword(e.target.value)}
 					/>
-					<button
+					<IconButton
 						className="password-button"
 						type="button" // Prevent the form submission
 						onClick={togglePasswordVisibility} // Toggle password visibility
 					>
 						<i className={passwordVisible ? "bx bx-hide" : "bx bx-show"}></i>
-					</button>
+						<VisibilityIcon />
+					</IconButton>
 				</label>
 				<button className="login-button" type="submit">Login</button>
 			</div>
@@ -138,7 +153,6 @@ const LoginForm = () => {
                 <span>Don't have an account? </span>
                 <a href="/signup">Sign Up</a>
             </div>
-			<div className="footer">@PAWSITIVE HEALTH</div>
 			</form>
 		</div>
 	);

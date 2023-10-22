@@ -8,9 +8,15 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useGetUserDataByIdQuery } from "../../Store/MedicalHistoryApi";
 
-export default function MedicalHistoryCard() {
+export default function MedicalHistoryCard({ selectedPetId }) {
 	const { data } = useGetUserDataByIdQuery();
 	const [expanded, setExpanded] = React.useState(false);
+
+	if (!data) {
+		return <div>Loading...</div>;
+	}
+
+	const filteredData = data.filter((poop) => poop.pet_id === selectedPetId);
 
 	const handleChange = (panel) => (event, isExpanded) => {
 		setExpanded(isExpanded ? panel : false);
@@ -25,7 +31,7 @@ export default function MedicalHistoryCard() {
 		return new Date(dateString).toLocaleDateString(undefined, options);
 	};
 
-	if (data) {
+	if (filteredData) {
 		return (
 			<Card
 				sx={{
@@ -39,7 +45,7 @@ export default function MedicalHistoryCard() {
 			>
 				<CardContent sx={{ overflowY: "auto" }}>
 					<h1 style={{ textAlign: "center" }}>Medical History</h1>
-					{data.map((medical, index) => (
+					{filteredData.map((medical, index) => (
 						<Accordion
 							key={index}
 							expanded={expanded === `panel${index}`}

@@ -72,10 +72,14 @@ const Navbar = () => {
 						variant="text"
 						sx={{
 							color: "black",
-							backgroundColor: "#EBE09C",
+							background: "#EBE09C",
 							borderRadius: "50px",
-							width: "80%",
+							width: "90%",
 							marginBottom: "10px",
+							"&:hover": {
+								background: "#EBE09C",
+								border: "1px solid black",
+							},
 						}}
 						component={Link}
 						to="/dashboard"
@@ -89,10 +93,14 @@ const Navbar = () => {
 						variant="text"
 						sx={{
 							color: "black",
-							backgroundColor: "#EBE09C",
+							background: "#EBE09C",
 							borderRadius: "50px",
-							width: "80%",
+							width: "90%",
 							marginBottom: "10px",
+							"&:hover": {
+								background: "#EBE09C",
+								border: "1px solid black",
+							},
 						}}
 						component={Link}
 						to="/activities"
@@ -108,9 +116,14 @@ const Navbar = () => {
 						variant="text"
 						sx={{
 							color: "black",
-							backgroundColor: "#EBE09C",
+							background: "#EBE09C",
 							borderRadius: "50px",
-							width: "80%",
+							width: "90%",
+							marginBottom: "10px",
+							"&:hover": {
+								background: "#EBE09C",
+								border: "1px solid black",
+							},
 						}}
 					>
 						<ListItemText
@@ -132,9 +145,14 @@ const Navbar = () => {
 						onClick={handleLogout}
 						sx={{
 							color: "black",
-							backgroundColor: "#EBE09C",
+							background: "#EBE09C",
 							borderRadius: "50px",
-							width: "80%",
+							width: "90%",
+							marginBottom: "10px",
+							"&:hover": {
+								background: "#EBE09C",
+								border: "1px solid black",
+							},
 						}}
 					>
 						<ListItemText primary="Logout" />

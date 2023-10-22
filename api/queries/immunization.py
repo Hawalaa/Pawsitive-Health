@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import List, Union
+from typing import List, Union, Optional
 from datetime import date
 from queries.pool import pool
 
@@ -21,7 +21,7 @@ class ImmunizationOut(BaseModel):
     date: date
     date_valid_until: date
     pet_id: int
-    pet_pic: str
+    pet_pic: Optional[str]
 
 
 class ImmunizationRepository(BaseModel):

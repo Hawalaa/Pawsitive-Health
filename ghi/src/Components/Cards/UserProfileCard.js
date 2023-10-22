@@ -1,16 +1,29 @@
 import * as React from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import { ListItem, ListItemAvatar, Avatar, Grid, Divider, Typography, Button } from '@mui/material';
+import {
+	ListItem,
+	ListItemAvatar,
+	Avatar,
+	Grid,
+	Divider,
+	Typography,
+	Button,
+} from "@mui/material";
 import { useGetUserProfileDataQuery } from "../../Store/UserProfileApi";
 import { Link } from "react-router-dom";
 
-
 export default function UserProfileCard() {
 	const { data } = useGetUserProfileDataQuery();
-    const defaultPetPic = "https://cdn2.iconfinder.com/data/icons/veterinary-12/512/Veterinary_Icons-16-512.png";
-	const addPetIcon = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9vq4M0Rag2NXCXiFJdeI55VwhHLI4qBXXdw&usqp=CAU";
+	const defaultPetPic =
+		"https://cdn2.iconfinder.com/data/icons/veterinary-12/512/Veterinary_Icons-16-512.png";
+	const addPetIcon =
+		"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9vq4M0Rag2NXCXiFJdeI55VwhHLI4qBXXdw&usqp=CAU";
 	const userId = data[0].user_id;
+
+	function capitalizeLetter(str) {
+		return str.charAt(0).toUpperCase() + str.slice(1);
+	}
 
 	if (data && data[0].pets !== null) {
 		return (
@@ -24,22 +37,33 @@ export default function UserProfileCard() {
 				}}
 			>
 				<CardContent sx={{ overflowY: "auto" }}>
-                    <p style={{ fontSize: "44px", textAlign: "left" }}>Hi {data[0].username}!</p>
-                    <Divider />
-                    <p style={{ fontSize: "40px", textAlign: "left" }}>My Pets</p>
-                    <Grid container spacing={5}>
-                        {data[0].pets.map((pet) => (
-                            <Grid item key={pet.pet_id}>
+					<p style={{ fontSize: "44px", textAlign: "left" }}>
+						Hi {capitalizeLetter(data[0].first_name)}{" "}
+						{capitalizeLetter(data[0].last_name)}!
+					</p>
+					<Divider />
+					<p style={{ fontSize: "40px", textAlign: "left" }}>
+						My Pets
+					</p>
+					<Grid container spacing={5}>
+						{data[0].pets.map((pet) => (
+							<Grid item key={pet.pet_id}>
 								<ListItem>
 									<Button
 										component={Link}
 										to={`/user/${userId}/pet/${pet.pet_id}`}
 									>
-										<ListItemAvatar sx={{ textAlign: "center"}}>
+										<ListItemAvatar
+											sx={{ textAlign: "center" }}
+										>
 											<Avatar
 												alt={pet.name}
-												src={pet.pet_pic ? pet.pet_pic : defaultPetPic}
-												sx={{ width: 200, height: 200}}
+												src={
+													pet.pet_pic
+														? pet.pet_pic
+														: defaultPetPic
+												}
+												sx={{ width: 200, height: 200 }}
 											/>
 											<Typography
 												variant="h5"
@@ -50,20 +74,17 @@ export default function UserProfileCard() {
 										</ListItemAvatar>
 									</Button>
 								</ListItem>
-                            </Grid>
-                        ))}
-						<Button
-							component={Link}
-							to={`/user/${userId}/pet`}
-						>
+							</Grid>
+						))}
+						<Button component={Link} to={`/user/${userId}/pet`}>
 							<Avatar
 								alt="Add a Pet"
 								src={addPetIcon}
 								sx={{ width: 200, height: 200 }}
 							/>
 						</Button>
-                    </Grid>
-                </CardContent>
+					</Grid>
+				</CardContent>
 			</Card>
 		);
 	} else {
@@ -78,14 +99,20 @@ export default function UserProfileCard() {
 				}}
 			>
 				<CardContent sx={{ overflowY: "auto" }}>
-                    <p style={{ fontSize: "44px", textAlign: "left" }}>Hi {data[0].username}!</p>
-                    <Divider />
-                    <p style={{ fontSize: "40px", textAlign: "left" }}>My Pets</p>
-                    <Grid container>
-                        <Typography variant="h6">You don't have a pet to show...</Typography>
-                    </Grid>
-                </CardContent>
+					<p style={{ fontSize: "44px", textAlign: "left" }}>
+						Hi {data[0].username}!
+					</p>
+					<Divider />
+					<p style={{ fontSize: "40px", textAlign: "left" }}>
+						My Pets
+					</p>
+					<Grid container>
+						<Typography variant="h6">
+							You don't have a pet to show...
+						</Typography>
+					</Grid>
+				</CardContent>
 			</Card>
-		)
+		);
 	}
 }

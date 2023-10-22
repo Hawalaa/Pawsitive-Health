@@ -8,6 +8,8 @@ import { Provider } from "react-redux";
 import { store } from "./Store/store";
 import ListPet from "./Components/Pet/PetProfile";
 import UserProfile from "./Components/User/UserProfile";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function App() {
 	const domain = /https:\/\/[^/]+/;
@@ -27,6 +29,18 @@ export default function App() {
 				</Routes>
 			</BrowserRouter>
 			</AuthProvider>
+			<ToastContainer
+					position="bottom-right"
+					autoClose={4000}
+					hideProgressBar
+					newestOnTop={false}
+					closeOnClick
+					rtl={false}
+					pauseOnFocusLoss
+					draggable
+					pauseOnHover
+					theme="light"
+				/>
 		</div>
 		</Provider>
 );
