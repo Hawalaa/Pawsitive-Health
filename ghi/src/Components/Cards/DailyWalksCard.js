@@ -22,7 +22,7 @@ ChartJS.register(
 	Legend
 ); // Register the chart elements to be used within this chart
 
-export default function PoopHealthCard({ selectedPetId }) {
+export default function DailyWalksCard({ selectedPetId }) {
 	const { data } = useGetDailyWalksQuery(); // Get data from this API
 
 	// If there is no data, return "Loading..."
@@ -71,24 +71,10 @@ export default function PoopHealthCard({ selectedPetId }) {
 		labels,
 		datasets: [
 			{
-				label: "Walk 1",
+				label: "Duration (minutes)",
 				data: filteredData.map((walk) => walk.duration),
 				backgroundColor: "rgba(255, 99, 132, 0.2)",
 				borderColor: "rgba(255, 99, 132, 1)",
-				borderWidth: 1,
-			},
-			{
-				label: "walk 2",
-				data: filteredData.map((walk) => walk.duration),
-				backgroundColor: "rgba(54, 162, 235, 0.2)",
-				borderColor: "rgba(54, 162, 235, 1)",
-				borderWidth: 1,
-			},
-			{
-				label: "Walk 3",
-				data: filteredData.map((walk) => walk.duration),
-				backgroundColor: "rgba(255, 206, 86, 0.2)",
-				borderColor: "rgba(255, 206, 86, 1)",
 				borderWidth: 1,
 			},
 		],
