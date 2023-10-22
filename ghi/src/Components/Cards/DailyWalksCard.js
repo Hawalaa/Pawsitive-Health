@@ -20,20 +20,17 @@ ChartJS.register(
 	Title,
 	Tooltip,
 	Legend
-); // Register the chart elements to be used within this chart
+);
 
 export default function DailyWalksCard({ selectedPetId }) {
-	const { data } = useGetDailyWalksQuery(); // Get data from this API
+	const { data } = useGetDailyWalksQuery();
 
-	// If there is no data, return "Loading..."
 	if (!data) {
 		return <div>Loading...</div>;
 	}
 
-	// Filter the data to only include the selected pet
-	const filteredData = data.filter((poop) => poop.pet_id === selectedPetId);
+	const filteredData = data.filter((walk) => walk.pet_id === selectedPetId);
 
-	// Options for the chart
 	const options = {
 		responsive: true,
 		maintainAspectRatio: true,
@@ -53,7 +50,6 @@ export default function DailyWalksCard({ selectedPetId }) {
 		},
 	};
 
-	// Format the date from yyyy-mm-dd to Month Day, Year
 	const formatDate = (dateString) => {
 		const options = {
 			year: "numeric",
@@ -63,17 +59,17 @@ export default function DailyWalksCard({ selectedPetId }) {
 		return new Date(dateString).toLocaleDateString(undefined, options);
 	};
 
-	// Create an array of dates from the filtered data
 	const labels = filteredData.map((walk) => formatDate(walk.date));
 
-	// Data for the chart
+	const themeColors = ["#BB7843", "#EBA96F", "#EBE09C"];
+
 	const chartData = {
 		labels,
 		datasets: [
 			{
 				label: "Duration (minutes)",
 				data: filteredData.map((walk) => walk.duration),
-				backgroundColor: "rgba(255, 99, 132, 0.2)",
+				backgroundColor: themeColors, // Assign theme colors to bars
 				borderColor: "rgba(255, 99, 132, 1)",
 				borderWidth: 1,
 			},
