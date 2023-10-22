@@ -37,6 +37,10 @@ export default function TopNavbar() {
 							background: "#EBE09C",
 							borderRadius: "50px",
 							width: "100%",
+							"&:hover": {
+								background: "#EBE09C",
+								border: "1px solid black",
+							},
 						}}
 						component={Link}
 						to="/user"
