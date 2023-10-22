@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../signup.css";
+import { IconButton } from "@mui/material";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import { toast } from "react-toastify";
 
 const SignupForm = () => {
     const navigate = useNavigate();
@@ -20,7 +23,16 @@ const SignupForm = () => {
 
         if (!username || !firstname || !lastname || !email || !password) {
             // Display an error message or prevent form submission
-            alert("Please enter all the required fields.");
+			toast.error("Please enter all the required fields.", {
+				position: "bottom-right",
+				autoClose: 4000,
+				hideProgressBar: true,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+				theme: "light",
+			});
             return;
         }
 
@@ -170,13 +182,14 @@ const SignupForm = () => {
 				placeholder="password"
 				onChange={(e) => setPassword(e.target.value)}
 				/>
-				<button
+				<IconButton
 				className="password-button"
 				type="button" // Prevent the form submission
 				onClick={togglePasswordVisibility} // Toggle password visibility
 				>
 				<i className={passwordVisible ? "bx bx-hide" : "bx bx-show"}></i>
-				</button>
+				<VisibilityIcon />
+				</IconButton>
 			</label>
 			<button className="login-button" type="submit">
 				Sign Up
@@ -186,7 +199,6 @@ const SignupForm = () => {
                 <span>Already have an account? </span>
                 <a href="/login">Login</a>
             </div>
-			<div className="footer">@PAWSITIVE HEALTH</div>
 		</form>
 		</div>
 	);
