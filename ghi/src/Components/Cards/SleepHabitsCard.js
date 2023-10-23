@@ -1,35 +1,37 @@
 import * as React from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import { useGetDailyWalksQuery } from "../../Store/DailyWalksApi";
+import { useGetSleepHabitsQuery } from "../../Store/SleepHabitsApi";
 import {
 	Chart as ChartJS,
 	CategoryScale,
 	LinearScale,
-	BarElement,
+	LineElement, // Change from BarElement to LineElement
 	Title,
 	Tooltip,
 	Legend,
+	PointElement,
 } from "chart.js";
-import { Bar } from "react-chartjs-2";
+import { Line } from "react-chartjs-2"; // Change from Bar to Line
 
 ChartJS.register(
 	CategoryScale,
 	LinearScale,
-	BarElement,
+	LineElement, // Change from BarElement to LineElement
 	Title,
 	Tooltip,
-	Legend
+	Legend,
+	PointElement
 );
 
-export default function DailyWalksCard({ selectedPetId }) {
-	const { data } = useGetDailyWalksQuery();
+export default function SleepHabitsCard({ selectedPetId }) {
+	const { data } = useGetSleepHabitsQuery();
 
 	if (!data) {
 		return <div>Loading...</div>;
 	}
 
-	const filteredData = data.filter((walk) => walk.pet_id === selectedPetId);
+	const filteredData = data.filter((sleep) => sleep.pet_id === selectedPetId);
 
 	const options = {
 		responsive: true,
@@ -59,30 +61,18 @@ export default function DailyWalksCard({ selectedPetId }) {
 		return new Date(dateString).toLocaleDateString(undefined, options);
 	};
 
-	const labels = filteredData.map((walk) => formatDate(walk.date));
-
-	const themeColors = [
-		"rgba(255, 87, 51, .5)",
-		"rgba(255, 195, 0, .5)",
-		"rgba(51, 255, 87, .5)",
-	];
-
-	const hoverColors = [
-		"rgba(255, 87, 51, 1)",
-		"rgba(255, 195, 0, 1)",
-		"rgba(51, 255, 87, 1)",
-	];
+	const labels = filteredData.map((sleep) => formatDate(sleep.date));
 
 	const chartData = {
 		labels,
 		datasets: [
 			{
 				label: "Duration (minutes)",
-				data: filteredData.map((walk) => walk.duration),
-				backgroundColor: themeColors,
-				borderColor: themeColors,
-				borderWidth: 1,
-				hoverBackgroundColor: hoverColors,
+				data: filteredData.map((sleep) => sleep.duration),
+				backgroundColor: "#BB7843",
+				borderColor: "#BB7843",
+				borderWidth: 2,
+				pointBackgroundColor: "#BB7843",
 			},
 		],
 	};
@@ -100,8 +90,8 @@ export default function DailyWalksCard({ selectedPetId }) {
 				}}
 			>
 				<CardContent sx={{ overflowY: "auto" }}>
-					<h1 style={{ textAlign: "center" }}>Daily Walks</h1>
-					<Bar data={chartData} options={options} />
+					<h1 style={{ textAlign: "center" }}>Sleep Habits</h1>
+					<Line data={chartData} options={options} />
 				</CardContent>
 			</Card>
 		);

@@ -9,6 +9,7 @@ body {
 	background-repeat: no-repeat;
 	background-position: center center;
 	font-size: 12px;
+	/* overflow: hidden; */
 }
 .inspiration {
 	position: fixed;

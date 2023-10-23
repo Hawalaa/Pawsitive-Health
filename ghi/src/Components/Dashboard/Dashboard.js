@@ -6,10 +6,12 @@ import BasicCard from "./Card";
 import MedicalHistoryCard from "../Cards/MedicalHistoryCard";
 import PoopHealthCard from "../Cards/PoopHealthCard";
 import DailyWalksCard from "../Cards/DailyWalksCard";
+import SleepHabitsCard from "../Cards/SleepHabitsCard";
+import { useState } from "react";
 
 export default function Dashboard() {
 	const { data } = useGetDashboardDataQuery();
-	const [selectedPetId, setSelectedPetId] = React.useState("");
+	const [selectedPetId, setSelectedPetId] = useState("");
 
 	const handlePetChange = (selectedPetId) => {
 		setSelectedPetId(selectedPetId);
@@ -47,7 +49,7 @@ export default function Dashboard() {
 								gridTemplateColumns: "1fr 1fr 1fr",
 							}}
 						>
-							<BasicCard />
+							<SleepHabitsCard selectedPetId={selectedPetId} />
 							<BasicCard />
 							<PoopHealthCard selectedPetId={selectedPetId} />
 						</div>
