@@ -5,9 +5,16 @@ import TopNavbar from "./TopNavbar";
 import BasicCard from "./Card";
 import MedicalHistoryCard from "../Cards/MedicalHistoryCard";
 import PoopHealthCard from "../Cards/PoopHealthCard";
+import DailyWalksCard from "../Cards/DailyWalksCard";
+import { useState } from "react";
 
 export default function Dashboard() {
 	const { data } = useGetDashboardDataQuery();
+	const [selectedPetId, setSelectedPetId] = useState("");
+
+	const handlePetChange = (selectedPetId) => {
+		setSelectedPetId(selectedPetId);
+	};
 
 	if (data) {
 		return (
@@ -21,17 +28,19 @@ export default function Dashboard() {
 							width: "100%",
 							flexDirection: "column",
 							display: "flex",
+							transform: "translate(-15px, -8px)",
+							overflow: "hidden",
 						}}
 					>
-						<TopNavbar />
+						<TopNavbar onPetChange={handlePetChange} />
 						<div
 							style={{
 								display: "grid",
 								gridTemplateColumns: "2fr 1fr",
 							}}
 						>
-							<BasicCard />
-							<MedicalHistoryCard />
+							<DailyWalksCard selectedPetId={selectedPetId} />
+							<MedicalHistoryCard selectedPetId={selectedPetId} />
 						</div>
 						<div
 							style={{
@@ -41,7 +50,7 @@ export default function Dashboard() {
 						>
 							<BasicCard />
 							<BasicCard />
-							<PoopHealthCard />
+							<PoopHealthCard selectedPetId={selectedPetId} />
 						</div>
 					</div>
 				</div>

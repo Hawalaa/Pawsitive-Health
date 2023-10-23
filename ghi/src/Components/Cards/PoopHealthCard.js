@@ -8,9 +8,15 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useGetPoopHealthQuery } from "../../Store/PoopHealthApi";
 
-export default function PoopHealthCard() {
+export default function PoopHealthCard({ selectedPetId }) {
 	const { data } = useGetPoopHealthQuery();
 	const [expanded, setExpanded] = React.useState(false);
+
+	if (!data) {
+		return <div>Loading...</div>;
+	}
+
+	const filteredData = data.filter((poop) => poop.pet_id === selectedPetId);
 
 	const handleChange = (panel) => (event, isExpanded) => {
 		setExpanded(isExpanded ? panel : false);
@@ -47,7 +53,7 @@ export default function PoopHealthCard() {
 		return `${formattedHours}:${formattedMinutes} ${period}`;
 	};
 
-	if (data) {
+	if (filteredData) {
 		return (
 			<Card
 				sx={{
@@ -61,7 +67,7 @@ export default function PoopHealthCard() {
 			>
 				<CardContent sx={{ overflowY: "auto" }}>
 					<h1 style={{ textAlign: "center" }}>Poop Health</h1>
-					{data.map((poop, index) => (
+					{filteredData.map((poop, index) => (
 						<Accordion
 							key={index}
 							expanded={expanded === `panel${index}`}
