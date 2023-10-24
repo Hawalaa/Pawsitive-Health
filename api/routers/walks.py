@@ -7,7 +7,7 @@ router = APIRouter()
 
 
 @router.post(
-        "/user/{user_id}/pet/{pet_id}/walks",
+        "/pet/{pet_id}/walks",
         response_model=Union[WalkOut, Error]
         )
 def create_walk(
@@ -32,7 +32,7 @@ def get_all(
 
 
 @router.put(
-        "/user/{user_id}/pet/{pet_id}/walks/{walk_id}",
+        "/pet/{pet_id}/walks/{walk_id}",
         response_model=Union[WalkOut, Error]
         )
 def update_walk(
@@ -45,7 +45,7 @@ def update_walk(
 
 
 @router.delete(
-        "/user/{user_id}/pet/{pet_id}/walks/{walk_id}",
+        "/walks/{walk_id}",
         response_model=bool
         )
 def delete_walk(

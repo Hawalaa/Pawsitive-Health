@@ -55,7 +55,7 @@ def test_create_feeding():
     }
 
     # Act
-    response = client.post("/user/{user_id}/pet/1/feedings", json=json)
+    response = client.post("/pet/1/feedings", json=json)
 
     # Clean up
     app.dependency_overrides = {}

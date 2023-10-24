@@ -7,6 +7,7 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useGetPoopHealthQuery } from "../../Store/PoopHealthApi";
+import { Divider } from "@mui/material";
 
 export default function PoopHealthCard({ selectedPetId }) {
 	const { data } = useGetPoopHealthQuery();
@@ -99,5 +100,24 @@ export default function PoopHealthCard({ selectedPetId }) {
 				</CardContent>
 			</Card>
 		);
-	}
+	} else {
+        return (
+			<Card
+				sx={{
+					minWidth: 275,
+					m: 1,
+					height: 515,
+					overflowY: "auto",
+					backgroundColor: "rgba(255, 255, 255, 0.99)",
+					boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
+				}}
+			>
+				<CardContent sx={{ overflowY: "auto" }}>
+					<h1 style={{ textAlign: "center" }}>Poop Health</h1>
+                    <Divider />
+					<h2 style={{ textAlign: "left" }}>No Poop Health Data Available...</h2>
+				</CardContent>
+			</Card>
+        );
+    }
 }

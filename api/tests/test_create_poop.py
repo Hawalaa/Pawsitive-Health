@@ -55,7 +55,7 @@ def test_create_poop():
     }
 
     # Act
-    response = client.post("/user/{user_id}/pet/1/poops", json=json)
+    response = client.post("/pet/1/poops", json=json)
 
     # Clean up
     app.dependency_overrides = {}

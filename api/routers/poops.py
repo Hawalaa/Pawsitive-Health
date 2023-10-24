@@ -7,8 +7,9 @@ router = APIRouter()
 
 
 @router.post(
-    "/user/{user_id}/pet/{pet_id}/poops", response_model=Union[PoopOut, Error]
-)
+        "/pet/{pet_id}/poops",
+        response_model=Union[PoopOut, Error]
+        )
 def create_poop(
     pet_id: int,
     poop: PoopIn,
@@ -31,7 +32,7 @@ def get_all(
 
 
 @router.put(
-    "/user/{user_id}/pet/{pet_id}/poops/{poop_id}",
+    "/pet/{pet_id}/poops/{poop_id}",
     response_model=Union[PoopOut, Error],
 )
 def update_poop(
@@ -44,8 +45,9 @@ def update_poop(
 
 
 @router.delete(
-    "/user/{user_id}/pet/{pet_id}/poops/{poop_id}", response_model=bool
-)
+        "/poops/{poop_id}",
+        response_model=bool
+        )
 def delete_poop(
     poop_id: int,
     repo: PoopRepository = Depends(),

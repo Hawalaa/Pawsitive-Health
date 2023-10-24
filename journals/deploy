@@ -1,7 +1,0 @@
-glv-cloud-cli deploy -a pawsitivedb -i postgres:14.5-bullseye -e POSTGRES_DB=pawsitivedb -e POSTGRES_USER=pawsitiveuser -e POSTGRES_PASSWORD=pawsitivepassword -m /var/lib/postgresql -p 5432 -x=false
-
-
-glv-cloud-cli deploy -a pawsitivedb -i registry.gitlab.com/pawsitive-health/pawsitive-health/api:latest -e SIGNING_KEY=pawsitive_health_signing -e DATABASE_URL=postgresql://user:password@jun-7-pt-pawsitivedb-service.default.svc.cluster.local/postgres -e CORS_HOST=https://pawsitivedb.gitlab.io
-
-
-registry.gitlab.com/pawsitive-health/pawsitive-health/api:latest

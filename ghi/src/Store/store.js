@@ -8,6 +8,9 @@ import { petProfileApi } from "./PetProfileApi";
 import { userProfileApi } from "./UserProfileApi";
 import { dailyWalksApi } from "./DailyWalksApi";
 import { sleepHabitsApi } from "./SleepHabitsApi";
+import { walkHistoryApi } from "./WalkHistoryApi";
+import { sleepHistoryApi } from "./SleepHistoryApi";
+import { feedingHistoryApi } from "./FeedingHistoryApi";
 
 export const store = configureStore({
 	reducer: {
@@ -19,6 +22,9 @@ export const store = configureStore({
 		[userProfileApi.reducerPath]: userProfileApi.reducer,
 		[dailyWalksApi.reducerPath]: dailyWalksApi.reducer,
 		[sleepHabitsApi.reducerPath]: sleepHabitsApi.reducer,
+		[walkHistoryApi.reducerPath]: walkHistoryApi.reducer,
+		[sleepHistoryApi.reducerPath]: sleepHistoryApi.reducer,
+		[feedingHistoryApi.reducerPath]: feedingHistoryApi.reducer,
 	},
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware()
@@ -29,7 +35,10 @@ export const store = configureStore({
 			.concat(petProfileApi.middleware)
 			.concat(userProfileApi.middleware)
 			.concat(dailyWalksApi.middleware)
-			.concat(sleepHabitsApi.middleware),
+			.concat(sleepHabitsApi.middleware)
+			.concat(walkHistoryApi.middleware)
+			.concat(sleepHistoryApi.middleware)
+			.concat(feedingHistoryApi.middleware),
 });
 
 setupListeners(store.dispatch);

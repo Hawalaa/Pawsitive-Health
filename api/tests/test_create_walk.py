@@ -51,7 +51,7 @@ def test_create_walk():
     }
 
     # Act
-    response = client.post("/user/{user_id}/pet/1/walks", json=json)
+    response = client.post("/pet/1/walks", json=json)
 
     # Clean up
     app.dependency_overrides = {}
