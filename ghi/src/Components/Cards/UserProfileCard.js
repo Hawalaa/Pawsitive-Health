@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import {
@@ -11,6 +12,7 @@ import {
 	Button,
 } from "@mui/material";
 import { useGetUserProfileDataQuery } from "../../Store/UserProfileApi";
+import AddPetModal from "../ModalForms/CreateModals/CreatePetModal";
 import { Link } from "react-router-dom";
 
 export default function UserProfileCard() {
@@ -20,6 +22,15 @@ export default function UserProfileCard() {
 	const addPetIcon =
 		"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9vq4M0Rag2NXCXiFJdeI55VwhHLI4qBXXdw&usqp=CAU";
 	const userId = data[0].user_id;
+	const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+
+	const openCreateModal = () => {
+        setIsCreateModalOpen(true);
+    };
+
+    const closeCreateModal = () => {
+        setIsCreateModalOpen(false);
+    };
 
 	function capitalizeLetter(str) {
 		return str.charAt(0).toUpperCase() + str.slice(1);
@@ -76,13 +87,14 @@ export default function UserProfileCard() {
 								</ListItem>
 							</Grid>
 						))}
-						<Button component={Link} to={`/user/${userId}/pet`}>
+						<Button onClick={openCreateModal}>
 							<Avatar
 								alt="Add a Pet"
 								src={addPetIcon}
 								sx={{ width: 200, height: 200 }}
 							/>
 						</Button>
+						<AddPetModal isOpen={isCreateModalOpen} onClose={closeCreateModal} userId={data[0].user_id}/>
 					</Grid>
 				</CardContent>
 			</Card>

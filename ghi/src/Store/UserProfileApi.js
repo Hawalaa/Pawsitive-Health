@@ -15,11 +15,25 @@ export const userProfileApi = createApi({
 
     return headers;
   },
+  tagTypes: ["PetList"],
   endpoints: (builder) => ({
     getUserProfileData: builder.query({
       query: () => "/user/",
+      providesTags: ["PetList"],
+    }),
+    createPetData: builder.mutation({
+      query: ({ newPet, id }) => ({
+        url: `/user/${id}/pet`,
+        method: "POST",
+        body: newPet,
+        credentials: "include",
+      }),
+      invalidatesTags: ["PetList"],
     }),
   }),
 });
 
-export const { useGetUserProfileDataQuery } = userProfileApi;
+export const {
+  useGetUserProfileDataQuery,
+  useCreatePetDataMutation
+} = userProfileApi;
