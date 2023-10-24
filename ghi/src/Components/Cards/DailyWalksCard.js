@@ -99,7 +99,15 @@ export default function DailyWalksCard({ selectedPetId }) {
 					boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
 				}}
 			>
-				<CardContent sx={{ overflowY: "auto" }}>
+				<CardContent
+					sx={{
+						height: "auto",
+						maxHeight: 430,
+						display: "flex",
+						flexDirection: "column",
+						alignItems: "center",
+					}}
+				>
 					<h1 style={{ textAlign: "center" }}>Daily Walks</h1>
 					<Bar data={chartData} options={options} />
 				</CardContent>

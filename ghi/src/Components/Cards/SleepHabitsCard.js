@@ -6,18 +6,18 @@ import {
 	Chart as ChartJS,
 	CategoryScale,
 	LinearScale,
-	LineElement, // Change from BarElement to LineElement
+	LineElement,
 	Title,
 	Tooltip,
 	Legend,
 	PointElement,
 } from "chart.js";
-import { Line } from "react-chartjs-2"; // Change from Bar to Line
+import { Line } from "react-chartjs-2";
 
 ChartJS.register(
 	CategoryScale,
 	LinearScale,
-	LineElement, // Change from BarElement to LineElement
+	LineElement,
 	Title,
 	Tooltip,
 	Legend,
