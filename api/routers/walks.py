@@ -17,9 +17,6 @@ def create_walk(
     repo: WalkRepository = Depends(),
     account_data: dict = Depends(authenticator.get_current_account_data)
 ):
-    record = repo.get_one(pet_id)
-    if record is None:
-        response.status_code = 404
     return repo.create(walk, pet_id)
 
 
