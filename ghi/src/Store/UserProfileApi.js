@@ -18,7 +18,7 @@ export const userProfileApi = createApi({
   tagTypes: ["PetList"],
   endpoints: (builder) => ({
     getUserProfileData: builder.query({
-      query: () => "/user/",
+      query: () => "/user",
       providesTags: ["PetList"],
     }),
     createPetData: builder.mutation({

@@ -43,7 +43,7 @@ const SignupForm = () => {
         data.email = email;
         data.password = password;
 
-        const accountUrl = "http://localhost:8000/api/accounts/";
+        const accountUrl = `${process.env.REACT_APP_API_HOST}/api/accounts`;
         const fetchConfig = {
             method: "post",
             body: JSON.stringify(data),
