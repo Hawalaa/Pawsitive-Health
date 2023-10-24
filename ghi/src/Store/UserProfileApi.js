@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const userProfileApi = createApi({
   reducerPath: "userprofileApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:8000",
+    baseUrl: process.env.REACT_APP_API_HOST,
     credentials: "include",
   }),
   prepareHeaders: (headers, { getState }) => {
