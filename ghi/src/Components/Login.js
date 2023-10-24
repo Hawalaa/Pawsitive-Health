@@ -49,6 +49,10 @@ const LoginForm = () => {
 		}
 	};
 
+	const handleSignUpClick = () => {
+		navigate("/signup");
+	};
+
 	return (
 		<div className="center">
 			<form onSubmit={(e) => handleSubmit(e)}>
@@ -151,7 +155,7 @@ const LoginForm = () => {
 			</div>
 			<div className="footer">
                 <span>Don't have an account? </span>
-                <a href="/signup">Sign Up</a>
+				<button onClick={handleSignUpClick}>Sign Up</button>
             </div>
 			</form>
 		</div>
