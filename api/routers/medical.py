@@ -22,9 +22,6 @@ def create_medical(
     repo: MedicalRepository = Depends(),
     account_data: dict = Depends(authenticator.get_current_account_data),
 ):
-    record = repo.get_one(pet_id)
-    if record is None:
-        response.status_code = 400  # Bad Request
     return repo.create(medical)
 
 

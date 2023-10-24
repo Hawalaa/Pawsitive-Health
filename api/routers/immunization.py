@@ -22,9 +22,6 @@ def create_immunization(
     repo: ImmunizationRepository = Depends(),
     account_data: dict = Depends(authenticator.get_current_account_data),
 ):
-    record = repo.get_one(pet_id)
-    if record is None:
-        response.status_code = 400  # bad request
     return repo.create(immunization)
 
 
