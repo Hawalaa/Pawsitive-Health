@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useGetPetProfileDataQuery } from "../../Store/PetProfileApi";
 import Navbar from "../Dashboard/Navbar";
@@ -13,13 +13,32 @@ import {
 	Grid,
 	Divider,
 	Typography,
-} from "@mui/material";
+	Button } from '@mui/material';
+import UpdatePetModal from "../ModalForms/UpdateModals/UpdatePetModal";
 
 export default function ListPet() {
 	const params = useParams(); // get id from URL parameters
 	const { data } = useGetPetProfileDataQuery(params);
-	const defaultPetPic =
-		"https://cdn2.iconfinder.com/data/icons/veterinary-12/512/Veterinary_Icons-16-512.png";
+	const defaultPetPic = "https://cdn2.iconfinder.com/data/icons/veterinary-12/512/Veterinary_Icons-16-512.png";
+
+	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [updatedValue, setUpdatedValue] = useState("");
+
+	if (!data) {
+		return <div>Loading...</div>;
+	}
+
+	const handleOpenModal = () => {
+    setIsModalOpen(true);
+	};
+
+	const handleCloseModal = () => {
+    setIsModalOpen(false);
+	};
+
+	const handleUpdatedValue = async (updatedValue) => {
+    setUpdatedValue(updatedValue);
+	};
 
 	if (data) {
 		return (
@@ -58,13 +77,13 @@ export default function ListPet() {
 									</h1>
 									<Divider />
 									<Grid container>
-										<Grid item key={data.pet_id}>
+										<Grid item key={data.id}>
 											<ListItem>
 												<ListItemAvatar
 													sx={{ textAlign: "center" }}
 												>
 													<Avatar
-														alt={data.name}
+														alt={data.pet_name}
 														src={
 															data.pet_pic
 																? data.pet_pic
@@ -102,7 +121,24 @@ export default function ListPet() {
 											</ListItemText>
 										</Grid>
 									</Grid>
-								</CardContent>
+										<ListItem>
+									<Button variant="contained" onClick={handleOpenModal}>EDIT {data.pet_name}</Button>
+									<UpdatePetModal
+										open={isModalOpen}
+										onClose={handleCloseModal}
+										onUpdate={handleUpdatedValue}
+										updatedValue={updatedValue}
+										params={params}
+										initialValue={{
+											name: data.pet_name,
+											breed: data.breed,
+											gender: data.gender,
+											age: data.age,
+											weight: data.weight
+										}}
+									/>
+								</ListItem>
+						</CardContent>
 							</Card>
 						</div>
 					</div>

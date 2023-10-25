@@ -66,7 +66,7 @@ export default function AddPetModal({ isOpen, onClose, userId }) {
             toast.success("A new pet has been created!");
             navigate("/user");
             } catch (err) {
-            console.log("handleSubmit error", err);
+            toast.error("Unable to create a pet");
         }
 
         onClose();
