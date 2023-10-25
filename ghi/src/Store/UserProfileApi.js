@@ -30,10 +30,19 @@ export const userProfileApi = createApi({
       }),
       invalidatesTags: ["PetList"],
     }),
+    deletePetProfile: builder.mutation({
+			query: ({ id, pet_id }) => ({
+				url: `/user/${id}/pet/${pet_id}`,
+				method: "DELETE",
+				credentials: "include",
+			}),
+			invalidatesTags: ["PetList"],
+		}),
   }),
 });
 
 export const {
   useGetUserProfileDataQuery,
-  useCreatePetDataMutation
+  useCreatePetDataMutation,
+  useDeletePetProfileMutation,
 } = userProfileApi;

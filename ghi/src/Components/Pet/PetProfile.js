@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useGetPetProfileDataQuery } from "../../Store/PetProfileApi";
 import Navbar from "../Dashboard/Navbar";
 import TopNavbar from "../Dashboard/TopNavbar";
@@ -15,18 +15,27 @@ import {
 	Typography,
 	Button } from '@mui/material';
 import UpdatePetModal from "../ModalForms/UpdateModals/UpdatePetModal";
+import {useDeletePetProfileMutation} from "../../Store/UserProfileApi";
+import { toast } from "react-toastify";
 
 export default function ListPet() {
 	const params = useParams(); // get id from URL parameters
 	const { data } = useGetPetProfileDataQuery(params);
 	const defaultPetPic = "https://cdn2.iconfinder.com/data/icons/veterinary-12/512/Veterinary_Icons-16-512.png";
-
+	const [DeletePetProfileMutation] = useDeletePetProfileMutation();
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [updatedValue, setUpdatedValue] = useState("");
+	const navigate = useNavigate();
 
 	if (!data) {
 		return <div>Loading...</div>;
 	}
+
+	const handleDelete = async () => {
+		await DeletePetProfileMutation(params);
+		toast.success("Pet profile has been deleted");
+		navigate("/user");
+	};
 
 	const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -137,6 +146,16 @@ export default function ListPet() {
 											weight: data.weight
 										}}
 									/>
+								</ListItem>
+								<ListItem>
+									<Button
+									variant="contained"
+									color="secondary"
+									onClick={handleDelete}
+									style={{ marginTop: "20px" }}
+									>
+									Delete {data.pet_name}
+									</Button>
 								</ListItem>
 						</CardContent>
 							</Card>
