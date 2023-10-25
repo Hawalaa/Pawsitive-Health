@@ -7,7 +7,7 @@ router = APIRouter()
 
 
 @router.post(
-        "/pet/{pet_id}/poops/",
+        "/pet/{pet_id}/poops",
         response_model=Union[PoopOut, Error]
         )
 def create_poop(
