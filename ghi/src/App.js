@@ -19,8 +19,8 @@ export default function App() {
 	return (
 		<Provider store={store}>
 			<div className="App">
-				<AuthProvider>
-					<BrowserRouter basename={basename}>
+				{<BrowserRouter basename={basename}>
+					<AuthProvider baseUrl={process.env.REACT_APP_API_HOST}>
 						<Routes>
 							<Route path="/" element={<LoginForm />} />
 							<Route path="/dashboard" element={<Dashboard />} />
@@ -37,8 +37,8 @@ export default function App() {
 							/>
 							<Route path="/records" element={<Records />} />
 						</Routes>
-					</BrowserRouter>
-				</AuthProvider>
+					</AuthProvider>
+				</BrowserRouter>}
 				<ToastContainer
 					position="bottom-right"
 					autoClose={4000}
