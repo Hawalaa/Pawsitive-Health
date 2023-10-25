@@ -60,7 +60,6 @@ export default function AddPetModal({ isOpen, onClose, userId }) {
             pet_pic: petPic || "",
             user_id: userId,
         };
-        console.log(newPet)
 
         try {
             await createPetMutation({ newPet, id: userId }).unwrap();

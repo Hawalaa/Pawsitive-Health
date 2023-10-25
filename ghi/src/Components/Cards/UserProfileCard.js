@@ -120,8 +120,18 @@ export default function UserProfileCard() {
 					</p>
 					<Grid container>
 						<Typography variant="h6">
-							You don't have a pet to show...
+							Use the button below to add a pet!
 						</Typography>
+					</Grid>
+					<Grid>
+						<Button onClick={openCreateModal}>
+							<Avatar
+								alt="Add a Pet"
+								src={addPetIcon}
+								sx={{ width: 200, height: 200 }}
+							/>
+						</Button>
+						<AddPetModal isOpen={isCreateModalOpen} onClose={closeCreateModal} userId={data[0].user_id}/>
 					</Grid>
 				</CardContent>
 			</Card>
