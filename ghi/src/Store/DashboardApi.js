@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const dashboardApi = createApi({
 	reducerPath: "dashboardApi",
 	baseQuery: fetchBaseQuery({
-		baseUrl: "http://localhost:8000",
+		baseUrl: process.env.REACT_APP_API_HOST,
 		credentials: "include",
 	}),
 	prepareHeaders: (headers, { getState }) => {
@@ -17,7 +17,7 @@ export const dashboardApi = createApi({
 	},
 	endpoints: (builder) => ({
 		getDashboardData: builder.query({
-			query: () => "/dashboard/",
+			query: () => "/dashboard",
 		}),
 	}),
 });

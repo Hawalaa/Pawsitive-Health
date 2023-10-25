@@ -8,7 +8,6 @@ export default function UserProfile() {
     const { data } = useGetUserProfileDataQuery();
 
     if (data) {
-        console.log(data[0].pets)
         return (
 			<>
 			<div style={{ display: "flex" }}>

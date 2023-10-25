@@ -10,26 +10,36 @@ import ListPet from "./Components/Pet/PetProfile";
 import UserProfile from "./Components/User/UserProfile";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Activities from "./Components/Activities/Activities";
+import Records from "./Components/Records/Records";
 
 export default function App() {
 	const domain = /https:\/\/[^/]+/;
 	const basename = process.env.PUBLIC_URL.replace(domain, "");
 	return (
 		<Provider store={store}>
-		<div className="App">
-			<AuthProvider>
-			<BrowserRouter basename={basename}>
-				<Routes>
-				<Route path="/" element={<Dashboard />} />
-				<Route path="/dashboard" element={<Dashboard />} />
-				<Route path="/login" element={<LoginForm />} />
-				<Route path="/signup" element={<SignupForm />} />
-				<Route path="/user/:id/pet/:pet_id" element={<ListPet />} />
-				<Route path="/user" element={<UserProfile />} />
-				</Routes>
-			</BrowserRouter>
-			</AuthProvider>
-			<ToastContainer
+			<div className="App">
+				<AuthProvider>
+					<BrowserRouter basename={basename}>
+						<Routes>
+							<Route path="/" element={<LoginForm />} />
+							<Route path="/dashboard" element={<Dashboard />} />
+							<Route path="/login" element={<LoginForm />} />
+							<Route path="/signup" element={<SignupForm />} />
+							<Route
+								path="/user/:id/pet/:pet_id"
+								element={<ListPet />}
+							/>
+							<Route path="/user" element={<UserProfile />} />
+							<Route
+								path="/activities"
+								element={<Activities />}
+							/>
+							<Route path="/records" element={<Records />} />
+						</Routes>
+					</BrowserRouter>
+				</AuthProvider>
+				<ToastContainer
 					position="bottom-right"
 					autoClose={4000}
 					hideProgressBar
@@ -41,7 +51,7 @@ export default function App() {
 					pauseOnHover
 					theme="light"
 				/>
-		</div>
+			</div>
 		</Provider>
-);
+	);
 }

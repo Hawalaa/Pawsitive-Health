@@ -8,6 +8,7 @@ class Error(BaseModel):
 
 
 class PetOut(BaseModel):
+    id: int
     pet_name: str
     breed: str
     gender: str

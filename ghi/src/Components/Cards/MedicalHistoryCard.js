@@ -6,10 +6,10 @@ import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { useGetUserDataByIdQuery } from "../../Store/MedicalHistoryApi";
+import { useGetMedicalHistoryQuery } from "../../Store/MedicalHistoryApi";
 
 export default function MedicalHistoryCard({ selectedPetId }) {
-	const { data } = useGetUserDataByIdQuery();
+	const { data } = useGetMedicalHistoryQuery();
 	const [expanded, setExpanded] = React.useState(false);
 
 	if (!data) {
