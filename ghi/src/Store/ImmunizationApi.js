@@ -40,7 +40,7 @@ export const immunizationHistoryApi = createApi({
 		}),
 		updateImmunization: builder.mutation({
 			query: ({ updateImmunization, pet_id, immunization_id }) => ({
-				url: `/pet/${pet_id}/immunization/${immunization_id}}`,
+				url: `/pet/${pet_id}/immunization/${immunization_id}`,
 				method: "PUT",
 				body: updateImmunization,
 				credentials: "include",
