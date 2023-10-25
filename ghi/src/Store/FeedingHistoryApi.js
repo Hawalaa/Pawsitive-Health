@@ -10,26 +10,25 @@ export const feedingHistoryApi = createApi({
 		const token = getState().auth.token;
 
 		if (token) {
-			console.log("Token", token);
 			headers.set("Authorization", `Bearer ${token}`);
 		}
 
 		return headers;
 	},
-	tagTypes: ['FeedingList'],
+	tagTypes: ["FeedingList"],
 	endpoints: (builder) => ({
 		getFeedingHistory: builder.query({
 			query: (id, pet_id) => `/user/${id}/pet/${pet_id}/feedings`,
-			providesTags: ['FeedingList'],
+			providesTags: ["FeedingList"],
 		}),
-        deleteFeeding: builder.mutation({
-            query: ({ feeding_id }) => ({
-                url: `/feedings/${feeding_id}`,
-                method: "DELETE",
-                credentials: "include",
-            }),
-			invalidatesTags: ['FeedingList'],
-        }),
+		deleteFeeding: builder.mutation({
+			query: ({ feeding_id }) => ({
+				url: `/feedings/${feeding_id}`,
+				method: "DELETE",
+				credentials: "include",
+			}),
+			invalidatesTags: ["FeedingList"],
+		}),
 		createFeeding: builder.mutation({
 			query: ({ newFeeding, petId }) => ({
 				url: `/pet/${petId}/feedings`,
@@ -37,7 +36,7 @@ export const feedingHistoryApi = createApi({
 				body: newFeeding,
 				credentials: "include",
 			}),
-			invalidatesTags: ['FeedingList'],
+			invalidatesTags: ["FeedingList"],
 		}),
 		updateFeeding: builder.mutation({
 			query: ({ updatedFeeding, petId, feeding_id }) => ({
@@ -46,14 +45,14 @@ export const feedingHistoryApi = createApi({
 				body: updatedFeeding,
 				credentials: "include",
 			}),
-			invalidatesTags: ['FeedingList'],
+			invalidatesTags: ["FeedingList"],
 		}),
-	})
+	}),
 });
 
 export const {
 	useGetFeedingHistoryQuery,
 	useDeleteFeedingMutation,
 	useCreateFeedingMutation,
-	useUpdateFeedingMutation
+	useUpdateFeedingMutation,
 } = feedingHistoryApi;

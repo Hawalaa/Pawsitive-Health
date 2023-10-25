@@ -27,6 +27,7 @@ export default function Activities() {
 							width: "100%",
 							flexDirection: "column",
 							display: "flex",
+							transform: "translate(-15px, -8px)",
 						}}
 					>
 						<TopNavbar onPetChange={handlePetChange} />

@@ -10,26 +10,25 @@ export const walkHistoryApi = createApi({
 		const token = getState().auth.token;
 
 		if (token) {
-			console.log("Token", token);
 			headers.set("Authorization", `Bearer ${token}`);
 		}
 
 		return headers;
 	},
-	tagTypes: ['WalkList'],
+	tagTypes: ["WalkList"],
 	endpoints: (builder) => ({
 		getWalkHistory: builder.query({
 			query: (id, pet_id) => `/user/${id}/pet/${pet_id}/walks`,
-			providesTags: ['WalkList'],
+			providesTags: ["WalkList"],
 		}),
-        deleteWalk: builder.mutation({
-            query: ({ walk_id }) => ({
-                url: `/walks/${walk_id}`,
-                method: "DELETE",
-                credentials: "include",
-            }),
-			invalidatesTags: ['WalkList'],
-        }),
+		deleteWalk: builder.mutation({
+			query: ({ walk_id }) => ({
+				url: `/walks/${walk_id}`,
+				method: "DELETE",
+				credentials: "include",
+			}),
+			invalidatesTags: ["WalkList"],
+		}),
 		createWalk: builder.mutation({
 			query: ({ newWalk, petId }) => ({
 				url: `/pet/${petId}/walks`,
@@ -37,7 +36,7 @@ export const walkHistoryApi = createApi({
 				body: newWalk,
 				credentials: "include",
 			}),
-			invalidatesTags: ['WalkList'],
+			invalidatesTags: ["WalkList"],
 		}),
 		updateWalk: builder.mutation({
 			query: ({ updatedWalk, petId, walk_id }) => ({
@@ -46,7 +45,7 @@ export const walkHistoryApi = createApi({
 				body: updatedWalk,
 				credentials: "include",
 			}),
-			invalidatesTags: ['WalkList'],
+			invalidatesTags: ["WalkList"],
 		}),
 	}),
 });
@@ -55,5 +54,5 @@ export const {
 	useGetWalkHistoryQuery,
 	useDeleteWalkMutation,
 	useCreateWalkMutation,
-	useUpdateWalkMutation
+	useUpdateWalkMutation,
 } = walkHistoryApi;

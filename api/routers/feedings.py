@@ -1,5 +1,5 @@
 from authenticator import authenticator
-from fastapi import APIRouter, Depends, Response
+from fastapi import APIRouter, Depends
 from typing import List, Union
 from queries.feedings import Error, FeedingIn, FeedingOut, FeedingRepository
 
@@ -14,9 +14,8 @@ router = APIRouter()
 def create_feeding(
     pet_id: int,
     feeding: FeedingIn,
-    response: Response,
     repo: FeedingRepository = Depends(),
-    account_data: dict = Depends(authenticator.get_current_account_data)
+    account_data: dict = Depends(authenticator.get_current_account_data),
 ):
     return repo.create(feeding, pet_id)
 
@@ -27,7 +26,7 @@ def create_feeding(
 )
 def get_all(
     repo: FeedingRepository = Depends(),
-    account_data: dict = Depends(authenticator.get_current_account_data)
+    account_data: dict = Depends(authenticator.get_current_account_data),
 ):
     return repo.get_all()
 
@@ -40,17 +39,15 @@ def update_feeding(
     feeding_id: int,
     feeding: FeedingIn,
     repo: FeedingRepository = Depends(),
-    account_data: dict = Depends(authenticator.get_current_account_data)
+    account_data: dict = Depends(authenticator.get_current_account_data),
 ) -> Union[FeedingOut, Error]:
     return repo.update(feeding_id, feeding)
 
 
-@router.delete(
-    "/feedings/{feeding_id}", response_model=bool
-)
+@router.delete("/feedings/{feeding_id}", response_model=bool)
 def delete_feeding(
     feeding_id: int,
     repo: FeedingRepository = Depends(),
-    account_data: dict = Depends(authenticator.get_current_account_data)
+    account_data: dict = Depends(authenticator.get_current_account_data),
 ) -> bool:
     return repo.delete(feeding_id)

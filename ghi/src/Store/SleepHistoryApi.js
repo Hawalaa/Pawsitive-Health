@@ -10,26 +10,25 @@ export const sleepHistoryApi = createApi({
 		const token = getState().auth.token;
 
 		if (token) {
-			console.log("Token", token);
 			headers.set("Authorization", `Bearer ${token}`);
 		}
 
 		return headers;
 	},
-	tagTypes: ['SleepList'],
+	tagTypes: ["SleepList"],
 	endpoints: (builder) => ({
 		getSleepHistory: builder.query({
 			query: (id, pet_id) => `/user/${id}/pet/${pet_id}/sleeps`,
-			providesTags: ['SleepList'],
+			providesTags: ["SleepList"],
 		}),
 		deleteSleep: builder.mutation({
-            query: ({ sleep_id }) => ({
-                url: `/sleepings/${sleep_id}`,
-                method: "DELETE",
-                credentials: "include",
-            }),
-			invalidatesTags: ['SleepList'],
-        }),
+			query: ({ sleep_id }) => ({
+				url: `/sleepings/${sleep_id}`,
+				method: "DELETE",
+				credentials: "include",
+			}),
+			invalidatesTags: ["SleepList"],
+		}),
 		createSleep: builder.mutation({
 			query: ({ newSleep, petId }) => ({
 				url: `/pet/${petId}/sleeps`,
@@ -37,7 +36,7 @@ export const sleepHistoryApi = createApi({
 				body: newSleep,
 				credentials: "include",
 			}),
-			invalidatesTags: ['SleepList'],
+			invalidatesTags: ["SleepList"],
 		}),
 		updateSleep: builder.mutation({
 			query: ({ updatedSleep, petId, sleep_id }) => ({
@@ -46,7 +45,7 @@ export const sleepHistoryApi = createApi({
 				body: updatedSleep,
 				credentials: "include",
 			}),
-			invalidatesTags: ['SleepList'],
+			invalidatesTags: ["SleepList"],
 		}),
 	}),
 });
@@ -55,5 +54,5 @@ export const {
 	useGetSleepHistoryQuery,
 	useDeleteSleepMutation,
 	useCreateSleepMutation,
-	useUpdateSleepMutation
+	useUpdateSleepMutation,
 } = sleepHistoryApi;

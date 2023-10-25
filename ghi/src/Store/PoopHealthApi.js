@@ -10,26 +10,25 @@ export const poopHealthApi = createApi({
 		const token = getState().auth.token;
 
 		if (token) {
-			console.log("Token", token);
 			headers.set("Authorization", `Bearer ${token}`);
 		}
 
 		return headers;
 	},
-	tagTypes: ['PoopList'],
+	tagTypes: ["PoopList"],
 	endpoints: (builder) => ({
 		getPoopHealth: builder.query({
 			query: (id, pet_id) => `/user/${id}/pet/${pet_id}/poops`,
-			providesTags: ['PoopList'],
+			providesTags: ["PoopList"],
 		}),
 		deletePoop: builder.mutation({
-            query: ({ poop_id }) => ({
-                url: `/poops/${poop_id}`,
-                method: "DELETE",
-                credentials: "include",
-            }),
-			invalidatesTags: ['PoopList'],
-        }),
+			query: ({ poop_id }) => ({
+				url: `/poops/${poop_id}`,
+				method: "DELETE",
+				credentials: "include",
+			}),
+			invalidatesTags: ["PoopList"],
+		}),
 		createPoop: builder.mutation({
 			query: ({ newPoop, petId }) => ({
 				url: `/pet/${petId}/poops`,
@@ -37,7 +36,7 @@ export const poopHealthApi = createApi({
 				body: newPoop,
 				credentials: "include",
 			}),
-			invalidatesTags: ['PoopList'],
+			invalidatesTags: ["PoopList"],
 		}),
 		updatePoop: builder.mutation({
 			query: ({ updatedPoop, petId, poop_id }) => ({
@@ -46,7 +45,7 @@ export const poopHealthApi = createApi({
 				body: updatedPoop,
 				credentials: "include",
 			}),
-			invalidatesTags: ['PoopList'],
+			invalidatesTags: ["PoopList"],
 		}),
 	}),
 });
@@ -55,5 +54,5 @@ export const {
 	useGetPoopHealthQuery,
 	useDeletePoopMutation,
 	useCreatePoopMutation,
-	useUpdatePoopMutation
+	useUpdatePoopMutation,
 } = poopHealthApi;

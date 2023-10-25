@@ -10,14 +10,13 @@ export const petProfileApi = createApi({
 		const token = getState().auth.token;
 
 		if (token) {
-			console.log("Token", token);
 			headers.set("authorization", `Bearer ${token}`);
 		}
 		return headers;
 	},
 	endpoints: (builder) => ({
 		getPetProfileData: builder.query({
-			query: ({id, pet_id}) => `/user/${id}/pet/${pet_id}`,
+			query: ({ id, pet_id }) => `/user/${id}/pet/${pet_id}`,
 		}),
 	}),
 });

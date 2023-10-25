@@ -7,7 +7,10 @@ import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { useGetFeedingHistoryQuery, useDeleteFeedingMutation } from "../../Store/FeedingHistoryApi";
+import {
+	useGetFeedingHistoryQuery,
+	useDeleteFeedingMutation,
+} from "../../Store/FeedingHistoryApi";
 import AddFeedingRecordModal from "../ModalForms/CreateModals/CreateFeedModal";
 import UpdateFeedingRecordModal from "../ModalForms/UpdateModals/UpdateFeedingModal";
 import { Divider, IconButton, Box, Button } from "@mui/material";
@@ -17,37 +20,39 @@ import { toast } from "react-toastify";
 
 export default function FeedingHistoryCard({ selectedPetId }) {
 	const { data } = useGetFeedingHistoryQuery();
-    const [deleteFeeding] = useDeleteFeedingMutation();
+	const [deleteFeeding] = useDeleteFeedingMutation();
 	const [expanded, setExpanded] = React.useState(false);
-    const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+	const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 	const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
 
 	if (!data) {
 		return <div>Loading...</div>;
 	}
 
-	const filteredData = data.filter((feeding) => feeding.pet_id === selectedPetId);
+	const filteredData = data.filter(
+		(feeding) => feeding.pet_id === selectedPetId
+	);
 
-    const handleDelete = async (feedingId) => {
-        await deleteFeeding({ feeding_id: feedingId });
-		toast.error("Feeding has been deleted")
-    };
+	const handleDelete = async (feedingId) => {
+		await deleteFeeding({ feeding_id: feedingId });
+		toast.error("Feeding has been deleted");
+	};
 
-    const openCreateModal = () => {
-        setIsCreateModalOpen(true);
-    };
+	const openCreateModal = () => {
+		setIsCreateModalOpen(true);
+	};
 
-    const closeCreateModal = () => {
-        setIsCreateModalOpen(false);
-    };
+	const closeCreateModal = () => {
+		setIsCreateModalOpen(false);
+	};
 
 	const openUpdateModal = () => {
-        setIsUpdateModalOpen(true);
-    };
+		setIsUpdateModalOpen(true);
+	};
 
-    const closeUpdateModal = () => {
-        setIsUpdateModalOpen(false);
-    };
+	const closeUpdateModal = () => {
+		setIsUpdateModalOpen(false);
+	};
 
 	const handleChange = (panel) => (event, isExpanded) => {
 		setExpanded(isExpanded ? panel : false);
@@ -58,7 +63,7 @@ export default function FeedingHistoryCard({ selectedPetId }) {
 			year: "numeric",
 			month: "long",
 			day: "numeric",
-			timeZone: 'UTC',
+			timeZone: "UTC",
 		};
 		return new Date(dateString).toLocaleDateString(undefined, options);
 	};
@@ -85,7 +90,6 @@ export default function FeedingHistoryCard({ selectedPetId }) {
 		return `${formattedHours}:${formattedMinutes} ${period}`;
 	};
 
-
 	if (filteredData) {
 		return (
 			<Card
@@ -100,7 +104,27 @@ export default function FeedingHistoryCard({ selectedPetId }) {
 			>
 				<CardContent sx={{ overflowY: "auto" }}>
 					<h1 style={{ textAlign: "center" }}>Feeding History</h1>
-                    <Divider />
+					<Divider />
+					<Button
+						variant="text"
+						color="primary"
+						sx={{
+							color: "black",
+							backgroundColor: "#EBE09C",
+							borderRadius: "50px",
+							my: "10px",
+							position: "relative",
+							width: "100%",
+						}}
+						onClick={openCreateModal}
+					>
+						Add Feeding Record
+					</Button>
+					<AddFeedingRecordModal
+						isOpen={isCreateModalOpen}
+						onClose={closeCreateModal}
+						selectedPetId={selectedPetId}
+					/>
 					{filteredData.map((feeding, index) => (
 						<Accordion
 							key={index}
@@ -127,52 +151,45 @@ export default function FeedingHistoryCard({ selectedPetId }) {
 							</AccordionSummary>
 							<AccordionDetails>
 								<Box
-                                    display="flex"
-                                    alignItems="center"
-                                    justifyContent="space-between"
-                                    width="100%"
-                                    >
-                                    <Typography>{feeding.food_type} - {feeding.amount}</Typography>
-                                    <div>
-                                        <IconButton
+									display="flex"
+									alignItems="center"
+									justifyContent="space-between"
+									width="100%"
+								>
+									<Typography>
+										{feeding.food_type} - {feeding.amount}
+									</Typography>
+									<div>
+										<IconButton
 											aria-label="edit"
 											onClick={openUpdateModal}
 										>
-                                            <EditIcon />
-                                        </IconButton>
-										<UpdateFeedingRecordModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} selectedPetId={selectedPetId} feeding_id={feeding.id}/>
-                                        <IconButton
-                                            aria-label="delete"
-											onClick={() => handleDelete(feeding.id)}
-                                        >
-                                            <DeleteIcon />
-                                        </IconButton>
-                                    </div>
-                                </Box>
+											<EditIcon />
+										</IconButton>
+										<UpdateFeedingRecordModal
+											isOpen={isUpdateModalOpen}
+											onClose={closeUpdateModal}
+											selectedPetId={selectedPetId}
+											feeding_id={feeding.id}
+										/>
+										<IconButton
+											aria-label="delete"
+											onClick={() =>
+												handleDelete(feeding.id)
+											}
+										>
+											<DeleteIcon />
+										</IconButton>
+									</div>
+								</Box>
 							</AccordionDetails>
 						</Accordion>
 					))}
-                    <Button
-                        variant="text"
-                        color="primary"
-                        sx={{
-                            color: "black",
-							backgroundColor: "#EBE09C",
-							borderRadius: "50px",
-							marginBottom: "10px",
-                            position: "relative",
-                            bottom: "-18px",
-                        }}
-                        onClick={openCreateModal}
-                    >
-                        Add Feeding Record
-                    </Button>
-                    <AddFeedingRecordModal isOpen={isCreateModalOpen} onClose={closeCreateModal} selectedPetId={selectedPetId}/>
 				</CardContent>
 			</Card>
 		);
 	} else {
-        return (
+		return (
 			<Card
 				sx={{
 					minWidth: 275,
@@ -185,26 +202,32 @@ export default function FeedingHistoryCard({ selectedPetId }) {
 			>
 				<CardContent sx={{ overflowY: "auto" }}>
 					<h1 style={{ textAlign: "center" }}>Feeding History</h1>
-                    <Divider />
-					<h2 style={{ textAlign: "left" }}>No Feeding Data Available...</h2>
-                    <Button
-                        variant="text"
-                        color="primary"
-                        sx={{
-                            color: "black",
+					<Divider />
+					<h2 style={{ textAlign: "left" }}>
+						No Feeding Data Available...
+					</h2>
+					<Button
+						variant="text"
+						color="primary"
+						sx={{
+							color: "black",
 							backgroundColor: "#EBE09C",
 							borderRadius: "50px",
 							marginBottom: "10px",
-                            position: "relative",
-                            bottom: "-18px",
-                        }}
+							position: "relative",
+							bottom: "-18px",
+						}}
 						onClick={openCreateModal}
-                    >
-                        Add Walk Record
-                    </Button>
-					<AddFeedingRecordModal isOpen={isCreateModalOpen} onClose={closeCreateModal} selectedPetId={selectedPetId}/>
+					>
+						Add Walk Record
+					</Button>
+					<AddFeedingRecordModal
+						isOpen={isCreateModalOpen}
+						onClose={closeCreateModal}
+						selectedPetId={selectedPetId}
+					/>
 				</CardContent>
 			</Card>
-        );
-    }
+		);
+	}
 }

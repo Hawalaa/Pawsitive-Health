@@ -10,17 +10,49 @@ export const medicalHistoryApi = createApi({
 		const token = getState().auth.token;
 
 		if (token) {
-			// console.log("Token", token);
 			headers.set("Authorization", `Bearer ${token}`);
 		}
 
 		return headers;
 	},
+	tagTypes: ["MedicalList"],
 	endpoints: (builder) => ({
-		getUserDataById: builder.query({
+		getMedicalHistory: builder.query({
 			query: (id, pet_id) => `/user/${id}/pet/${pet_id}/medical`,
+			providesTags: ["MedicalList"],
+		}),
+		deleteMedical: builder.mutation({
+			query: ({ medical_id }) => ({
+				url: `/medical/${medical_id}`,
+				method: "DELETE",
+				credentials: "include",
+			}),
+			invalidatesTags: ["MedicalList"],
+		}),
+		createMedical: builder.mutation({
+			query: ({ newMedical, pet_id }) => ({
+				url: `/pet/${pet_id}/medical`,
+				method: "POST",
+				body: newMedical,
+				credentials: "include",
+			}),
+			invalidatesTags: ["MedicalList"],
+		}),
+		updateMedical: builder.mutation({
+			query: ({ updateMedical, pet_id, medical_id }) => ({
+				url: `/pet/${pet_id}/medical/${medical_id}}`,
+				method: "PUT",
+				body: updateMedical,
+				credentials: "include",
+			}),
+			invalidatesTags: ["MedicalList"],
 		}),
 	}),
 });
 
-export const { useGetUserDataByIdQuery } = medicalHistoryApi;
+export const {
+	useGetMedicalHistoryQuery,
+	useDeleteMedicalMutation,
+	useCreateMedicalMutation,
+	useUpdateMedicalMutation,
+} = medicalHistoryApi;

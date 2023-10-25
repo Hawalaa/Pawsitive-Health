@@ -10,7 +10,6 @@ export const sleepHabitsApi = createApi({
 		const token = getState().auth.token;
 
 		if (token) {
-			console.log("Token", token);
 			headers.set("Authorization", `Bearer ${token}`);
 		}
 

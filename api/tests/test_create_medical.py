@@ -24,8 +24,6 @@ class CreateMedicalRepository:
             "veterinarian": "str",
             "prescriptions": "str",
             "date": "date",
-            "pet_pic": "https://animalcorner.org/wp-content/uploads/2020/"
-            "05/simon-rae-jY_2XG-6HU0-unsplash.jpg",
         }
         result.update(medical)
         return result
@@ -44,8 +42,6 @@ def test_create_medical():
         "prescriptions": "Pain killer",
         "date": "2023-11-13",
         "pet_id": 1,
-        "pet_pic": "https://animalcorner.org/wp-content/uploads/2020/"
-        "05/simon-rae-jY_2XG-6HU0-unsplash.jpg",
     }
     expected = {
         "id": 1,
@@ -54,12 +50,10 @@ def test_create_medical():
         "prescriptions": "Pain killer",
         "date": "2023-11-13",
         "pet_id": 1,
-        "pet_pic": "https://animalcorner.org/wp-content/uploads/2020/"
-        "05/simon-rae-jY_2XG-6HU0-unsplash.jpg",
     }
 
     # Act
-    response = client.post("/user/{user_id}/pet/1/medical", json=json)
+    response = client.post("/pet/1/medical", json=json)
 
     # Clean up
     app.dependency_overrides = {}

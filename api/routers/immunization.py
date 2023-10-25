@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, Response
+from fastapi import APIRouter, Depends
 from typing import Union, List
 from authenticator import authenticator
 from queries.immunization import (
@@ -12,13 +12,11 @@ router = APIRouter()
 
 
 @router.post(
-    "/user/{user_id}/pet/{pet_id}/immunization",
+    "/pet/{pet_id}/immunization",
     response_model=Union[ImmunizationOut, Error],
 )
 def create_immunization(
-    pet_id: int,
     immunization: ImmunizationIn,
-    response: Response,
     repo: ImmunizationRepository = Depends(),
     account_data: dict = Depends(authenticator.get_current_account_data),
 ):
@@ -37,7 +35,7 @@ def get_all(
 
 
 @router.put(
-    "/user/{user_id}/pet/{pet_id}/immunization/{immunization_id}",
+    "/pet/{pet_id}/immunization/{immunization_id}",
     response_model=Union[ImmunizationOut, Error],
 )
 def update_immunization(
@@ -50,7 +48,7 @@ def update_immunization(
 
 
 @router.delete(
-    "/user/{user_id}/pet/{pet_id}/immunization/{immunization_id}",
+    "/immunization/{immunization_id}",
     response_model=bool,
 )
 def delete_immunization(

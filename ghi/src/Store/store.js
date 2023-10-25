@@ -11,6 +11,7 @@ import { sleepHabitsApi } from "./SleepHabitsApi";
 import { walkHistoryApi } from "./WalkHistoryApi";
 import { sleepHistoryApi } from "./SleepHistoryApi";
 import { feedingHistoryApi } from "./FeedingHistoryApi";
+import { immunizationHistoryApi } from "./ImmunizationApi";
 
 export const store = configureStore({
 	reducer: {
@@ -25,6 +26,7 @@ export const store = configureStore({
 		[walkHistoryApi.reducerPath]: walkHistoryApi.reducer,
 		[sleepHistoryApi.reducerPath]: sleepHistoryApi.reducer,
 		[feedingHistoryApi.reducerPath]: feedingHistoryApi.reducer,
+		[immunizationHistoryApi.reducerPath]: immunizationHistoryApi.reducer,
 	},
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware()
@@ -38,7 +40,8 @@ export const store = configureStore({
 			.concat(sleepHabitsApi.middleware)
 			.concat(walkHistoryApi.middleware)
 			.concat(sleepHistoryApi.middleware)
-			.concat(feedingHistoryApi.middleware),
+			.concat(feedingHistoryApi.middleware)
+			.concat(immunizationHistoryApi.middleware),
 });
 
 setupListeners(store.dispatch);
