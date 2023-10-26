@@ -1,4 +1,5 @@
 import React from "react";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import { useGetDashboardDataQuery } from "../../Store/DashboardApi";
 import Navbar from "../Dashboard/Navbar";
 import TopNavbar from "../Dashboard/TopNavbar";
@@ -9,6 +10,7 @@ import RecordMedicalHistoryCard from "./RecordMedicalHistoryCard";
 export default function Records() {
 	const { data } = useGetDashboardDataQuery();
 	const [selectedPetId, setSelectedPetId] = useState("");
+	const isLargeScreen = useMediaQuery("(min-width:1100px)");
 
 	const handlePetChange = (selectedPetId) => {
 		setSelectedPetId(selectedPetId);
@@ -20,8 +22,6 @@ export default function Records() {
 				<Navbar />
 				<div
 					style={{
-						margin: 0,
-						padding: 0,
 						width: "100%",
 						flexDirection: "column",
 						display: "flex",
@@ -33,6 +33,7 @@ export default function Records() {
 						style={{
 							display: "grid",
 							gridTemplateColumns: "1fr",
+							marginLeft: isLargeScreen ? 10 : 0,
 						}}
 					>
 						<ImmunizationCard selectedPetId={selectedPetId} />
@@ -44,7 +45,4 @@ export default function Records() {
 			</div>
 		);
 	}
-
-	// You can return a loading indicator or handle other cases here
-	return <div>Loading...</div>;
 }

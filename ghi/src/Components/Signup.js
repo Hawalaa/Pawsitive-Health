@@ -210,7 +210,20 @@ const SignupForm = () => {
 				</div>
 				<div className="footer">
 					<span>Already have an account? </span>
-					<button onClick={handleLoginClick}>Login</button>
+					<button
+						onClick={handleLoginClick}
+						style={{
+							border: "0",
+							background: "none",
+							padding: "0",
+							color: "blue",
+							cursor: "pointer",
+							fontSize: "inherit",
+							fontFamily: "inherit",
+						}}
+					>
+						Login
+					</button>
 				</div>
 			</form>
 		</div>

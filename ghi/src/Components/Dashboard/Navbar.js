@@ -30,7 +30,6 @@ const Navbar = () => {
 			sx={{
 				width: 240,
 				flexShrink: 0,
-				height: "100vh",
 				display: "flex",
 				flexDirection: "column",
 				"& .MuiDrawer-paper": {
@@ -63,7 +62,6 @@ const Navbar = () => {
 							style={{
 								width: 245,
 								height: 150,
-								transform: "translateX(-23px)",
 								paddingBottom: "50px",
 							}}
 						/>
@@ -135,7 +133,10 @@ const Navbar = () => {
 				<List>
 					<img
 						src={dogSilhouette}
-						style={{ width: 800, transform: "translateY(50px)" }}
+						style={{
+							width: 800,
+							transform: "translateY(50px)",
+						}}
 						alt=""
 					/>
 				</List>
