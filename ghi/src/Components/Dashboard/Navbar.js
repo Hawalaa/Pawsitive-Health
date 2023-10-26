@@ -18,7 +18,7 @@ const Navbar = () => {
 
 	const handleResize = () => {
 		const windowHeight = window.innerHeight;
-		const aspectRatio = 1.5;
+		const aspectRatio = 2;
 		const newWidth = windowHeight / aspectRatio;
 		setDogSilhouetteWidth(newWidth);
 	};
