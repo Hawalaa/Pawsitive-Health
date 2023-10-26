@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useGetPetProfileDataQuery } from "../../Store/PetProfileApi";
 import Navbar from "../Dashboard/Navbar";
-import TopNavbar from "../Dashboard/TopNavbar";
+import UserProfileTopNav from "../User/UserProfileTopNav";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import {
@@ -63,7 +63,7 @@ export default function ListPet() {
 							display: "flex",
 						}}
 					>
-						<TopNavbar />
+						<UserProfileTopNav />
 						<div
 							style={{
 								display: "grid",

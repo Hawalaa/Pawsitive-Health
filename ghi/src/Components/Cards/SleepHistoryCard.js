@@ -33,7 +33,7 @@ export default function SleepHistoryCard({ selectedPetId }) {
 
 	const handleDelete = async (sleepId) => {
 		await deleteSleep({ sleep_id: sleepId });
-		toast.error("Sleep has been deleted");
+		toast.error("Sleep record has been deleted");
 	};
 
 	const openCreateModal = () => {

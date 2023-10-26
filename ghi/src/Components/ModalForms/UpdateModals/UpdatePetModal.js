@@ -90,6 +90,7 @@ export default function UpdatePet({ open, onClose, onUpdate, params, initialValu
             variant="outlined"
             value={updateName}
             onChange={handleNameChange}
+            margin="normal"
             />
             <TextField
             fullWidth
@@ -97,6 +98,7 @@ export default function UpdatePet({ open, onClose, onUpdate, params, initialValu
             variant="outlined"
             value={updateBreed}
             onChange={handleBreedChange}
+            margin="normal"
             />
             <InputLabel>Update Gender</InputLabel>
             <Select
@@ -115,6 +117,7 @@ export default function UpdatePet({ open, onClose, onUpdate, params, initialValu
             variant="outlined"
             value={updateAge}
             onChange={handleAgeChange}
+            margin="normal"
             />
             <TextField
             fullWidth
@@ -123,6 +126,7 @@ export default function UpdatePet({ open, onClose, onUpdate, params, initialValu
             variant="outlined"
             value={updateWeight}
             onChange={handleWeightChange}
+            margin="normal"
             />
             <TextField
             fullWidth
@@ -131,8 +135,9 @@ export default function UpdatePet({ open, onClose, onUpdate, params, initialValu
             variant="outlined"
             value={updatePetPic}
             onChange={handlePetPicChange}
+            margin="normal"
             />
-            <Button variant="contained" color="primary" onClick={handleSubmit} style={{ marginTop: "20px" }}>
+            <Button variant="contained" color="primary" onClick={handleSubmit} style={{ marginTop: "20px", width: "100%" }}>
             Update
             </Button>
         </DialogContent>

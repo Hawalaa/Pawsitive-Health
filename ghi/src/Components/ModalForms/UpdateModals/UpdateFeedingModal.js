@@ -58,10 +58,10 @@ export default function UpdateFeedingRecordModal({
 				petId: selectedPetId,
 				feeding_id: feeding_id,
 			}).unwrap();
-			toast.success("Feeding has been updated!");
+			toast.success("Feeding record has been updated!");
 			navigate("/activities");
 		} catch (err) {
-			toast.error("Unable to update feeding");
+			toast.error("Unable to update Feeding record");
 		}
 
 		onClose();

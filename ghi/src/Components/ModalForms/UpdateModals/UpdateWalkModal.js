@@ -51,10 +51,10 @@ export default function UpdateWalkRecordModal({
 				petId: selectedPetId,
 				walk_id: walk_id,
 			}).unwrap();
-			toast.success("Walk has been updated!");
+			toast.success("Walk record has been updated!");
 			navigate("/activities");
 		} catch (err) {
-			toast.error("Unable to update walk");
+			toast.error("Unable to update Walk record");
 		}
 
 		onClose();

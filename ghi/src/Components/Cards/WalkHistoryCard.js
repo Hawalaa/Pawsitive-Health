@@ -33,7 +33,7 @@ export default function WalkHistoryCard({ selectedPetId }) {
 
 	const handleDelete = async (walkId) => {
 		await deleteWalk({ walk_id: walkId });
-		toast.error("Walk has been deleted");
+		toast.error("Walk record has been deleted");
 	};
 
 	const openCreateModal = () => {
