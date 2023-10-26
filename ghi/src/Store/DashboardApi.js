@@ -15,9 +15,11 @@ export const dashboardApi = createApi({
 
 		return headers;
 	},
+	tagTypes: ["DashboardData"],
 	endpoints: (builder) => ({
 		getDashboardData: builder.query({
 			query: () => "/dashboard",
+			providesTags: ["DashboardData"],
 		}),
 	}),
 });

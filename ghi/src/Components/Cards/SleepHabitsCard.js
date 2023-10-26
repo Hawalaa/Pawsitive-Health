@@ -1,7 +1,7 @@
 import * as React from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import { useGetSleepHabitsQuery } from "../../Store/SleepHabitsApi";
+import { useGetSleepHistoryQuery } from "../../Store/SleepHistoryApi";
 import {
 	Chart as ChartJS,
 	CategoryScale,
@@ -25,7 +25,7 @@ ChartJS.register(
 );
 
 export default function SleepHabitsCard({ selectedPetId }) {
-	const { data } = useGetSleepHabitsQuery();
+	const { data } = useGetSleepHistoryQuery();
 
 	if (!data) {
 		return <div>Loading...</div>;
@@ -57,6 +57,7 @@ export default function SleepHabitsCard({ selectedPetId }) {
 			year: "numeric",
 			month: "long",
 			day: "numeric",
+			timeZone: "UTC",
 		};
 		return new Date(dateString).toLocaleDateString(undefined, options);
 	};
