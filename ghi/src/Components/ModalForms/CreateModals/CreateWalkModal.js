@@ -84,7 +84,7 @@ export default function AddWalkRecordModal({ isOpen, onClose, selectedPetId }) {
 					onChange={handleTimeChange}
 					fullWidth
 				/>
-				<InputLabel>Duration</InputLabel>
+				<InputLabel>Duration (minutes)</InputLabel>
 				<TextField
 					type="number"
 					value={duration}
