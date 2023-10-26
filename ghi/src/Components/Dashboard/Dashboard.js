@@ -14,7 +14,6 @@ import PoopConsistencyCard from "../Cards/PoopConsistencyCard";
 import { useState } from "react";
 
 export default function Dashboard() {
-	// const { data } = useGetDashboardDataQuery();
 	const { data: walkData } = useGetWalkHistoryQuery();
 	const { data: medicalData } = useGetMedicalHistoryQuery();
 	const { data: sleepData } = useGetSleepHistoryQuery();
@@ -32,8 +31,6 @@ export default function Dashboard() {
 				<Navbar />
 				<div
 					style={{
-						margin: 0,
-						padding: 0,
 						width: "100%",
 						flexDirection: "column",
 						display: "flex",
@@ -44,6 +41,7 @@ export default function Dashboard() {
 					<div
 						style={{
 							display: "grid",
+							marginLeft: isLargeScreen ? 10 : 0,
 							gridTemplateColumns: isLargeScreen
 								? "2fr 1fr"
 								: "1fr",
@@ -55,6 +53,7 @@ export default function Dashboard() {
 					<div
 						style={{
 							display: "grid",
+							marginLeft: isLargeScreen ? 10 : 0,
 							gridTemplateColumns: isLargeScreen
 								? "1fr 1fr 1fr"
 								: "1fr",
@@ -68,7 +67,4 @@ export default function Dashboard() {
 			</div>
 		);
 	}
-
-	// You can return a loading indicator or handle other cases here
-	return <div>Loading...</div>;
 }

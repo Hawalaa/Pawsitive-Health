@@ -1,4 +1,5 @@
 import React from "react";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import { useGetDashboardDataQuery } from "../../Store/DashboardApi";
 import Navbar from "../Dashboard/Navbar";
 import TopNavbar from "../Dashboard/TopNavbar";
@@ -10,6 +11,7 @@ import FeedingHistoryCard from "../Cards/FeedingHistoryCard";
 export default function Activities() {
 	const { data } = useGetDashboardDataQuery();
 	const [selectedPetId, setSelectedPetId] = React.useState("");
+	const isLargeScreen = useMediaQuery("(min-width:1100px)");
 
 	const handlePetChange = (selectedPetId) => {
 		setSelectedPetId(selectedPetId);
@@ -22,8 +24,6 @@ export default function Activities() {
 					<Navbar />
 					<div
 						style={{
-							margin: 0,
-							padding: 0,
 							width: "100%",
 							flexDirection: "column",
 							display: "flex",
@@ -34,7 +34,10 @@ export default function Activities() {
 						<div
 							style={{
 								display: "grid",
-								gridTemplateColumns: "1fr 1fr",
+								gridTemplateColumns: isLargeScreen
+									? "1fr 1fr"
+									: "1fr",
+								marginLeft: isLargeScreen ? 10 : 0,
 							}}
 						>
 							<WalkHistoryCard selectedPetId={selectedPetId} />
@@ -43,7 +46,10 @@ export default function Activities() {
 						<div
 							style={{
 								display: "grid",
-								gridTemplateColumns: "1fr 1fr",
+								gridTemplateColumns: isLargeScreen
+									? "1fr 1fr"
+									: "1fr",
+								marginLeft: isLargeScreen ? 10 : 0,
 							}}
 						>
 							<FeedingHistoryCard selectedPetId={selectedPetId} />

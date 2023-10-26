@@ -24,7 +24,7 @@ export default function TopNavbar({ onPetChange }) {
 					height: 100,
 				}}
 			>
-				<List sx={{ display: "flex" }}>
+				<List>
 					<ListItem>
 						<PetDropdown onPetChange={onPetChange} />
 					</ListItem>
