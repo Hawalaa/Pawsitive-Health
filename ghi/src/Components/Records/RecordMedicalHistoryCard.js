@@ -31,7 +31,7 @@ export default function RecordMedicalHistoryCard({ selectedPetId }) {
 
 	const handleDelete = async (medical_id) => {
 		await deleteMedical({ medical_id });
-		toast.success("Feeding has been deleted");
+		toast.success("Medical record has been deleted");
 	};
 
 	if (!data) {
