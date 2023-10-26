@@ -154,7 +154,7 @@ export default function WalkHistoryCard({ selectedPetId }) {
 									justifyContent="space-between"
 									width="100%"
 								>
-									<Typography>{walk.duration}</Typography>
+									<Typography>{walk.duration} minutes</Typography>
 									<div>
 										<IconButton
 											aria-label="edit"

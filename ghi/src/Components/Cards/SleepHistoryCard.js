@@ -154,7 +154,7 @@ export default function SleepHistoryCard({ selectedPetId }) {
 									justifyContent="space-between"
 									width="100%"
 								>
-									<Typography>{sleep.duration}</Typography>
+									<Typography>{sleep.duration} minutes</Typography>
 									<div>
 										<IconButton
 											aria-label="edit"

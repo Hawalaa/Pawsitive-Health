@@ -23,7 +23,7 @@ export const sleepHistoryApi = createApi({
 		}),
 		deleteSleep: builder.mutation({
 			query: ({ sleep_id }) => ({
-				url: `/sleepings/${sleep_id}`,
+				url: `/sleeps/${sleep_id}`,
 				method: "DELETE",
 				credentials: "include",
 			}),
