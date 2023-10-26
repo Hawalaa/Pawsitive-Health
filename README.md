@@ -45,3 +45,13 @@ To fully enjoy this application on your local machine, please make sure to follo
 4. Run `docker compose build`
 5. Run `docker compose up`
 6. Navigate to `localhost:3000` to enjoy tracking your pet's health and wellness!
+
+### Foreseeable Updates
+
+-   Confirm Deletion dialogue when deleting a pet.
+-   A state that remembers which pet is selected across the entire application.
+-   Styling for Login and Sign up pages-- Paw to cover eyes when typing in password and uncover upon revealing your password.
+
+### Environments
+
+-   [Pawsitive Health (Staging)](https://pawsitive-health.gitlab.io/pawsitive-health/)
