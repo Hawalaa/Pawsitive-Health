@@ -85,6 +85,7 @@ class MedicalRepository(BaseModel):
                     result = db.execute(
                         """
                         SELECT
+<<<<<<< HEAD
                             id,
                             description,
                             veterinarian,
@@ -92,6 +93,17 @@ class MedicalRepository(BaseModel):
                             date,
                             pet_id
                         FROM medical
+=======
+                            i.id,
+                            i.description,
+                            i.veterinarian,
+                            i.prescriptions,
+                            i.date,
+                            i.pet_id,
+                            p.pet_pic
+                        FROM medical i
+                        LEFT JOIN pet p ON(i.pet_id = p.id)
+>>>>>>> main
                         ORDER BY date DESC
                         """
                     )
@@ -107,6 +119,10 @@ class MedicalRepository(BaseModel):
                             prescriptions=record[3],
                             date=record[4],
                             pet_id=record[5],
+<<<<<<< HEAD
+=======
+                            pet_pic=record[6],
+>>>>>>> main
                         )
                         for record in db
                     ]

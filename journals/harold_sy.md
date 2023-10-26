@@ -107,3 +107,318 @@
         for is somewhat doable but better with repetition.
 
 ## Ah-ha! moment:
+
+## Date: 10/09/2023 ===============================================================================================
+
+## Team members:
+
+       Cory DeGuzman
+       Ken Yeh
+       Junhao Liang
+       Harold Sy (me)
+
+## List of features/issues worked on:
+
+## Worked with on features/issues:
+
+       Still working on the end points for the immunization
+       and the medical.
+
+## Reflection:
+
+        None
+
+## Ah-ha! moment:
+
+       None
+
+## Date: 10/10/2023 ===============================================================================================
+
+## Team members:
+
+       Cory DeGuzman
+       Ken Yeh
+       Junhao Liang
+       Harold Sy (me)
+
+## List of features/issues worked on:
+
+## Worked with on features/issues:
+
+       Finished the end point for immunization and
+       medical. Started sleep back end.
+
+## Reflection:
+
+        None
+
+## Ah-ha! moment:
+
+       None
+
+## Date: 10/11/2023 ===============================================================================================
+
+## Team members:
+
+       Cory DeGuzman
+       Ken Yeh
+       Junhao Liang
+       Harold Sy (me)
+
+## List of features/issues worked on:
+
+## Worked with on features/issues:
+
+       Finished sleep backend but noticed that my
+       back ends for immunization and medical may
+       need pet pics so I went back and did those.
+
+## Reflection:
+
+        None
+
+## Ah-ha! moment:
+
+       None
+
+## Date: 10/12/2023 ===============================================================================================
+
+## Team members:
+
+       Cory DeGuzman
+       Ken Yeh
+       Junhao Liang
+       Harold Sy (me)
+
+## List of features/issues worked on:
+
+## Worked with on features/issues:
+
+       Finished sleep backend but noticed that my
+       back ends for immunization and medical may
+       need pet pics so I went back and did those.
+
+## Reflection:
+
+        None
+
+## Ah-ha! moment:
+
+       None
+
+## Date: 10/13/2023 ===============================================================================================
+
+## Team members:
+
+       Cory DeGuzman
+       Ken Yeh
+       Junhao Liang
+       Harold Sy (me)
+
+## List of features/issues worked on:
+
+## Worked with on features/issues:
+
+       Out sick on this day.
+
+## Reflection:
+
+        None
+
+## Ah-ha! moment:
+
+       None
+
+## Date: 10/16/2023 ===============================================================================================
+
+## Team members:
+
+       Cory DeGuzman
+       Ken Yeh
+       Junhao Liang
+       Harold Sy (me)
+
+## List of features/issues worked on:
+
+## Worked with on features/issues:
+
+       Something else was wrong with the immunization and
+       medical. We were getting errors so I had to work on
+       that.
+
+## Reflection:
+
+        None
+
+## Ah-ha! moment:
+
+       None
+
+## Date: 10/17/2023 ===============================================================================================
+
+## Team members:
+
+       Cory DeGuzman
+       Ken Yeh
+       Junhao Liang
+       Harold Sy (me)
+
+## List of features/issues worked on:
+
+## Worked with on features/issues:
+
+       Having a lot of issues with my git and a lot of errors
+       I was losing files and had to redo them several times.
+       including this journal.
+
+## Reflection:
+
+        None
+
+## Ah-ha! moment:
+
+       None
+
+## Date: 10/18/2023 ===============================================================================================
+
+## Team members:
+
+       Cory DeGuzman
+       Ken Yeh
+       Junhao Liang
+       Harold Sy (me)
+
+## List of features/issues worked on:
+
+## Worked with on features/issues:
+
+       started work on the front end for immunization
+       and medical. Having a lot of trouble with this!
+
+## Reflection:
+
+        None
+
+## Ah-ha! moment:
+
+       None
+
+## Date: 10/19/2023 ===============================================================================================
+
+## Team members:
+
+       Cory DeGuzman
+       Ken Yeh
+       Junhao Liang
+       Harold Sy (me)
+
+## List of features/issues worked on:
+
+## Worked with on features/issues:
+
+       still working on the front end for immunization and
+       medical.
+
+## Reflection:
+
+        None
+
+## Ah-ha! moment:
+
+       None
+
+## Date: 10/23/2023 ===============================================================================================
+
+## Team members:
+
+       Cory DeGuzman
+       Ken Yeh
+       Junhao Liang
+       Harold Sy (me)
+
+## List of features/issues worked on:
+
+## Worked with on features/issues:
+
+       Still having touble with the front end
+       for medical and immunization.
+
+## Reflection:
+
+        None
+
+## Ah-ha! moment:
+
+       None
+
+## Date: 10/23/2023 ===============================================================================================
+
+## Team members:
+
+       Cory DeGuzman
+       Ken Yeh
+       Junhao Liang
+       Harold Sy (me)
+
+## List of features/issues worked on:
+
+## Worked with on features/issues:
+
+       Still having touble with the front end
+       for medical and immunization.
+
+## Reflection:
+
+        None
+
+## Ah-ha! moment:
+
+       None
+
+## Date: 10/24/2023 ===============================================================================================
+
+## Team members:
+
+       Cory DeGuzman
+       Ken Yeh
+       Junhao Liang
+       Harold Sy (me)
+
+## List of features/issues worked on:
+
+## Worked with on features/issues:
+
+       Passed the front end for medical and immunization to the team
+       started working on part of read me but we were short on time
+       so I just did the front end linting.
+
+## Reflection:
+
+        None
+
+## Ah-ha! moment:
+
+       None
+
+## Date: 10/25/2023 ===============================================================================================
+
+## Team members:
+
+       Cory DeGuzman
+       Ken Yeh
+       Junhao Liang
+       Harold Sy (me)
+
+## List of features/issues worked on:
+
+## Worked with on features/issues:
+
+       Just continued the linting.
+
+## Reflection:
+
+        None
+
+## Ah-ha! moment:
+
+       None
