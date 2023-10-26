@@ -27,6 +27,7 @@ export default function MedicalHistoryCard({ selectedPetId }) {
 			year: "numeric",
 			month: "long",
 			day: "numeric",
+			timeZone: "UTC",
 		};
 		return new Date(dateString).toLocaleDateString(undefined, options);
 	};

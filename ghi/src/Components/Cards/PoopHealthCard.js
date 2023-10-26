@@ -28,6 +28,7 @@ export default function PoopHealthCard({ selectedPetId }) {
 			year: "numeric",
 			month: "long",
 			day: "numeric",
+			timeZone: "UTC",
 		};
 		return new Date(dateString).toLocaleDateString(undefined, options);
 	};
@@ -101,7 +102,7 @@ export default function PoopHealthCard({ selectedPetId }) {
 			</Card>
 		);
 	} else {
-        return (
+		return (
 			<Card
 				sx={{
 					minWidth: 275,
@@ -114,10 +115,12 @@ export default function PoopHealthCard({ selectedPetId }) {
 			>
 				<CardContent sx={{ overflowY: "auto" }}>
 					<h1 style={{ textAlign: "center" }}>Poop Health</h1>
-                    <Divider />
-					<h2 style={{ textAlign: "left" }}>No Poop Health Data Available...</h2>
+					<Divider />
+					<h2 style={{ textAlign: "left" }}>
+						No Poop Health Data Available...
+					</h2>
 				</CardContent>
 			</Card>
-        );
-    }
+		);
+	}
 }

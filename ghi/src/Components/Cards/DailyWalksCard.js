@@ -1,7 +1,7 @@
 import * as React from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import { useGetDailyWalksQuery } from "../../Store/DailyWalksApi";
+import { useGetWalkHistoryQuery } from "../../Store/WalkHistoryApi";
 import {
 	Chart as ChartJS,
 	CategoryScale,
@@ -23,7 +23,7 @@ ChartJS.register(
 );
 
 export default function DailyWalksCard({ selectedPetId }) {
-	const { data } = useGetDailyWalksQuery();
+	const { data } = useGetWalkHistoryQuery();
 
 	if (!data) {
 		return <div>Loading...</div>;
@@ -55,6 +55,7 @@ export default function DailyWalksCard({ selectedPetId }) {
 			year: "numeric",
 			month: "long",
 			day: "numeric",
+			timeZone: "UTC",
 		};
 		return new Date(dateString).toLocaleDateString(undefined, options);
 	};

@@ -1,6 +1,9 @@
 import React from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { useGetDashboardDataQuery } from "../../Store/DashboardApi";
+import { useGetWalkHistoryQuery } from "../../Store/WalkHistoryApi";
+import { useGetMedicalHistoryQuery } from "../../Store/MedicalHistoryApi";
+import { useGetSleepHistoryQuery } from "../../Store/SleepHistoryApi";
+import { useGetPoopHealthQuery } from "../../Store/PoopHealthApi";
 import Navbar from "./Navbar";
 import TopNavbar from "./TopNavbar";
 import MedicalHistoryCard from "../Cards/MedicalHistoryCard";
@@ -11,7 +14,11 @@ import PoopConsistencyCard from "../Cards/PoopConsistencyCard";
 import { useState } from "react";
 
 export default function Dashboard() {
-	const { data } = useGetDashboardDataQuery();
+	// const { data } = useGetDashboardDataQuery();
+	const { data: walkData } = useGetWalkHistoryQuery();
+	const { data: medicalData } = useGetMedicalHistoryQuery();
+	const { data: sleepData } = useGetSleepHistoryQuery();
+	const { data: poopData } = useGetPoopHealthQuery();
 	const [selectedPetId, setSelectedPetId] = useState("");
 	const isLargeScreen = useMediaQuery("(min-width:1100px)");
 
@@ -19,7 +26,7 @@ export default function Dashboard() {
 		setSelectedPetId(selectedPetId);
 	};
 
-	if (data) {
+	if (walkData && medicalData && sleepData && poopData) {
 		return (
 			<div style={{ display: "flex" }}>
 				<Navbar />

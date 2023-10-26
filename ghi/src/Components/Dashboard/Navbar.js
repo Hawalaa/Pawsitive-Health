@@ -139,7 +139,12 @@ const Navbar = () => {
 						alt=""
 					/>
 				</List>
-				<List sx={{ width: "100%", textAlign: "center" }}>
+				<List
+					sx={{
+						width: "100%",
+						textAlign: "center",
+					}}
+				>
 					<Button
 						variant="text"
 						onClick={handleLogout}
