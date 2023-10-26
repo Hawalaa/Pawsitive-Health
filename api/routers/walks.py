@@ -33,13 +33,9 @@ def get_all(
 def update_walk(
     walk_id: int,
     walk: WalkIn,
-    response: Response,
     repo: WalkRepository = Depends(),
     account_data: dict = Depends(authenticator.get_current_account_data),
 ) -> Union[WalkOut, Error]:
-    record = repo.get_one(walk_id)
-    if record is None:
-        response.status_code = 404
     return repo.update(walk_id, walk)
 
 
