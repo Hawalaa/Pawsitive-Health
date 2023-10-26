@@ -139,7 +139,7 @@ export default function ListPet() {
 										updatedValue={updatedValue}
 										params={params}
 										initialValue={{
-											name: data.pet_name,
+											pet_name: data.pet_name,
 											breed: data.breed,
 											gender: data.gender,
 											age: data.age,
