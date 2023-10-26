@@ -35,7 +35,7 @@ export default function FeedingHistoryCard({ selectedPetId }) {
 
 	const handleDelete = async (feedingId) => {
 		await deleteFeeding({ feeding_id: feedingId });
-		toast.error("Feeding has been deleted");
+		toast.error("Feeding reord has been deleted");
 	};
 
 	const openCreateModal = () => {

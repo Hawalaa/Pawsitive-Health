@@ -51,10 +51,10 @@ export default function UpdateSleepRecordModal({
 				petId: selectedPetId,
 				sleep_id: sleep_id,
 			}).unwrap();
-			toast.success("Sleep has been updated!");
+			toast.success("Sleep record has been updated!");
 			navigate("/activities");
 		} catch (err) {
-			toast.error("Unable to update sleep");
+			toast.error("Unable to update Sleep record");
 		}
 
 		onClose();

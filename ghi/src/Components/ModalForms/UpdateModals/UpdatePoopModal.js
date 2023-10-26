@@ -51,10 +51,10 @@ export default function UpdatePoopRecordModal({
 				petId: selectedPetId,
 				poop_id: poop_id,
 			}).unwrap();
-			toast.success("Poop has been updated!");
+			toast.success("Poop record has been updated!");
 			navigate("/activities");
 		} catch (err) {
-			toast.error("Unable to update poop");
+			toast.error("Unable to update Poop record");
 		}
 
 		onClose();

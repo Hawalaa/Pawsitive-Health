@@ -45,10 +45,10 @@ export default function AddWalkRecordModal({ isOpen, onClose, selectedPetId }) {
 				newWalk,
 				petId: selectedPetId,
 			}).unwrap();
-			toast.success("A new walk has been created!");
+			toast.success("A new Walk record has been created!");
 			navigate("/activities");
 		} catch (err) {
-			toast.error("Unable to create a new walk");
+			toast.error("Unable to create a new Walk record");
 		}
 
 		onClose();

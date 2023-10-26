@@ -56,10 +56,10 @@ export default function AddFeedingRecordModal({
 				newFeeding,
 				petId: selectedPetId,
 			}).unwrap();
-			toast.success("A new feeding has been created!");
+			toast.success("A new Feeding record has been created!");
 			navigate("/activities");
 		} catch (err) {
-			toast.error("Something went wrong. Please try again.");
+			toast.error("Unable to create a new Feeding record.");
 		}
 
 		onClose();

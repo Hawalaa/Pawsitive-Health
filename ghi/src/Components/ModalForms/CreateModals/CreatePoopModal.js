@@ -45,10 +45,10 @@ export default function AddPoopRecordModal({ isOpen, onClose, selectedPetId }) {
 				newPoop,
 				petId: selectedPetId,
 			}).unwrap();
-			toast.success("A new feeding has been created!");
+			toast.success("A new Poop record has been created!");
 			navigate("/activities");
 		} catch (err) {
-			toast.error("Unable to create a new feeding");
+			toast.error("Unable to create a new Poop record");
 		}
 
 		onClose();

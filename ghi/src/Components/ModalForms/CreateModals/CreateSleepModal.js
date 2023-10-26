@@ -49,10 +49,10 @@ export default function AddSleepRecordModal({
 				newSleep,
 				petId: selectedPetId,
 			}).unwrap();
-			toast.success("A new sleep has been created!");
+			toast.success("A new sleep record has been created!");
 			navigate("/activities");
 		} catch (err) {
-			toast.error("Unable to create a new sleep");
+			toast.error("Unable to create a new Sleep record");
 		}
 
 		onClose();

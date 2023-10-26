@@ -33,7 +33,7 @@ export default function ActivitiesPoopCard({ selectedPetId }) {
 
 	const handleDelete = async (poopId) => {
 		await deletePoop({ poop_id: poopId });
-		toast.error("Poop has been deleted");
+		toast.error("Poop record has been deleted");
 	};
 
 	const openCreateModal = () => {
