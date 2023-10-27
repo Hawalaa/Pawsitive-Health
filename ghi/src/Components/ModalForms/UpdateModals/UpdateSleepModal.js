@@ -90,7 +90,7 @@ export default function UpdateSleepRecordModal({
 					onChange={handleTimeChange}
 					fullWidth
 				/>
-				<InputLabel>Duration</InputLabel>
+				<InputLabel>Duration (minutes)</InputLabel>
 				<TextField
 					type="number"
 					value={duration}

@@ -157,7 +157,8 @@ export default function FeedingHistoryCard({ selectedPetId }) {
 									width="100%"
 								>
 									<Typography>
-										{feeding.food_type} - {feeding.amount} cups
+										{feeding.food_type} - {feeding.amount}{" "}
+										{feeding.amount > 1 ? "Cups" : "Cup"}
 									</Typography>
 									<div>
 										<IconButton

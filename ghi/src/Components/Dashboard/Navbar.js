@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
@@ -14,6 +14,24 @@ import dogSilhouette from "../../assets/dogSilhouette.png";
 const Navbar = () => {
 	const navigate = useNavigate();
 	const [deleteToken] = useDeleteTokenMutation();
+	const [dogSilhouetteWidth, setDogSilhouetteWidth] = useState(800);
+
+	const handleResize = () => {
+		const windowHeight = window.innerHeight;
+		const aspectRatio = 2;
+		const newWidth = windowHeight / aspectRatio;
+		setDogSilhouetteWidth(newWidth);
+	};
+
+	useEffect(() => {
+		// Add a window resize event listener
+		window.addEventListener("resize", handleResize);
+		handleResize();
+
+		return () => {
+			window.removeEventListener("resize", handleResize);
+		};
+	}, []);
 
 	const handleLogout = async () => {
 		try {
@@ -55,7 +73,7 @@ const Navbar = () => {
 				}}
 			>
 				<List sx={{ width: "100%", textAlign: "center" }}>
-					<ListItem>
+					<ListItem sx={{ display: "flex" }}>
 						<img
 							src={pawsitiveHealth}
 							alt="Pawsitive Health"
@@ -130,11 +148,12 @@ const Navbar = () => {
 						/>
 					</Button>
 				</List>
-				<List>
+				<List sx={{ flexShrink: 1 }}>
 					<img
 						src={dogSilhouette}
 						style={{
-							width: 800,
+							width: `${dogSilhouetteWidth}px`,
+							height: "auto",
 							transform: "translateY(50px)",
 						}}
 						alt=""
