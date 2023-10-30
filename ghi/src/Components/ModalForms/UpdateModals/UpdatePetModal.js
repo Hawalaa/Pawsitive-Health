@@ -77,6 +77,7 @@ export default function UpdatePet({ open, onClose, onUpdate, params, initialValu
             setUpdateGender(initialValue.gender);
             setUpdateAge(initialValue.age);
             setUpdateWeight(initialValue.weight);
+            setUpdatePetPic(initialValue.pet_pic);
         }
     }, [initialValue]);
 

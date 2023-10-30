@@ -143,7 +143,8 @@ export default function ListPet() {
 											breed: data.breed,
 											gender: data.gender,
 											age: data.age,
-											weight: data.weight
+											weight: data.weight,
+											pet_pic: data.pet_pic
 										}}
 									/>
 								</ListItem>
