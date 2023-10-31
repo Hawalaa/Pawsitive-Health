@@ -1,20 +1,16 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useGetDashboardDataQuery } from "../../Store/DashboardApi";
 import Navbar from "../Dashboard/Navbar";
 import TopNavbar from "../Dashboard/TopNavbar";
-import { useState } from "react";
 import ImmunizationCard from "../Cards/ImmunizationCard";
 import RecordMedicalHistoryCard from "./RecordMedicalHistoryCard";
 
 export default function Records() {
-	const { data } = useGetDashboardDataQuery();
-	const [selectedPetId, setSelectedPetId] = useState("");
+	const selectedPetId = useSelector((state) => state.petSelection);
+	const { data } = useGetDashboardDataQuery(selectedPetId);
 	const isLargeScreen = useMediaQuery("(min-width:1100px)");
-
-	const handlePetChange = (selectedPetId) => {
-		setSelectedPetId(selectedPetId);
-	};
 
 	if (data) {
 		return (
@@ -28,7 +24,7 @@ export default function Records() {
 						transform: "translate(-15px, -8px)",
 					}}
 				>
-					<TopNavbar onPetChange={handlePetChange} />
+					<TopNavbar />
 					<div
 						style={{
 							display: "grid",

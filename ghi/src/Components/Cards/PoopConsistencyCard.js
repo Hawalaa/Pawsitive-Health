@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useEffect } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import { useGetPoopHealthQuery } from "../../Store/PoopHealthApi.js";
@@ -26,10 +27,40 @@ ChartJS.register(
 );
 
 export default function PoopConsistencyCard({ selectedPetId }) {
-	const { data } = useGetPoopHealthQuery();
+	const { data, refetch, isLoading } = useGetPoopHealthQuery();
 
-	if (!data) {
-		return <div>Loading...</div>;
+	useEffect(() => {
+		if (data) {
+			refetch();
+		}
+	}, [data, refetch]);
+
+	// Display loading card while data is loading
+	if (isLoading) {
+		return (
+			<Card
+				sx={{
+					minWidth: 275,
+					m: 1,
+					height: 515,
+					overflowY: "auto",
+					backgroundColor: "rgba(255, 255, 255, 0.99)",
+					boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
+				}}
+			>
+				<CardContent
+					sx={{
+						height: "auto",
+						maxHeight: 430,
+						display: "flex",
+						flexDirection: "column",
+						alignItems: "center",
+					}}
+				>
+					<h1 style={{ textAlign: "center" }}>Loading...</h1>
+				</CardContent>
+			</Card>
+		);
 	}
 
 	const filteredData = data.filter((poop) => poop.pet_id === selectedPetId);

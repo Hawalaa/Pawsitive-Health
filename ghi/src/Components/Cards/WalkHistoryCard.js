@@ -19,14 +19,37 @@ import EditIcon from "@mui/icons-material/Edit";
 import { toast } from "react-toastify";
 
 export default function WalkHistoryCard({ selectedPetId }) {
-	const { data } = useGetWalkHistoryQuery();
+	const { data, isLoading } = useGetWalkHistoryQuery();
 	const [deleteWalk] = useDeleteWalkMutation();
 	const [expanded, setExpanded] = React.useState(false);
 	const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 	const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
 
-	if (!data) {
-		return <div>Loading...</div>;
+	if (isLoading) {
+		return (
+			<Card
+				sx={{
+					minWidth: 275,
+					m: 1,
+					height: 515,
+					overflowY: "auto",
+					backgroundColor: "rgba(255, 255, 255, 0.99)",
+					boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
+				}}
+			>
+				<CardContent
+					sx={{
+						height: "auto",
+						maxHeight: 430,
+						display: "flex",
+						flexDirection: "column",
+						alignItems: "center",
+					}}
+				>
+					<h1 style={{ textAlign: "center" }}>Loading...</h1>
+				</CardContent>
+			</Card>
+		);
 	}
 
 	const filteredData = data.filter((walk) => walk.pet_id === selectedPetId);
@@ -154,7 +177,9 @@ export default function WalkHistoryCard({ selectedPetId }) {
 									justifyContent="space-between"
 									width="100%"
 								>
-									<Typography>{walk.duration} minutes</Typography>
+									<Typography>
+										{walk.duration} minutes
+									</Typography>
 									<div>
 										<IconButton
 											aria-label="edit"

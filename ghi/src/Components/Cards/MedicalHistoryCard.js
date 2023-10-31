@@ -9,14 +9,8 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useGetMedicalHistoryQuery } from "../../Store/MedicalHistoryApi";
 
 export default function MedicalHistoryCard({ selectedPetId }) {
-	const { data } = useGetMedicalHistoryQuery();
+	const { data, isLoading } = useGetMedicalHistoryQuery();
 	const [expanded, setExpanded] = React.useState(false);
-
-	if (!data) {
-		return <div>Loading...</div>;
-	}
-
-	const filteredData = data.filter((poop) => poop.pet_id === selectedPetId);
 
 	const handleChange = (panel) => (event, isExpanded) => {
 		setExpanded(isExpanded ? panel : false);
@@ -32,7 +26,31 @@ export default function MedicalHistoryCard({ selectedPetId }) {
 		return new Date(dateString).toLocaleDateString(undefined, options);
 	};
 
-	if (filteredData) {
+	if (isLoading) {
+		// Display "Loading..." while data is loading
+		return (
+			<Card
+				sx={{
+					minWidth: 275,
+					m: 1,
+					height: 515,
+					overflowY: "auto",
+					backgroundColor: "rgba(255, 255, 255, 0.99)",
+					boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
+				}}
+			>
+				<CardContent sx={{ overflowY: "auto" }}>
+					<h1 style={{ textAlign: "center" }}>Loading...</h1>
+				</CardContent>
+			</Card>
+		);
+	}
+
+	if (data) {
+		const filteredData = data.filter(
+			(poop) => poop.pet_id === selectedPetId
+		);
+
 		return (
 			<Card
 				sx={{
@@ -60,7 +78,7 @@ export default function MedicalHistoryCard({ selectedPetId }) {
 								<Typography
 									sx={{ width: "80%", flexShrink: 0 }}
 								>
-									{formatDate(medical.date)}
+									Input Date: {formatDate(medical.date)}
 								</Typography>
 								<Typography
 									sx={{

@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useEffect } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import { useGetSleepHistoryQuery } from "../../Store/SleepHistoryApi";
@@ -25,10 +26,32 @@ ChartJS.register(
 );
 
 export default function SleepHabitsCard({ selectedPetId }) {
-	const { data } = useGetSleepHistoryQuery();
+	const { data, refetch, isLoading } = useGetSleepHistoryQuery();
 
-	if (!data) {
-		return <div>Loading...</div>;
+	useEffect(() => {
+		if (data) {
+			refetch();
+		}
+	}, [data, refetch]);
+
+	if (isLoading) {
+		// Display "Loading..." while data is loading
+		return (
+			<Card
+				sx={{
+					minWidth: 275,
+					m: 1,
+					height: 515,
+					overflowY: "auto",
+					backgroundColor: "rgba(255, 255, 255, 0.99)",
+					boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
+				}}
+			>
+				<CardContent sx={{ overflowY: "auto" }}>
+					<h1 style={{ textAlign: "center" }}>Loading...</h1>
+				</CardContent>
+			</Card>
+		);
 	}
 
 	const filteredData = data.filter((sleep) => sleep.pet_id === selectedPetId);

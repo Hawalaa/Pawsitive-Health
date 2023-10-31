@@ -10,6 +10,7 @@ import { walkHistoryApi } from "./WalkHistoryApi";
 import { sleepHistoryApi } from "./SleepHistoryApi";
 import { feedingHistoryApi } from "./FeedingHistoryApi";
 import { immunizationHistoryApi } from "./ImmunizationApi";
+import petSelectionReducer from "./petSelectionSlice";
 
 export const store = configureStore({
 	reducer: {
@@ -23,6 +24,7 @@ export const store = configureStore({
 		[sleepHistoryApi.reducerPath]: sleepHistoryApi.reducer,
 		[feedingHistoryApi.reducerPath]: feedingHistoryApi.reducer,
 		[immunizationHistoryApi.reducerPath]: immunizationHistoryApi.reducer,
+		petSelection: petSelectionReducer,
 	},
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware()
