@@ -13,16 +13,20 @@ import {
 	Grid,
 	Divider,
 	Typography,
-	Button } from '@mui/material';
+	Button,
+	Dialog,
+	DialogTitle,
+	DialogContent} from '@mui/material';
 import UpdatePetModal from "../ModalForms/UpdateModals/UpdatePetModal";
 import {useDeletePetProfileMutation} from "../../Store/UserProfileApi";
 import { toast } from "react-toastify";
 
-export default function ListPet() {
+export default function ListPet(onClose) {
 	const params = useParams(); // get id from URL parameters
 	const { data } = useGetPetProfileDataQuery(params);
 	const defaultPetPic = "https://cdn2.iconfinder.com/data/icons/veterinary-12/512/Veterinary_Icons-16-512.png";
 	const [DeletePetProfileMutation] = useDeletePetProfileMutation();
+	const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] = useState(false);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [updatedValue, setUpdatedValue] = useState("");
 	const navigate = useNavigate();
@@ -31,10 +35,25 @@ export default function ListPet() {
 		return <div>Loading...</div>;
 	}
 
-	const handleDelete = async () => {
-		await DeletePetProfileMutation(params);
-		toast.success("Pet profile has been deleted");
-		navigate("/user");
+
+	const handleDeleteClick = () => {
+		setIsDeleteConfirmationOpen(true);
+	};
+
+	const handleDeleteCancel = () => {
+		setIsDeleteConfirmationOpen(false);
+	};
+
+	const handleDeleteConfirm = async () => {
+		try {
+			await DeletePetProfileMutation(params);
+			toast.success("Pet profile has been deleted");
+			navigate("/user");
+		}catch (err) {
+			toast.error("Unable to delete pet profile!");
+		}
+		setIsDeleteConfirmationOpen(false);
+		onClose();
 	};
 
 	const handleOpenModal = () => {
@@ -152,12 +171,30 @@ export default function ListPet() {
 									<Button
 									variant="contained"
 									color="secondary"
-									onClick={handleDelete}
+									onClick={handleDeleteClick}
 									style={{ marginTop: "20px" }}
 									>
 									Delete {data.pet_name}
 									</Button>
 								</ListItem>
+								<Dialog
+									open={isDeleteConfirmationOpen}
+									onClose={handleDeleteCancel}
+									fullWidth
+									>
+									<DialogTitle>Confirm Deletion</DialogTitle>
+									<DialogContent>
+										Are you sure you want to delete {data.pet_name}?
+									</DialogContent>
+										<div style={{ padding: "20px", textAlign: "right"}}>
+											<Button variant="contained" onClick={handleDeleteConfirm} color="secondary">
+												Delete {data.pet_name}
+											</Button>
+											<Button variant="outlined" onClick={handleDeleteCancel} color="secondary">
+												Cancel
+											</Button>
+										</div>
+								</Dialog>
 						</CardContent>
 							</Card>
 						</div>

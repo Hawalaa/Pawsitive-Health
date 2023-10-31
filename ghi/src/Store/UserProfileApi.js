@@ -30,6 +30,15 @@ export const userProfileApi = createApi({
       }),
       invalidatesTags: ["PetList"],
     }),
+    updatePetProfile: builder.mutation({
+			query: ({ updatedPetProfile, id, pet_id }) => ({
+				url: `/user/${id}/pet/${pet_id}`,
+				method: "PUT",
+				body: updatedPetProfile,
+				credentials: "include",
+			}),
+			invalidatesTags: ["PetProfile"],
+		}),
     deletePetProfile: builder.mutation({
 			query: ({ id, pet_id }) => ({
 				url: `/user/${id}/pet/${pet_id}`,

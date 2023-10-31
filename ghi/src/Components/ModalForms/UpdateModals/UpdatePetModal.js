@@ -22,19 +22,19 @@ export default function UpdatePet({ open, onClose, onUpdate, params, initialValu
     };
 
     const handleBreedChange = (e) => {
-    setUpdateBreed(e.target.value);
+        setUpdateBreed(e.target.value);
     };
 
     const handleGenderChange = (e) => {
-    setUpdateGender(e.target.value);
+        setUpdateGender(e.target.value);
     };
 
     const handleAgeChange = (e) => {
-    setUpdateAge(e.target.value);
+        setUpdateAge(e.target.value);
     };
 
     const handleWeightChange = (e) => {
-    setUpdateWeight(e.target.value);
+        setUpdateWeight(e.target.value);
     };
 
     const handlePetPicChange = (e) => {
