@@ -1,1 +1,0 @@
-Add Activities component here

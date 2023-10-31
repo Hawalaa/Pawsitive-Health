@@ -23,7 +23,6 @@ class MedicalOut(BaseModel):
     prescriptions: Optional[str]
     date: date
     pet_id: int
-    pet_pic: Optional[str]
 
 
 class MedicalRepository(BaseModel):

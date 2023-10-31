@@ -8,19 +8,14 @@ router = APIRouter()
 
 
 @router.post(
-    "/user/{user_id}/pet/",
+    "/user/{user_id}/pet",
     response_model=Union[PetOut, Error],
 )
 def create_pet(
-    user_id: int,
     pet: PetIn,
-    response: Response,
     repo: PetRepository = Depends(),
     account_data: dict = Depends(authenticator.get_current_account_data)
 ):
-    user = repo.get_one(user_id)
-    if user is None:
-        response.status_code = 400
     return repo.create(pet)
 
 

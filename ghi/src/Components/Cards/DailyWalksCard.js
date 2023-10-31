@@ -1,7 +1,7 @@
 import * as React from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import { useGetDailyWalksQuery } from "../../Store/DailyWalksApi";
+import { useGetWalkHistoryQuery } from "../../Store/WalkHistoryApi";
 import {
 	Chart as ChartJS,
 	CategoryScale,
@@ -23,7 +23,7 @@ ChartJS.register(
 );
 
 export default function DailyWalksCard({ selectedPetId }) {
-	const { data } = useGetDailyWalksQuery();
+	const { data } = useGetWalkHistoryQuery();
 
 	if (!data) {
 		return <div>Loading...</div>;
@@ -55,13 +55,24 @@ export default function DailyWalksCard({ selectedPetId }) {
 			year: "numeric",
 			month: "long",
 			day: "numeric",
+			timeZone: "UTC",
 		};
 		return new Date(dateString).toLocaleDateString(undefined, options);
 	};
 
 	const labels = filteredData.map((walk) => formatDate(walk.date));
 
-	const themeColors = ["#BB7843", "#EBA96F", "#EBE09C"];
+	const themeColors = [
+		"rgba(255, 87, 51, .5)",
+		"rgba(255, 195, 0, .5)",
+		"rgba(51, 255, 87, .5)",
+	];
+
+	const hoverColors = [
+		"rgba(255, 87, 51, 1)",
+		"rgba(255, 195, 0, 1)",
+		"rgba(51, 255, 87, 1)",
+	];
 
 	const chartData = {
 		labels,
@@ -72,6 +83,7 @@ export default function DailyWalksCard({ selectedPetId }) {
 				backgroundColor: themeColors,
 				borderColor: themeColors,
 				borderWidth: 1,
+				hoverBackgroundColor: hoverColors,
 			},
 		],
 	};
@@ -88,7 +100,15 @@ export default function DailyWalksCard({ selectedPetId }) {
 					boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
 				}}
 			>
-				<CardContent sx={{ overflowY: "auto" }}>
+				<CardContent
+					sx={{
+						height: "auto",
+						maxHeight: 430,
+						display: "flex",
+						flexDirection: "column",
+						alignItems: "center",
+					}}
+				>
 					<h1 style={{ textAlign: "center" }}>Daily Walks</h1>
 					<Bar data={chartData} options={options} />
 				</CardContent>

@@ -7,13 +7,12 @@ router = APIRouter()
 
 
 @router.post(
-    "/user/{user_id}/pet/{pet_id}/sleeps",
+    "/pet/{pet_id}/sleeps",
     response_model=Union[SleepOut, Error],
 )
 def create_sleep(
     sleep: SleepIn, response: Response, repo: SleepRepository = Depends()
 ):
-    # response.status_code = 400
     return repo.create(sleep)
 
 
@@ -28,7 +27,7 @@ def get_all(
 
 
 @router.put(
-    "/user/{user_id}/pet/{pet_id}/sleeps/{sleep_id}",
+    "/pet/{pet_id}/sleeps/{sleep_id}",
     response_model=Union[SleepOut, Error],
 )
 def update_sleep(
@@ -40,7 +39,7 @@ def update_sleep(
 
 
 @router.delete(
-    "/user/{user_id}/pet/{pet_id}/sleeps/{sleep_id}", response_model=bool
+    "/sleeps/{sleep_id}", response_model=bool
 )
 def delete_sleep(
     sleep_id: int,

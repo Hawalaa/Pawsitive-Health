@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const userProfileApi = createApi({
   reducerPath: "userprofileApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:8000",
+    baseUrl: process.env.REACT_APP_API_HOST,
     credentials: "include",
   }),
   prepareHeaders: (headers, { getState }) => {
@@ -15,11 +15,34 @@ export const userProfileApi = createApi({
 
     return headers;
   },
+  tagTypes: ["PetList"],
   endpoints: (builder) => ({
     getUserProfileData: builder.query({
-      query: () => "/user/",
+      query: () => "/user",
+      providesTags: ["PetList"],
     }),
+    createPetData: builder.mutation({
+      query: ({ newPet, id }) => ({
+        url: `/user/${id}/pet`,
+        method: "POST",
+        body: newPet,
+        credentials: "include",
+      }),
+      invalidatesTags: ["PetList"],
+    }),
+    deletePetProfile: builder.mutation({
+			query: ({ id, pet_id }) => ({
+				url: `/user/${id}/pet/${pet_id}`,
+				method: "DELETE",
+				credentials: "include",
+			}),
+			invalidatesTags: ["PetList"],
+		}),
   }),
 });
 
-export const { useGetUserProfileDataQuery } = userProfileApi;
+export const {
+  useGetUserProfileDataQuery,
+  useCreatePetDataMutation,
+  useDeletePetProfileMutation,
+} = userProfileApi;

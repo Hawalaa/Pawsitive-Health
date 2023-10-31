@@ -11,7 +11,7 @@ class Error(BaseModel):
 class SleepIn(BaseModel):
     date: date
     time: time
-    duration: str
+    duration: int
     pet_id: int
 
 
@@ -19,7 +19,7 @@ class SleepOut(BaseModel):
     id: int
     date: date
     time: time
-    duration: str
+    duration: int
     pet_id: int
 
 
