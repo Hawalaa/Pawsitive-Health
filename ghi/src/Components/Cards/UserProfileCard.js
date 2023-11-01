@@ -87,14 +87,16 @@ export default function UserProfileCard() {
 								</ListItem>
 							</Grid>
 						))}
-						<Button onClick={openCreateModal}>
-							<Avatar
-								alt="Add a Pet"
-								src={addPetIcon}
-								sx={{ width: 200, height: 200 }}
-							/>
-						</Button>
-						<AddPetModal isOpen={isCreateModalOpen} onClose={closeCreateModal} userId={data[0].user_id}/>
+						<Grid item>
+							<Button onClick={openCreateModal}>
+								<Avatar
+									alt="Add a Pet"
+									src={addPetIcon}
+									sx={{ width: 200, height: 200 }}
+									/>
+							</Button>
+							<AddPetModal isOpen={isCreateModalOpen} onClose={closeCreateModal} userId={data[0].user_id}/>
+						</Grid>
 					</Grid>
 				</CardContent>
 			</Card>

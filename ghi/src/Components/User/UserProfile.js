@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useGetUserProfileDataQuery } from '../../Store/UserProfileApi';
 import Navbar from '../Dashboard/Navbar';
 import UserProfileTopNav from './UserProfileTopNav';
 import UserProfileCard from '../Cards/UserProfileCard'
 
 export default function UserProfile() {
-    const { data } = useGetUserProfileDataQuery();
+    const { data, refetch } = useGetUserProfileDataQuery();
+
+	useEffect(() => {
+		if (data) {
+			refetch();
+		}
+	}, [data, refetch]);
 
     if (data) {
         return (
