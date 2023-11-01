@@ -13,7 +13,14 @@ import {
 } from "../../Store/SleepHistoryApi";
 import AddSleepRecordModal from "../ModalForms/CreateModals/CreateSleepModal";
 import UpdateSleepRecordModal from "../ModalForms/UpdateModals/UpdateSleepModal";
-import { Divider, Button, IconButton, Box } from "@mui/material";
+import {
+	Divider,
+	Button,
+	IconButton,
+	Box,
+	Pagination,
+	Stack,
+} from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { toast } from "react-toastify";
@@ -24,6 +31,8 @@ export default function SleepHistoryCard({ selectedPetId }) {
 	const [expanded, setExpanded] = React.useState(false);
 	const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 	const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
+	const [currentPage, setCurrentPage] = React.useState(1);
+	const rowsPerPage = 5;
 
 	if (isLoading) {
 		return (
@@ -53,6 +62,10 @@ export default function SleepHistoryCard({ selectedPetId }) {
 	}
 
 	const filteredData = data.filter((sleep) => sleep.pet_id === selectedPetId);
+
+	const handlePageChange = (event, newPage) => {
+		setCurrentPage(newPage);
+	};
 
 	const handleDelete = async (sleepId) => {
 		await deleteSleep({ sleep_id: sleepId });
@@ -112,6 +125,9 @@ export default function SleepHistoryCard({ selectedPetId }) {
 	};
 
 	if (filteredData) {
+		const startIndex = (currentPage - 1) * rowsPerPage;
+		const endIndex = startIndex + rowsPerPage;
+
 		return (
 			<Card
 				sx={{
@@ -146,66 +162,89 @@ export default function SleepHistoryCard({ selectedPetId }) {
 						onClose={closeCreateModal}
 						selectedPetId={selectedPetId}
 					/>
-					{filteredData.map((sleep, index) => (
-						<Accordion
-							key={index}
-							expanded={expanded === `panel${index}`}
-							onChange={handleChange(`panel${index}`)}
-						>
-							<AccordionSummary
-								expandIcon={<ExpandMoreIcon />}
-								aria-controls={`panel${index}bh-content`}
-								id={`panel${index}bh-header`}
+					{filteredData
+						.slice(startIndex, endIndex)
+						.map((sleep, index) => (
+							<Accordion
+								key={index + startIndex}
+								expanded={expanded === `panel${index}`}
+								onChange={handleChange(`panel${index}`)}
 							>
-								<Typography
-									sx={{ width: "80%", flexShrink: 0 }}
+								<AccordionSummary
+									expandIcon={<ExpandMoreIcon />}
+									aria-controls={`panel${index}bh-content`}
+									id={`panel${index}bh-header`}
 								>
-									{formatDate(sleep.date)}
-								</Typography>
-								<Typography
-									sx={{
-										color: "text.secondary",
-									}}
-								>
-									{formatTime(sleep.time)}
-								</Typography>
-							</AccordionSummary>
-							<AccordionDetails>
-								<Box
-									display="flex"
-									alignItems="center"
-									justifyContent="space-between"
-									width="100%"
-								>
-									<Typography>
-										{sleep.duration} minutes
+									<Typography
+										sx={{ width: "80%", flexShrink: 0 }}
+									>
+										{formatDate(sleep.date)}
 									</Typography>
-									<div>
-										<IconButton
-											aria-label="edit"
-											onClick={openUpdateModal}
-										>
-											<EditIcon />
-										</IconButton>
-										<UpdateSleepRecordModal
-											isOpen={isUpdateModalOpen}
-											onClose={closeUpdateModal}
-											selectedPetId={selectedPetId}
-											sleep_id={sleep.id}
-										/>
-										<IconButton
-											aria-label="delete"
-											onClick={() =>
-												handleDelete(sleep.id)
-											}
-										>
-											<DeleteIcon />
-										</IconButton>
-									</div>
-								</Box>
-							</AccordionDetails>
-						</Accordion>
-					))}
+									<Typography
+										sx={{
+											color: "text.secondary",
+										}}
+									>
+										{formatTime(sleep.time)}
+									</Typography>
+								</AccordionSummary>
+								<AccordionDetails>
+									<Box
+										display="flex"
+										alignItems="center"
+										justifyContent="space-between"
+										width="100%"
+									>
+										<Typography>
+											{sleep.duration} minutes
+										</Typography>
+										<div>
+											<IconButton
+												aria-label="edit"
+												onClick={openUpdateModal}
+											>
+												<EditIcon />
+											</IconButton>
+											<UpdateSleepRecordModal
+												isOpen={isUpdateModalOpen}
+												onClose={closeUpdateModal}
+												selectedPetId={selectedPetId}
+												sleep_id={sleep.id}
+											/>
+											<IconButton
+												aria-label="delete"
+												onClick={() =>
+													handleDelete(sleep.id)
+												}
+											>
+												<DeleteIcon />
+											</IconButton>
+										</div>
+									</Box>
+								</AccordionDetails>
+							</Accordion>
+						))}
+					<Stack
+						direction="row"
+						spacing={2}
+						justifyContent={"center"}
+						sx={{ mt: 2 }}
+					>
+						<Pagination
+							count={Math.ceil(filteredData.length / rowsPerPage)}
+							page={currentPage}
+							onChange={handlePageChange}
+							size="md"
+							sx={{
+								"& .MuiPaginationItem-icon": {
+									color: "#BB7843",
+								},
+								"& .MuiPaginationItem-page.Mui-selected": {
+									backgroundColor: "#EBE09C",
+								},
+							}}
+						/>
+					</Stack>
 				</CardContent>
 			</Card>
 		);

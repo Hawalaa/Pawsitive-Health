@@ -13,7 +13,14 @@ import {
 } from "../../Store/PoopHealthApi";
 import AddPoopRecordModal from "../ModalForms/CreateModals/CreatePoopModal";
 import UpdatePoopRecordModal from "../ModalForms/UpdateModals/UpdatePoopModal";
-import { Divider, Button, IconButton, Box } from "@mui/material";
+import {
+	Divider,
+	Button,
+	IconButton,
+	Box,
+	Pagination,
+	Stack,
+} from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { toast } from "react-toastify";
@@ -24,6 +31,8 @@ export default function ActivitiesPoopCard({ selectedPetId }) {
 	const [expanded, setExpanded] = React.useState(false);
 	const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 	const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
+	const [currentPage, setCurrentPage] = React.useState(1);
+	const rowsPerPage = 5;
 
 	if (isLoading) {
 		return (
@@ -53,6 +62,10 @@ export default function ActivitiesPoopCard({ selectedPetId }) {
 	}
 
 	const filteredData = data.filter((poop) => poop.pet_id === selectedPetId);
+
+	const handlePageChange = (event, newPage) => {
+		setCurrentPage(newPage);
+	};
 
 	const handleDelete = async (poopId) => {
 		await deletePoop({ poop_id: poopId });
@@ -112,6 +125,9 @@ export default function ActivitiesPoopCard({ selectedPetId }) {
 	};
 
 	if (filteredData) {
+		const startIndex = (currentPage - 1) * rowsPerPage;
+		const endIndex = startIndex + rowsPerPage;
+
 		return (
 			<Card
 				sx={{
@@ -146,64 +162,89 @@ export default function ActivitiesPoopCard({ selectedPetId }) {
 						onClose={closeCreateModal}
 						selectedPetId={selectedPetId}
 					/>
-					{filteredData.map((poop, index) => (
-						<Accordion
-							key={index}
-							expanded={expanded === `panel${index}`}
-							onChange={handleChange(`panel${index}`)}
-						>
-							<AccordionSummary
-								expandIcon={<ExpandMoreIcon />}
-								aria-controls={`panel${index}bh-content`}
-								id={`panel${index}bh-header`}
+					{filteredData
+						.slice(startIndex, endIndex)
+						.map((poop, index) => (
+							<Accordion
+								key={index + startIndex}
+								expanded={expanded === `panel${index}`}
+								onChange={handleChange(`panel${index}`)}
 							>
-								<Typography
-									sx={{ width: "80%", flexShrink: 0 }}
+								<AccordionSummary
+									expandIcon={<ExpandMoreIcon />}
+									aria-controls={`panel${index}bh-content`}
+									id={`panel${index}bh-header`}
 								>
-									{formatDate(poop.date)}
-								</Typography>
-								<Typography
-									sx={{
-										color: "text.secondary",
-									}}
-								>
-									{formatTime(poop.time)}
-								</Typography>
-							</AccordionSummary>
-							<AccordionDetails>
-								<Box
-									display="flex"
-									alignItems="center"
-									justifyContent="space-between"
-									width="100%"
-								>
-									<Typography>{poop.consistency}</Typography>
-									<div>
-										<IconButton
-											aria-label="edit"
-											onClick={openUpdateModal}
-										>
-											<EditIcon />
-										</IconButton>
-										<UpdatePoopRecordModal
-											isOpen={isUpdateModalOpen}
-											onClose={closeUpdateModal}
-											selectedPetId={selectedPetId}
-											poop_id={poop.id}
-										/>
-										<IconButton
-											aria-label="delete"
-											onClick={() =>
-												handleDelete(poop.id)
-											}
-										>
-											<DeleteIcon />
-										</IconButton>
-									</div>
-								</Box>
-							</AccordionDetails>
-						</Accordion>
-					))}
+									<Typography
+										sx={{ width: "80%", flexShrink: 0 }}
+									>
+										{formatDate(poop.date)}
+									</Typography>
+									<Typography
+										sx={{
+											color: "text.secondary",
+										}}
+									>
+										{formatTime(poop.time)}
+									</Typography>
+								</AccordionSummary>
+								<AccordionDetails>
+									<Box
+										display="flex"
+										alignItems="center"
+										justifyContent="space-between"
+										width="100%"
+									>
+										<Typography>
+											{poop.consistency}
+										</Typography>
+										<div>
+											<IconButton
+												aria-label="edit"
+												onClick={openUpdateModal}
+											>
+												<EditIcon />
+											</IconButton>
+											<UpdatePoopRecordModal
+												isOpen={isUpdateModalOpen}
+												onClose={closeUpdateModal}
+												selectedPetId={selectedPetId}
+												poop_id={poop.id}
+											/>
+											<IconButton
+												aria-label="delete"
+												onClick={() =>
+													handleDelete(poop.id)
+												}
+											>
+												<DeleteIcon />
+											</IconButton>
+										</div>
+									</Box>
+								</AccordionDetails>
+							</Accordion>
+						))}
+					<Stack
+						direction="row"
+						spacing={2}
+						justifyContent={"center"}
+						sx={{ mt: 2 }}
+					>
+						<Pagination
+							count={Math.ceil(filteredData.length / rowsPerPage)}
+							page={currentPage}
+							onChange={handlePageChange}
+							size="md"
+							sx={{
+								"& .MuiPaginationItem-icon": {
+									color: "#BB7843",
+								},
+								"& .MuiPaginationItem-page.Mui-selected": {
+									backgroundColor: "#EBE09C",
+								},
+							}}
+						/>
+					</Stack>
 				</CardContent>
 			</Card>
 		);

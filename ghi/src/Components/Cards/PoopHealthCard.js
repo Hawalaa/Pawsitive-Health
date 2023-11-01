@@ -8,17 +8,23 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useGetPoopHealthQuery } from "../../Store/PoopHealthApi";
-import { Divider } from "@mui/material";
+import { Divider, Pagination, Stack } from "@mui/material";
 
 export default function PoopHealthCard({ selectedPetId }) {
 	const { data, refetch, isLoading } = useGetPoopHealthQuery();
 	const [expanded, setExpanded] = React.useState(false);
+	const [currentPage, setCurrentPage] = React.useState(1);
+	const rowsPerPage = 5;
 
 	useEffect(() => {
 		if (data) {
 			refetch();
 		}
 	}, [data, refetch]);
+
+	const handlePageChange = (event, newPage) => {
+		setCurrentPage(newPage);
+	};
 
 	// Display loading card while data is loading
 	if (isLoading) {
@@ -87,6 +93,9 @@ export default function PoopHealthCard({ selectedPetId }) {
 	};
 
 	if (filteredData) {
+		const startIndex = (currentPage - 1) * rowsPerPage;
+		const endIndex = startIndex + rowsPerPage;
+
 		return (
 			<Card
 				sx={{
@@ -100,35 +109,58 @@ export default function PoopHealthCard({ selectedPetId }) {
 			>
 				<CardContent sx={{ overflowY: "auto" }}>
 					<h1 style={{ textAlign: "center" }}>Poop Health</h1>
-					{filteredData.map((poop, index) => (
-						<Accordion
-							key={index}
-							expanded={expanded === `panel${index}`}
-							onChange={handleChange(`panel${index}`)}
-						>
-							<AccordionSummary
-								expandIcon={<ExpandMoreIcon />}
-								aria-controls={`panel${index}bh-content`}
-								id={`panel${index}bh-header`}
+					{filteredData
+						.slice(startIndex, endIndex)
+						.map((poop, index) => (
+							<Accordion
+								key={index + startIndex}
+								expanded={expanded === `panel${index}`}
+								onChange={handleChange(`panel${index}`)}
 							>
-								<Typography
-									sx={{ width: "80%", flexShrink: 0 }}
+								<AccordionSummary
+									expandIcon={<ExpandMoreIcon />}
+									aria-controls={`panel${index}bh-content`}
+									id={`panel${index}bh-header`}
 								>
-									{formatDate(poop.date)}
-								</Typography>
-								<Typography
-									sx={{
-										color: "text.secondary",
-									}}
-								>
-									{formatTime(poop.time)}
-								</Typography>
-							</AccordionSummary>
-							<AccordionDetails>
-								<Typography>{poop.consistency}</Typography>
-							</AccordionDetails>
-						</Accordion>
-					))}
+									<Typography
+										sx={{ width: "80%", flexShrink: 0 }}
+									>
+										{formatDate(poop.date)}
+									</Typography>
+									<Typography
+										sx={{
+											color: "text.secondary",
+										}}
+									>
+										{formatTime(poop.time)}
+									</Typography>
+								</AccordionSummary>
+								<AccordionDetails>
+									<Typography>{poop.consistency}</Typography>
+								</AccordionDetails>
+							</Accordion>
+						))}
+					<Stack
+						direction="row"
+						spacing={2}
+						justifyContent={"center"}
+						sx={{ mt: 2 }}
+					>
+						<Pagination
+							count={Math.ceil(filteredData.length / rowsPerPage)}
+							page={currentPage}
+							onChange={handlePageChange}
+							size="md"
+							sx={{
+								"& .MuiPaginationItem-icon": {
+									color: "#BB7843",
+								},
+								"& .MuiPaginationItem-page.Mui-selected": {
+									backgroundColor: "#EBE09C",
+								},
+							}}
+						/>
+					</Stack>
 				</CardContent>
 			</Card>
 		);

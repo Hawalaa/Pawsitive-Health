@@ -10,7 +10,7 @@ import {
 	useGetMedicalHistoryQuery,
 	useDeleteMedicalMutation,
 } from "../../Store/MedicalHistoryApi";
-import { Divider, IconButton, Button } from "@mui/material";
+import { Divider, IconButton, Button, Pagination, Stack } from "@mui/material";
 import CreateMedicalModal from "../ModalForms/CreateModals/CreateMedicalModal";
 import { toast } from "react-toastify";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -20,6 +20,12 @@ export default function RecordMedicalHistoryCard({ selectedPetId }) {
 	const [deleteMedical] = useDeleteMedicalMutation();
 	const [expanded, setExpanded] = React.useState(false);
 	const [isCreateModalOpen, setIsCreateModalOpen] = React.useState(false);
+	const [currentPage, setCurrentPage] = React.useState(1);
+	const rowsPerPage = 5;
+
+	const handlePageChange = (event, newPage) => {
+		setCurrentPage(newPage);
+	};
 
 	const openCreateModal = () => {
 		setIsCreateModalOpen(true);
@@ -79,6 +85,9 @@ export default function RecordMedicalHistoryCard({ selectedPetId }) {
 	};
 
 	if (filteredData) {
+		const startIndex = (currentPage - 1) * rowsPerPage;
+		const endIndex = startIndex + rowsPerPage;
+
 		return (
 			<Card
 				sx={{
@@ -115,46 +124,73 @@ export default function RecordMedicalHistoryCard({ selectedPetId }) {
 						onClose={closeCreateModal}
 						selectedPetId={selectedPetId}
 					/>
-					{filteredData.map((medical, index) => (
-						<Accordion
-							key={index}
-							expanded={expanded === `panel${index}`}
-							onChange={handleChange(`panel${index}`)}
-						>
-							<AccordionSummary
-								expandIcon={<ExpandMoreIcon />}
-								aria-controls={`panel${index}bh-content`}
-								id={`panel${index}bh-header`}
-								sx={{ display: "flex" }}
+					{filteredData
+						.slice(startIndex, endIndex)
+						.map((medical, index) => (
+							<Accordion
+								key={index + startIndex}
+								expanded={expanded === `panel${index}`}
+								onChange={handleChange(`panel${index}`)}
 							>
-								<div style={{ flexGrow: 1 }}>
+								<AccordionSummary
+									expandIcon={<ExpandMoreIcon />}
+									aria-controls={`panel${index}bh-content`}
+									id={`panel${index}bh-header`}
+									sx={{ display: "flex" }}
+								>
+									<div style={{ flexGrow: 1 }}>
+										<Typography>
+											{formatDate(medical.date)}
+										</Typography>
+									</div>
+									<div>
+										<Typography
+											sx={{
+												color: "text.secondary",
+											}}
+										>
+											Veterinarian: {medical.veterinarian}
+										</Typography>
+									</div>
+									<div>
+										<IconButton
+											aria-label="delete"
+											onClick={() =>
+												handleDelete(medical.id)
+											}
+										>
+											<DeleteIcon />
+										</IconButton>
+									</div>
+								</AccordionSummary>
+								<AccordionDetails>
 									<Typography>
-										{formatDate(medical.date)}
+										{medical.description}
 									</Typography>
-								</div>
-								<div>
-									<Typography
-										sx={{
-											color: "text.secondary",
-										}}
-									>
-										Veterinarian: {medical.veterinarian}
-									</Typography>
-								</div>
-								<div>
-									<IconButton
-										aria-label="delete"
-										onClick={() => handleDelete(medical.id)}
-									>
-										<DeleteIcon />
-									</IconButton>
-								</div>
-							</AccordionSummary>
-							<AccordionDetails>
-								<Typography>{medical.description}</Typography>
-							</AccordionDetails>
-						</Accordion>
-					))}
+								</AccordionDetails>
+							</Accordion>
+						))}
+					<Stack
+						direction="row"
+						spacing={2}
+						justifyContent={"center"}
+						sx={{ mt: 2 }}
+					>
+						<Pagination
+							count={Math.ceil(filteredData.length / rowsPerPage)}
+							page={currentPage}
+							onChange={handlePageChange}
+							size="md"
+							sx={{
+								"& .MuiPaginationItem-icon": {
+									color: "#BB7843",
+								},
+								"& .MuiPaginationItem-page.Mui-selected": {
+									backgroundColor: "#EBE09C",
+								},
+							}}
+						/>
+					</Stack>
 				</CardContent>
 			</Card>
 		);

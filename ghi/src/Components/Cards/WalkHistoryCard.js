@@ -13,7 +13,14 @@ import {
 } from "../../Store/WalkHistoryApi";
 import AddWalkRecordModal from "../ModalForms/CreateModals/CreateWalkModal";
 import UpdateWalkRecordModal from "../ModalForms/UpdateModals/UpdateWalkModal";
-import { Divider, Button, IconButton, Box } from "@mui/material";
+import {
+	Divider,
+	Button,
+	IconButton,
+	Box,
+	Pagination,
+	Stack,
+} from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { toast } from "react-toastify";
@@ -24,6 +31,8 @@ export default function WalkHistoryCard({ selectedPetId }) {
 	const [expanded, setExpanded] = React.useState(false);
 	const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 	const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
+	const [currentPage, setCurrentPage] = React.useState(1);
+	const rowsPerPage = 5;
 
 	if (isLoading) {
 		return (
@@ -53,6 +62,10 @@ export default function WalkHistoryCard({ selectedPetId }) {
 	}
 
 	const filteredData = data.filter((walk) => walk.pet_id === selectedPetId);
+
+	const handlePageChange = (event, newPage) => {
+		setCurrentPage(newPage);
+	};
 
 	const handleDelete = async (walkId) => {
 		await deleteWalk({ walk_id: walkId });
@@ -112,6 +125,9 @@ export default function WalkHistoryCard({ selectedPetId }) {
 	};
 
 	if (filteredData) {
+		const startIndex = (currentPage - 1) * rowsPerPage;
+		const endIndex = startIndex + rowsPerPage;
+
 		return (
 			<Card
 				sx={{
@@ -146,66 +162,89 @@ export default function WalkHistoryCard({ selectedPetId }) {
 						onClose={closeCreateModal}
 						selectedPetId={selectedPetId}
 					/>
-					{filteredData.map((walk, index) => (
-						<Accordion
-							key={index}
-							expanded={expanded === `panel${index}`}
-							onChange={handleChange(`panel${index}`)}
-						>
-							<AccordionSummary
-								expandIcon={<ExpandMoreIcon />}
-								aria-controls={`panel${index}bh-content`}
-								id={`panel${index}bh-header`}
+					{filteredData
+						.slice(startIndex, endIndex)
+						.map((walk, index) => (
+							<Accordion
+								key={index + startIndex}
+								expanded={expanded === `panel${index}`}
+								onChange={handleChange(`panel${index}`)}
 							>
-								<Typography
-									sx={{ width: "80%", flexShrink: 0 }}
+								<AccordionSummary
+									expandIcon={<ExpandMoreIcon />}
+									aria-controls={`panel${index}bh-content`}
+									id={`panel${index}bh-header`}
 								>
-									{formatDate(walk.date)}
-								</Typography>
-								<Typography
-									sx={{
-										color: "text.secondary",
-									}}
-								>
-									{formatTime(walk.time)}
-								</Typography>
-							</AccordionSummary>
-							<AccordionDetails>
-								<Box
-									display="flex"
-									alignItems="center"
-									justifyContent="space-between"
-									width="100%"
-								>
-									<Typography>
-										{walk.duration} minutes
+									<Typography
+										sx={{ width: "80%", flexShrink: 0 }}
+									>
+										{formatDate(walk.date)}
 									</Typography>
-									<div>
-										<IconButton
-											aria-label="edit"
-											onClick={openUpdateModal}
-										>
-											<EditIcon />
-										</IconButton>
-										<UpdateWalkRecordModal
-											isOpen={isUpdateModalOpen}
-											onClose={closeUpdateModal}
-											selectedPetId={selectedPetId}
-											walk_id={walk.id}
-										/>
-										<IconButton
-											aria-label="delete"
-											onClick={() =>
-												handleDelete(walk.id)
-											}
-										>
-											<DeleteIcon />
-										</IconButton>
-									</div>
-								</Box>
-							</AccordionDetails>
-						</Accordion>
-					))}
+									<Typography
+										sx={{
+											color: "text.secondary",
+										}}
+									>
+										{formatTime(walk.time)}
+									</Typography>
+								</AccordionSummary>
+								<AccordionDetails>
+									<Box
+										display="flex"
+										alignItems="center"
+										justifyContent="space-between"
+										width="100%"
+									>
+										<Typography>
+											{walk.duration} minutes
+										</Typography>
+										<div>
+											<IconButton
+												aria-label="edit"
+												onClick={openUpdateModal}
+											>
+												<EditIcon />
+											</IconButton>
+											<UpdateWalkRecordModal
+												isOpen={isUpdateModalOpen}
+												onClose={closeUpdateModal}
+												selectedPetId={selectedPetId}
+												walk_id={walk.id}
+											/>
+											<IconButton
+												aria-label="delete"
+												onClick={() =>
+													handleDelete(walk.id)
+												}
+											>
+												<DeleteIcon />
+											</IconButton>
+										</div>
+									</Box>
+								</AccordionDetails>
+							</Accordion>
+						))}
+					<Stack
+						direction="row"
+						spacing={2}
+						justifyContent={"center"}
+						sx={{ mt: 2 }}
+					>
+						<Pagination
+							count={Math.ceil(filteredData.length / rowsPerPage)}
+							page={currentPage}
+							onChange={handlePageChange}
+							size="md"
+							sx={{
+								"& .MuiPaginationItem-icon": {
+									color: "#BB7843",
+								},
+								"& .MuiPaginationItem-page.Mui-selected": {
+									backgroundColor: "#EBE09C",
+								},
+							}}
+						/>
+					</Stack>
 				</CardContent>
 			</Card>
 		);

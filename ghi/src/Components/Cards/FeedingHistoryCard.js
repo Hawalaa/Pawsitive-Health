@@ -13,7 +13,14 @@ import {
 } from "../../Store/FeedingHistoryApi";
 import AddFeedingRecordModal from "../ModalForms/CreateModals/CreateFeedModal";
 import UpdateFeedingRecordModal from "../ModalForms/UpdateModals/UpdateFeedingModal";
-import { Divider, IconButton, Box, Button } from "@mui/material";
+import {
+	Divider,
+	IconButton,
+	Box,
+	Button,
+	Pagination,
+	Stack,
+} from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { toast } from "react-toastify";
@@ -24,6 +31,8 @@ export default function FeedingHistoryCard({ selectedPetId }) {
 	const [expanded, setExpanded] = React.useState(false);
 	const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 	const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
+	const [currentPage, setCurrentPage] = React.useState(1);
+	const rowsPerPage = 5;
 
 	if (isLoading) {
 		return (
@@ -55,6 +64,10 @@ export default function FeedingHistoryCard({ selectedPetId }) {
 	const filteredData = data.filter(
 		(feeding) => feeding.pet_id === selectedPetId
 	);
+
+	const handlePageChange = (event, newPage) => {
+		setCurrentPage(newPage);
+	};
 
 	const handleDelete = async (feedingId) => {
 		await deleteFeeding({ feeding_id: feedingId });
@@ -114,6 +127,9 @@ export default function FeedingHistoryCard({ selectedPetId }) {
 	};
 
 	if (filteredData) {
+		const startIndex = (currentPage - 1) * rowsPerPage;
+		const endIndex = startIndex + rowsPerPage;
+
 		return (
 			<Card
 				sx={{
@@ -148,67 +164,93 @@ export default function FeedingHistoryCard({ selectedPetId }) {
 						onClose={closeCreateModal}
 						selectedPetId={selectedPetId}
 					/>
-					{filteredData.map((feeding, index) => (
-						<Accordion
-							key={index}
-							expanded={expanded === `panel${index}`}
-							onChange={handleChange(`panel${index}`)}
-						>
-							<AccordionSummary
-								expandIcon={<ExpandMoreIcon />}
-								aria-controls={`panel${index}bh-content`}
-								id={`panel${index}bh-header`}
+					{filteredData
+						.slice(startIndex, endIndex)
+						.map((feeding, index) => (
+							<Accordion
+								key={index + startIndex}
+								expanded={expanded === `panel${index}`}
+								onChange={handleChange(`panel${index}`)}
 							>
-								<Typography
-									sx={{ width: "80%", flexShrink: 0 }}
+								<AccordionSummary
+									expandIcon={<ExpandMoreIcon />}
+									aria-controls={`panel${index}bh-content`}
+									id={`panel${index}bh-header`}
 								>
-									{formatDate(feeding.date)}
-								</Typography>
-								<Typography
-									sx={{
-										color: "text.secondary",
-									}}
-								>
-									{formatTime(feeding.time)}
-								</Typography>
-							</AccordionSummary>
-							<AccordionDetails>
-								<Box
-									display="flex"
-									alignItems="center"
-									justifyContent="space-between"
-									width="100%"
-								>
-									<Typography>
-										{feeding.food_type} - {feeding.amount}{" "}
-										{feeding.amount > 1 ? "Cups" : "Cup"}
+									<Typography
+										sx={{ width: "80%", flexShrink: 0 }}
+									>
+										{formatDate(feeding.date)}
 									</Typography>
-									<div>
-										<IconButton
-											aria-label="edit"
-											onClick={openUpdateModal}
-										>
-											<EditIcon />
-										</IconButton>
-										<UpdateFeedingRecordModal
-											isOpen={isUpdateModalOpen}
-											onClose={closeUpdateModal}
-											selectedPetId={selectedPetId}
-											feeding_id={feeding.id}
-										/>
-										<IconButton
-											aria-label="delete"
-											onClick={() =>
-												handleDelete(feeding.id)
-											}
-										>
-											<DeleteIcon />
-										</IconButton>
-									</div>
-								</Box>
-							</AccordionDetails>
-						</Accordion>
-					))}
+									<Typography
+										sx={{
+											color: "text.secondary",
+										}}
+									>
+										{formatTime(feeding.time)}
+									</Typography>
+								</AccordionSummary>
+								<AccordionDetails>
+									<Box
+										display="flex"
+										alignItems="center"
+										justifyContent="space-between"
+										width="100%"
+									>
+										<Typography>
+											{feeding.food_type} -{" "}
+											{feeding.amount}{" "}
+											{feeding.amount > 1
+												? "Cups"
+												: "Cup"}
+										</Typography>
+										<div>
+											<IconButton
+												aria-label="edit"
+												onClick={openUpdateModal}
+											>
+												<EditIcon />
+											</IconButton>
+											<UpdateFeedingRecordModal
+												isOpen={isUpdateModalOpen}
+												onClose={closeUpdateModal}
+												selectedPetId={selectedPetId}
+												feeding_id={feeding.id}
+											/>
+											<IconButton
+												aria-label="delete"
+												onClick={() =>
+													handleDelete(feeding.id)
+												}
+											>
+												<DeleteIcon />
+											</IconButton>
+										</div>
+									</Box>
+								</AccordionDetails>
+							</Accordion>
+						))}
+					<Stack
+						direction="row"
+						spacing={2}
+						justifyContent={"center"}
+						sx={{ mt: 2 }}
+					>
+						<Pagination
+							count={Math.ceil(filteredData.length / rowsPerPage)}
+							page={currentPage}
+							onChange={handlePageChange}
+							size="md"
+							sx={{
+								"& .MuiPaginationItem-icon": {
+									color: "#BB7843",
+								},
+								"& .MuiPaginationItem-page.Mui-selected": {
+									backgroundColor: "#EBE09C",
+								},
+							}}
+						/>
+					</Stack>
 				</CardContent>
 			</Card>
 		);
