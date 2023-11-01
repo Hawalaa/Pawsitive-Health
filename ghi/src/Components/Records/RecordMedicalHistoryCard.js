@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState, useEffect } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
@@ -16,12 +17,18 @@ import { toast } from "react-toastify";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function RecordMedicalHistoryCard({ selectedPetId }) {
-	const { data, isLoading } = useGetMedicalHistoryQuery();
+	const { data, isLoading, refetch } = useGetMedicalHistoryQuery();
 	const [deleteMedical] = useDeleteMedicalMutation();
-	const [expanded, setExpanded] = React.useState(false);
-	const [isCreateModalOpen, setIsCreateModalOpen] = React.useState(false);
-	const [currentPage, setCurrentPage] = React.useState(1);
+	const [expanded, setExpanded] = useState(false);
+	const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+	const [currentPage, setCurrentPage] = useState(1);
 	const rowsPerPage = 5;
+
+	useEffect(() => {
+		if (data) {
+			refetch();
+		}
+	}, [data, refetch]);
 
 	const handlePageChange = (event, newPage) => {
 		setCurrentPage(newPage);

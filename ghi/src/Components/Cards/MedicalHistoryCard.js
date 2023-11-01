@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useEffect, useState } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
@@ -10,10 +11,16 @@ import { useGetMedicalHistoryQuery } from "../../Store/MedicalHistoryApi";
 import { Pagination, Stack } from "@mui/material";
 
 export default function MedicalHistoryCard({ selectedPetId }) {
-	const { data, isLoading } = useGetMedicalHistoryQuery();
-	const [expanded, setExpanded] = React.useState(false);
-	const [currentPage, setCurrentPage] = React.useState(1);
+	const { data, isLoading, refetch } = useGetMedicalHistoryQuery();
+	const [expanded, setExpanded] = useState(false);
+	const [currentPage, setCurrentPage] = useState(1);
 	const rowsPerPage = 5;
+
+	useEffect(() => {
+		if (data) {
+			refetch();
+		}
+	}, [data, refetch]);
 
 	const handleChange = (panel) => (event, isExpanded) => {
 		setExpanded(isExpanded ? panel : false);

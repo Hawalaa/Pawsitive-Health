@@ -1,6 +1,6 @@
 import * as React from "react";
 import Card from "@mui/material/Card";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Accordion from "@mui/material/Accordion";
@@ -26,13 +26,19 @@ import EditIcon from "@mui/icons-material/Edit";
 import { toast } from "react-toastify";
 
 export default function ActivitiesPoopCard({ selectedPetId }) {
-	const { data, isLoading } = useGetPoopHealthQuery();
+	const { data, isLoading, refetch } = useGetPoopHealthQuery();
 	const [deletePoop] = useDeletePoopMutation();
-	const [expanded, setExpanded] = React.useState(false);
+	const [expanded, setExpanded] = useState(false);
 	const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 	const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
-	const [currentPage, setCurrentPage] = React.useState(1);
+	const [currentPage, setCurrentPage] = useState(1);
 	const rowsPerPage = 5;
+
+	useEffect(() => {
+		if (data) {
+			refetch();
+		}
+	}, [data, refetch]);
 
 	if (isLoading) {
 		return (

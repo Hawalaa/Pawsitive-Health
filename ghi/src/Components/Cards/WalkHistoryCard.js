@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
@@ -26,13 +26,19 @@ import EditIcon from "@mui/icons-material/Edit";
 import { toast } from "react-toastify";
 
 export default function WalkHistoryCard({ selectedPetId }) {
-	const { data, isLoading } = useGetWalkHistoryQuery();
+	const { data, isLoading, refetch } = useGetWalkHistoryQuery();
 	const [deleteWalk] = useDeleteWalkMutation();
 	const [expanded, setExpanded] = React.useState(false);
 	const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 	const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
 	const [currentPage, setCurrentPage] = React.useState(1);
 	const rowsPerPage = 5;
+
+	useEffect(() => {
+		if (data) {
+			refetch();
+		}
+	}, [data, refetch]);
 
 	if (isLoading) {
 		return (

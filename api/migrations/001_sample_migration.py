@@ -28,7 +28,7 @@ steps = [
             weight INTEGER NOT NULL,
             pet_pic VARCHAR(500),
             user_id INTEGER NOT NULL,
-            FOREIGN KEY (user_id) REFERENCES users (id)
+            FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
         );
         """,
         # "Down" SQL statement
@@ -45,7 +45,7 @@ steps = [
             time TIME NOT NULL,
             consistency VARCHAR(100) NOT NULL,
             pet_id INTEGER NOT NULL,
-            FOREIGN KEY (pet_id) REFERENCES pet (id)
+            FOREIGN KEY (pet_id) REFERENCES pet (id) ON DELETE CASCADE
         );
         """,
         # "Down" SQL statement
@@ -62,7 +62,7 @@ steps = [
             time TIME NOT NULL,
             duration VARCHAR(100) NOT NULL,
             pet_id INTEGER NOT NULL,
-            FOREIGN KEY (pet_id) REFERENCES pet (id)
+            FOREIGN KEY (pet_id) REFERENCES pet (id) ON DELETE CASCADE
         );
         """,
         # "Down" SQL statement
@@ -79,7 +79,7 @@ steps = [
             time TIME NOT NULL,
             duration VARCHAR(100) NOT NULL,
             pet_id INTEGER NOT NULL,
-            FOREIGN KEY (pet_id) REFERENCES pet (id)
+            FOREIGN KEY (pet_id) REFERENCES pet (id) ON DELETE CASCADE
         );
         """,
         # "Down" SQL statement
@@ -97,7 +97,7 @@ steps = [
             food_type VARCHAR(100) NOT NULL,
             amount VARCHAR(100) NOT NULL,
             pet_id INTEGER NOT NULL,
-            FOREIGN KEY (pet_id) REFERENCES pet (id)
+            FOREIGN KEY (pet_id) REFERENCES pet (id) ON DELETE CASCADE
         );
         """,
         # "Down" SQL statement
@@ -114,7 +114,7 @@ steps = [
             date DATE NOT NULL,
             date_valid_until DATE NOT NULL,
             pet_id INTEGER NOT NULL,
-            FOREIGN KEY (pet_id) REFERENCES pet (id)
+            FOREIGN KEY (pet_id) REFERENCES pet (id) ON DELETE CASCADE
         );
         """,
         # "Down" SQL statement
@@ -132,7 +132,7 @@ steps = [
             prescriptions VARCHAR(1000) NOT NULL,
             date DATE NOT NULL,
             pet_id INTEGER NOT NULL,
-            FOREIGN KEY (pet_id) REFERENCES pet (id)
+            FOREIGN KEY (pet_id) REFERENCES pet (id) ON DELETE CASCADE
         );
         """,
         # "Down" SQL statement

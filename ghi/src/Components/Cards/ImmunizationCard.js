@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
@@ -15,11 +15,17 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { toast } from "react-toastify";
 
 export default function ImmunizationCard({ selectedPetId }) {
-	const { data, isLoading } = useGetImmunizationHistoryQuery();
+	const { data, isLoading, refetch } = useGetImmunizationHistoryQuery();
 	const [deleteImmunization] = useDeleteImmunizationMutation();
 	const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
-	const [currentPage, setCurrentPage] = React.useState(1);
+	const [currentPage, setCurrentPage] = useState(1);
 	const rowsPerPage = 5;
+
+	useEffect(() => {
+		if (data) {
+			refetch();
+		}
+	}, [data, refetch]);
 
 	if (isLoading) {
 		return (
